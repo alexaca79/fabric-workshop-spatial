@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "outDir": ".temp/data",
+    "noEmit": false,
+    "lib": ["ES2022"],
+    "types": ["node"]
+  },
+  "include": ["data/**/*.ts"]
+}

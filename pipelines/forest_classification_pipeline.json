@@ -1,0 +1,409 @@
+{
+  "name": "forest_classification_pipeline",
+  "objectId": null,
+  "properties": {
+    "description": "Monthly stand-level forest condition for the JDI Woodlands licence area. Runs bronze ingest, silver derivation, a data quality gate, gold classification and enrichment, then publishes the star schema that Direct Lake reads. Parameterised on area of interest and date window so one pipeline serves every licence block.",
+    "annotations": [
+      "jdi-woodlands",
+      "forest-classification",
+      "medallion"
+    ],
+    "parameters": {
+      "aoi_name": {
+        "type": "string",
+        "defaultValue": "central-nb-block-a"
+      },
+      "aoi_bbox": {
+        "type": "string",
+        "defaultValue": "-66.90,46.10,-66.40,46.40"
+      },
+      "date_start": {
+        "type": "string",
+        "defaultValue": "@formatDateTime(addDays(startOfMonth(utcNow()), -1), 'yyyy-MM-01')"
+      },
+      "date_end": {
+        "type": "string",
+        "defaultValue": "@formatDateTime(addDays(startOfMonth(utcNow()), -1), 'yyyy-MM-dd')"
+      },
+      "max_cloud_cover": {
+        "type": "string",
+        "defaultValue": "20"
+      },
+      "min_scene_count": {
+        "type": "string",
+        "defaultValue": "2"
+      },
+      "min_stand_coverage": {
+        "type": "string",
+        "defaultValue": "0.80"
+      },
+      "notify_email": {
+        "type": "string",
+        "defaultValue": "woodlands-data@example.com"
+      }
+    },
+    "variables": {
+      "pipeline_run_id": {
+        "type": "String",
+        "defaultValue": "unset"
+      }
+    },
+    "activities": [
+      {
+        "name": "Set run id",
+        "type": "SetVariable",
+        "dependsOn": [],
+        "description": "One id threaded through every layer, so any published number traces back to the scenes behind it.",
+        "typeProperties": {
+          "variableName": "pipeline_run_id",
+          "value": {
+            "value": "@concat('run-', formatDateTime(utcNow(), 'yyyyMMddTHHmmss'), 'Z')",
+            "type": "Expression"
+          }
+        }
+      },
+      {
+        "name": "Bronze ingest",
+        "type": "TridentNotebook",
+        "description": "Search the Planetary Computer STAC catalogue, load the windowed rasters, write the scene catalogue. No reprojection, no masking, no decisions.",
+        "dependsOn": [
+          {
+            "activity": "Set run id",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.02:00:00",
+          "retry": 2,
+          "retryIntervalInSeconds": 300,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "PLACEHOLDER_NOTEBOOK_01",
+          "workspaceId": "PLACEHOLDER_WORKSPACE_BRONZE",
+          "parameters": {
+            "AOI_NAME": {
+              "value": {
+                "value": "@pipeline().parameters.aoi_name",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "AOI_BBOX": {
+              "value": {
+                "value": "@pipeline().parameters.aoi_bbox",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "DATE_START": {
+              "value": {
+                "value": "@pipeline().parameters.date_start",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "DATE_END": {
+              "value": {
+                "value": "@pipeline().parameters.date_end",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "MAX_CLOUD_COVER": {
+              "value": {
+                "value": "@pipeline().parameters.max_cloud_cover",
+                "type": "Expression"
+              },
+              "type": "float"
+            },
+            "PIPELINE_RUN_ID": {
+              "value": {
+                "value": "@variables('pipeline_run_id')",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "name": "Silver derive",
+        "type": "TridentNotebook",
+        "description": "Reproject to EPSG:2953, mask cloud and shadow from SCL, compute the indices, aggregate to one row per stand.",
+        "dependsOn": [
+          {
+            "activity": "Bronze ingest",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.02:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 300,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "PLACEHOLDER_NOTEBOOK_02",
+          "workspaceId": "PLACEHOLDER_WORKSPACE_SILVER",
+          "parameters": {
+            "AOI_NAME": {
+              "value": {
+                "value": "@pipeline().parameters.aoi_name",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "PIPELINE_RUN_ID": {
+              "value": {
+                "value": "@variables('pipeline_run_id')",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "name": "Quality gate",
+        "type": "TridentNotebook",
+        "description": "The only activity whose job is to stop the pipeline. Placed after silver: late enough to measure real data quality, early enough that a bad month never reaches anything a planner sees.",
+        "dependsOn": [
+          {
+            "activity": "Silver derive",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.00:30:00",
+          "retry": 0,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "PLACEHOLDER_NOTEBOOK_QUALITY_GATE",
+          "workspaceId": "PLACEHOLDER_WORKSPACE_SILVER",
+          "parameters": {
+            "MIN_SCENE_COUNT": {
+              "value": {
+                "value": "@pipeline().parameters.min_scene_count",
+                "type": "Expression"
+              },
+              "type": "int"
+            },
+            "MIN_STAND_COVERAGE": {
+              "value": {
+                "value": "@pipeline().parameters.min_stand_coverage",
+                "type": "Expression"
+              },
+              "type": "float"
+            },
+            "PIPELINE_RUN_ID": {
+              "value": {
+                "value": "@variables('pipeline_run_id')",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "name": "Gold classify",
+        "type": "TridentNotebook",
+        "description": "Threshold on NDVI and NDMI into softwood, hardwood, mixedwood and regenerating, with a confidence and the threshold set that produced it.",
+        "dependsOn": [
+          {
+            "activity": "Quality gate",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 180,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "PLACEHOLDER_NOTEBOOK_03",
+          "workspaceId": "PLACEHOLDER_WORKSPACE_GOLD",
+          "parameters": {
+            "PIPELINE_RUN_ID": {
+              "value": {
+                "value": "@variables('pipeline_run_id')",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "name": "Gold AI enrichment",
+        "type": "TridentNotebook",
+        "description": "Schema-constrained narrative with the numeric guard. Failure here must not stop the run: a stand with no narrative is still a usable stand.",
+        "dependsOn": [
+          {
+            "activity": "Gold classify",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 180,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "PLACEHOLDER_NOTEBOOK_04",
+          "workspaceId": "PLACEHOLDER_WORKSPACE_GOLD",
+          "parameters": {
+            "PIPELINE_RUN_ID": {
+              "value": {
+                "value": "@variables('pipeline_run_id')",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "name": "Publish star schema",
+        "type": "TridentNotebook",
+        "description": "Build the facts and dimensions Direct Lake reads. Runs whether or not the AI enrichment succeeded.",
+        "dependsOn": [
+          {
+            "activity": "Gold AI enrichment",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 180,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "PLACEHOLDER_NOTEBOOK_05",
+          "workspaceId": "PLACEHOLDER_WORKSPACE_GOLD",
+          "parameters": {
+            "PIPELINE_RUN_ID": {
+              "value": {
+                "value": "@variables('pipeline_run_id')",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "name": "Notify on gate failure",
+        "type": "Office365Outlook",
+        "description": "The gate stopping the run is a decision, not a crash, so it gets its own message. The previous month's gold tables are left untouched.",
+        "dependsOn": [
+          {
+            "activity": "Quality gate",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "inputs": {
+            "method": "post",
+            "path": "/v2/Mail",
+            "body": {
+              "To": {
+                "value": "@pipeline().parameters.notify_email",
+                "type": "Expression"
+              },
+              "Subject": {
+                "value": "@concat('Forest classification HELD for ', pipeline().parameters.aoi_name, ' - quality gate not met')",
+                "type": "Expression"
+              },
+              "Body": {
+                "value": "@concat('Run ', variables('pipeline_run_id'), ' was stopped by the quality gate. Gold tables were NOT updated and still show the previous period. Window: ', pipeline().parameters.date_start, ' to ', pipeline().parameters.date_end, '. Most likely cause is no sufficiently clear scene in the window. Check bronze_scene_catalog for this run id before widening the window.')",
+                "type": "Expression"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Notify on failure",
+        "type": "Office365Outlook",
+        "description": "Any genuine failure. A person is named, because an unowned alert is not an alert.",
+        "dependsOn": [
+          {
+            "activity": "Bronze ingest",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          },
+          {
+            "activity": "Silver derive",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          },
+          {
+            "activity": "Gold classify",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          },
+          {
+            "activity": "Publish star schema",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "inputs": {
+            "method": "post",
+            "path": "/v2/Mail",
+            "body": {
+              "To": {
+                "value": "@pipeline().parameters.notify_email",
+                "type": "Expression"
+              },
+              "Subject": {
+                "value": "@concat('Forest classification FAILED for ', pipeline().parameters.aoi_name)",
+                "type": "Expression"
+              },
+              "Body": {
+                "value": "@concat('Run ', variables('pipeline_run_id'), ' failed. Gold tables were not updated. If the Spark error reads System_Cancelled_Session_Statements_Failed it names no cell: run scripts/fabric_trace_notebook.py against the failing notebook to recover the real traceback.')",
+                "type": "Expression"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "_schedule_note": "Attach a monthly trigger a few days after month end, so the imagery has landed in the catalogue. Sentinel-2 L2A typically appears in Planetary Computer within a few days of acquisition, and a run on the first of the month will miss the last week.",
+  "_deployment_note": "Every PLACEHOLDER_ value is replaced at deployment time. Notebook and workspace ids are environment specific, so they are not committed. The bronze notebook lives in the bronze workspace, silver in silver, gold in gold, matching docs/13-three-workspace-layout.md.",
+  "_gate_note": "The quality gate notebook is the one piece not generated from notebooks/_src. It asserts three things against the current run id: at least min_scene_count scenes in bronze_scene_catalog, at least min_stand_coverage of the register present in silver_stand_observations, and a median valid_pixel_fraction above the classification threshold. Any failure raises, which fails the activity, which stops the run before gold is touched."
+}

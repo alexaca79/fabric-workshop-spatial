@@ -1,0 +1,5 @@
+# Maintainer-only dependencies for regenerating decks, icons and notebooks.
+# Participants do not need these; the workshop runs inside Fabric.
+python-pptx>=1.0.0
+pillow>=10.0.0
+nbformat>=5.9.0
