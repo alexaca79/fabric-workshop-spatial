@@ -195,3 +195,22 @@ would ever have shown: the scene catalogue was recording `epsg = 0` for every
 scene, because the STAC projection extension renamed `proj:epsg` to `proj:code`
 and the notebook only read the old spelling. Nothing failed. The provenance was
 simply, quietly, absent.
+
+## References
+
+The platform-side monitoring surfaces, which are what to check before falling
+back to the cell tracer in this document:
+
+- [Apache Spark monitoring overview](https://learn.microsoft.com/fabric/data-engineering/spark-monitoring-overview)
+- [Apache Spark application detail monitoring](https://learn.microsoft.com/fabric/data-engineering/spark-detail-monitoring)
+- [Spark errors overview in Microsoft Fabric](https://learn.microsoft.com/fabric/data-engineering/troubleshoot-spark)
+- [Use the monitoring hub to track Fabric activity](https://learn.microsoft.com/fabric/admin/monitoring-hub)
+- [Monitor Apache Spark run series](https://learn.microsoft.com/fabric/data-engineering/apache-spark-monitor-run-series), useful when a notebook that used to finish starts timing out
+- [Monitor Spark applications using Spark monitoring APIs](https://learn.microsoft.com/fabric/data-engineering/spark-monitoring-api-overview)
+- [Spark monitoring and performance optimization best practices](https://learn.microsoft.com/fabric/data-engineering/spark-monitoring-best-practices)
+
+These cover what Fabric will show you. The method in this document exists for
+the case where a job is reported as cancelled and none of the above names a cell
+or an exception type.
+
+More in [docs/15-resources-and-learning-paths.md](15-resources-and-learning-paths.md).

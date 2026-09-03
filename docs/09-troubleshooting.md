@@ -236,3 +236,15 @@ a column requires the model to be refreshed before the column exists to Power BI
 Post in the workshop Teams channel with three things: what you ran, the full
 error text, and what you expected. That is usually enough for someone to answer
 in one message. Screenshots of a truncated error cost a round trip.
+
+## References
+
+- [Spark errors overview in Microsoft Fabric](https://learn.microsoft.com/fabric/data-engineering/troubleshoot-spark)
+- [Apache Spark monitoring overview](https://learn.microsoft.com/fabric/data-engineering/spark-monitoring-overview) and [application detail monitoring](https://learn.microsoft.com/fabric/data-engineering/spark-detail-monitoring)
+- [Use the monitoring hub to track Fabric activity](https://learn.microsoft.com/fabric/admin/monitoring-hub)
+- [Manage Apache Spark libraries in Microsoft Fabric](https://learn.microsoft.com/fabric/data-engineering/library-management) for import and version errors
+- [Direct Lake in Power BI Desktop](https://learn.microsoft.com/fabric/fundamentals/direct-lake-power-bi-desktop) for the fallback behaviour behind a report that is slow but not broken
+
+When a notebook job reports `System_Cancelled_Session_Statements_Failed` and
+none of the above names a failing cell, use the tracer method in
+[docs/14-debugging-notebook-failures.md](14-debugging-notebook-failures.md).
