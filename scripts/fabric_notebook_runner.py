@@ -18,29 +18,9 @@ import time
 import urllib.error
 import urllib.request
 
-FABRIC = "https://api.fabric.microsoft.com"
+from fabric_config import ENVIRONMENT  # noqa: F401  (re-exported for importers)
 
-# Environment provisioned by scripts/fabric_create_lakehouses.ps1.
-ENVIRONMENT = {
-    "bronze": {
-        "workspace": "jdi-mock-training-bronze",
-        "workspace_id": "de310cba-1e49-4608-9c25-55f297fb6dc7",
-        "lakehouse": "lh_bronze",
-        "lakehouse_id": "207c2a7d-52eb-4c1b-badc-162c21a5292d",
-    },
-    "silver": {
-        "workspace": "jdi-mock-training-silver",
-        "workspace_id": "0f742d8e-000b-4280-bf8e-c9157d5235c1",
-        "lakehouse": "lh_silver",
-        "lakehouse_id": "a5e9f744-5d18-4552-990f-a04a121a6466",
-    },
-    "gold": {
-        "workspace": "jdi-mock-training-gold",
-        "workspace_id": "da08264c-b08a-49c3-9dc1-e219913cbea7",
-        "lakehouse": "lh_gold",
-        "lakehouse_id": "e42f056d-3e4b-42bf-9ed7-6e7effdc78ab",
-    },
-}
+FABRIC = "https://api.fabric.microsoft.com"
 
 
 def get_token() -> str:

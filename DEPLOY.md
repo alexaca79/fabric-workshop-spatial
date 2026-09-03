@@ -195,27 +195,38 @@ the upstream notebook has not run yet.
 ## Deployment path B: the scripts
 
 Faster for repeat deployments, and how the verification run was done. It needs
-the Azure CLI signed in to the target tenant, and it needs the workspace and
-lakehouse IDs changed from the sandbox values committed here.
+the Azure CLI signed in to the target tenant.
 
-The IDs are hardcoded in seven files. There is no central config, which is the
-main friction in this path:
+All the workspace and lakehouse ids live in one file,
+[scripts/env.json](scripts/env.json). That is the only file you edit:
 
-| File | What to change |
-|---|---|
-| `scripts/fabric_notebook_runner.py` | `ENVIRONMENT` dict, all three layers |
-| `scripts/fabric_environment.py` | `WORKSPACES` and `LAKEHOUSES` |
-| `scripts/fabric_create_lakehouses.ps1` | `$layers` workspace IDs |
-| `scripts/fabric_create_shortcuts.ps1` | `$bronze`, `$silver`, `$gold` |
-| `scripts/fabric_check_verify.ps1` | `$targets` |
-| `scripts/fabric_fetch_json.ps1` | `$targets` |
-| `scripts/fabric_assign_capacity.ps1` | `$workspaces` |
+```json
+{
+  "environmentName": "env_forestops",
+  "layers": {
+    "bronze": {
+      "workspace": "your-bronze-workspace",
+      "workspaceId": "<guid from the workspace URL>",
+      "lakehouse": "lh_bronze",
+      "lakehouseId": "<guid, known after the lakehouse exists>"
+    }
+  }
+}
+```
 
-Then:
+Workspace ids come from the workspace URL in the Fabric portal. Lakehouse ids do
+not exist until the lakehouses do, so on a fresh tenant fill in the workspace
+ids first, run the lakehouse step, then paste the lakehouse ids it prints back
+into the same file.
 
 ```powershell
 az login
+
+# 1. fill in the three workspaceId values in scripts/env.json, then:
 pwsh -File scripts/fabric_create_lakehouses.ps1
+
+# 2. paste the printed lakehouse ids into scripts/env.json, then check it:
+python scripts/check_env_config.py
 
 python scripts/fabric_environment.py build bronze
 python scripts/fabric_environment.py wait  bronze
@@ -223,6 +234,10 @@ python scripts/fabric_environment.py wait  bronze
 
 python scripts/fabric_run_pipeline.py all
 ```
+
+`check_env_config.py` validates the shape before anything touches Fabric. A
+malformed id otherwise surfaces later as a generic 400 or an empty listing,
+which reads like a permissions problem rather than a typo.
 
 `fabric_run_pipeline.py all` deploys each notebook to its layer, binds it to the
 Environment and default lakehouse, runs it, and creates the table shortcuts

@@ -8,10 +8,12 @@ param(
 $ErrorActionPreference = 'Stop'
 $fabricResource = 'https://api.fabric.microsoft.com'
 
+$layers = (Get-Content (Join-Path $PSScriptRoot 'env.json') -Raw | ConvertFrom-Json).layers
+
 $workspaces = @(
-    @{ Name = 'jdi-mock-training-bronze'; Id = 'de310cba-1e49-4608-9c25-55f297fb6dc7' },
-    @{ Name = 'jdi-mock-training-silver'; Id = '0f742d8e-000b-4280-bf8e-c9157d5235c1' },
-    @{ Name = 'jdi-mock-training-gold'; Id = 'da08264c-b08a-49c3-9dc1-e219913cbea7' }
+    @{ Name = $layers.bronze.workspace; Id = $layers.bronze.workspaceId },
+    @{ Name = $layers.silver.workspace; Id = $layers.silver.workspaceId },
+    @{ Name = $layers.gold.workspace; Id = $layers.gold.workspaceId }
 )
 
 $body = @{ capacityId = $CapacityId } | ConvertTo-Json -Compress
