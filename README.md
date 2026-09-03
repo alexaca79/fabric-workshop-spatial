@@ -25,6 +25,13 @@ drives a Power BI map.
 Every exercise runs against open data, so the repository works before anyone has
 been granted access to production Woodlands inventory.
 
+## Deploying this in a JDI tenant
+
+Start with [DEPLOY.md](DEPLOY.md). It covers the two decisions that have to be
+made before anything is built, workspace topology and outbound access
+protection, then the portal and scripted deployment paths and how to verify the
+result.
+
 ## Status: verified end to end
 
 The whole pipeline has been executed against a live Fabric F64 capacity, not
