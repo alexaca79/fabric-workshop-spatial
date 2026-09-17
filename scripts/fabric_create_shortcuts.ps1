@@ -19,9 +19,11 @@ param(
 $ErrorActionPreference = 'Continue'
 $fabricResource = 'https://api.fabric.microsoft.com'
 
-$bronze = @{ Name = 'bronze'; WorkspaceId = 'de310cba-1e49-4608-9c25-55f297fb6dc7'; LakehouseId = '207c2a7d-52eb-4c1b-badc-162c21a5292d' }
-$silver = @{ Name = 'silver'; WorkspaceId = '0f742d8e-000b-4280-bf8e-c9157d5235c1'; LakehouseId = 'a5e9f744-5d18-4552-990f-a04a121a6466' }
-$gold = @{ Name = 'gold'; WorkspaceId = 'da08264c-b08a-49c3-9dc1-e219913cbea7'; LakehouseId = 'e42f056d-3e4b-42bf-9ed7-6e7effdc78ab' }
+$layers = (Get-Content (Join-Path $PSScriptRoot 'env.json') -Raw | ConvertFrom-Json).layers
+
+$bronze = @{ Name = 'bronze'; WorkspaceId = $layers.bronze.workspaceId; LakehouseId = $layers.bronze.lakehouseId }
+$silver = @{ Name = 'silver'; WorkspaceId = $layers.silver.workspaceId; LakehouseId = $layers.silver.lakehouseId }
+$gold = @{ Name = 'gold'; WorkspaceId = $layers.gold.workspaceId; LakehouseId = $layers.gold.lakehouseId }
 
 function New-OneLakeShortcut {
     param(

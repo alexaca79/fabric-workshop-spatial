@@ -119,3 +119,14 @@ with exactly one person who can run it is a risk with a dashboard attached.
 Share the workspace with the facilitator group, put the write-up in the workshop
 Teams channel, and note which extension you chose. Reviews return within a week
 with written comments and an offer of a 30-minute call.
+
+## What to read while you build it
+
+[docs/15-resources-and-learning-paths.md](15-resources-and-learning-paths.md) is
+the sequenced version: what to read in the first week, what to read while
+extending, and the governance and certification material once it is running. It
+is organised by role, so the pipeline track and the report track are separate.
+
+The two most useful pages for this assignment specifically are
+[Implement a Lakehouse with Microsoft Fabric](https://learn.microsoft.com/training/paths/implement-lakehouse-microsoft-fabric/)
+and [Understand medallion architecture for Fabric with OneLake](https://learn.microsoft.com/fabric/onelake/onelake-medallion-lakehouse-architecture).

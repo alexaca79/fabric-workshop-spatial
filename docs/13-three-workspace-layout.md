@@ -158,3 +158,13 @@ shortcut graph is the written form of that contract.
 
 Worth showing live: open `lh_silver`, point at `bronze_stand_register` with its
 shortcut badge, and note that the data has not moved. Most people assume a copy.
+
+## References
+
+- [OneLake shortcuts](https://learn.microsoft.com/fabric/onelake/onelake-shortcuts), including where shortcuts can and cannot be created
+- [Shortcuts in a lakehouse](https://learn.microsoft.com/fabric/data-engineering/lakehouse-shortcuts) for the Tables and Files distinction that drives the setup order
+- [Understand medallion architecture for Fabric with OneLake](https://learn.microsoft.com/fabric/onelake/onelake-medallion-lakehouse-architecture), whose deployment models cover both the single-workspace and multi-workspace variants
+- [Roles in workspaces in Microsoft Fabric](https://learn.microsoft.com/fabric/fundamentals/roles-workspaces) and the [Fabric permission model](https://learn.microsoft.com/fabric/security/permission-model), which are the actual mechanism behind the permissions argument for splitting layers
+- [Create a workspace](https://learn.microsoft.com/fabric/fundamentals/create-workspaces)
+
+More in [docs/15-resources-and-learning-paths.md](15-resources-and-learning-paths.md).

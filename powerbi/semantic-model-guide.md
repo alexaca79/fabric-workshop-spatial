@@ -153,18 +153,18 @@ controlled.
 
 Build one page that answers the problem statement from the start of Session 2.
 
-1. **Map by class.** Map visual, `gold_dim_stand[lat]` and
+1. Map by class. Map visual, `gold_dim_stand[lat]` and
    `gold_dim_stand[lon]` as latitude and longitude, `Trusted area ha` as size,
    `gold_dim_forest_class[forest_class]` as legend. Set the legend colours from
    `colour_hex` so the map matches the rest of the report.
-2. **Trend by month.** Line chart, `gold_dim_date[month_name]` on the axis,
+2. Trend by month. Line chart, `gold_dim_date[month_name]` on the axis,
    `Harvested area ha` and `Moisture stress stands` as values.
-3. **Class breakdown.** Bar chart sorted by
+3. Class breakdown. Bar chart sorted by
    `gold_dim_forest_class[display_order]`, not by value, so the order is stable
    between months.
-4. **Review queue.** Table filtered to `requires_review = TRUE`, showing
+4. Review queue. Table filtered to `requires_review = TRUE`, showing
    `stand_id`, `licence_block`, `change_type`, `severity` and `narrative`.
-5. **Coverage card.** `Coverage pct`, formatted as a percentage. Put it next to
+5. Coverage card. `Coverage pct`, formatted as a percentage. Put it next to
    the map, not in a corner.
 
 Put the AI narrative in a tooltip rather than the main table body. It is
@@ -211,3 +211,13 @@ handing the model to users.
 | Map shows nothing | Latitude and longitude read as text | Set the data category on `lat` and `lon` explicitly |
 | Report slow, no errors | Silent Direct Lake fallback | Set `DirectLakeOnly` and find what breaks |
 | Area totals look too low | You used `Trusted area ha` and coverage is genuinely low | Correct behaviour. Show `Coverage pct` beside it |
+
+## References
+
+- [Direct Lake in Power BI Desktop](https://learn.microsoft.com/fabric/fundamentals/direct-lake-power-bi-desktop), including the conditions that trigger a fallback to DirectQuery
+- [Dimensional modeling in Fabric Data Warehouse](https://learn.microsoft.com/fabric/data-warehouse/dimensional-modeling-overview), the star schema guidance this gold layer is built to
+- [Power BI semantic models in Microsoft Fabric](https://learn.microsoft.com/fabric/data-warehouse/semantic-models)
+- [Tutorial: Build Power BI reports in Microsoft Fabric](https://learn.microsoft.com/power-bi/fundamentals/fabric-get-started)
+- [Direct Lake in Power BI Project](https://learn.microsoft.com/fabric/fundamentals/direct-lake-power-bi-project) if you want the model under source control
+
+More in [docs/15-resources-and-learning-paths.md](../docs/15-resources-and-learning-paths.md).

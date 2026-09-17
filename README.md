@@ -32,6 +32,13 @@ made before anything is built, workspace topology and outbound access
 protection, then the portal and scripted deployment paths and how to verify the
 result.
 
+## Taking it further after the workshop
+
+[docs/15-resources-and-learning-paths.md](docs/15-resources-and-learning-paths.md)
+is the take-home plan: what participants keep, a sequenced 90-day reading path
+split by role, and a reference shelf of official Microsoft Learn documentation
+covering every Fabric component used here.
+
 ## Status: verified end to end
 
 The whole pipeline has been executed against a live Fabric F64 capacity, not

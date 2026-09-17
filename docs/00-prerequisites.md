@@ -115,3 +115,17 @@ A laptop, the workspace name you created, and one real question about your own
 data. The last item matters more than it sounds: the final block of Session 2
 is where people connect the exercise to their own operating area, and the
 question you bring is what makes that connection stick.
+
+## References
+
+If any step above was unfamiliar, these are the authoritative versions:
+
+- [Create a workspace](https://learn.microsoft.com/fabric/fundamentals/create-workspaces)
+- [Roles in workspaces in Microsoft Fabric](https://learn.microsoft.com/fabric/fundamentals/roles-workspaces), for what Viewer, Contributor, Member and Admin actually allow
+- [What is a lakehouse in Microsoft Fabric?](https://learn.microsoft.com/fabric/data-engineering/lakehouse-overview)
+- [Create, configure, and use an environment in Fabric](https://learn.microsoft.com/fabric/data-engineering/create-and-use-environment), the shared-environment option in section 4
+- [Workspace outbound access protection for data engineering workloads](https://learn.microsoft.com/fabric/security/workspace-outbound-access-protection-data-engineering), which decides whether the Planetary Computer calls in section 6 can succeed at all
+- [Get started with Microsoft Fabric](https://learn.microsoft.com/training/paths/get-started-fabric/) as a pre-read if this is your first Fabric workspace
+
+The full take-home reading plan is in
+[docs/15-resources-and-learning-paths.md](15-resources-and-learning-paths.md).

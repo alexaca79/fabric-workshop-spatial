@@ -154,3 +154,16 @@ sentence and keeps it:
 > needs a library. I reach for a model when the output is language and the
 > numbers come from somewhere I trust. Otherwise I reach for the lowest-code
 > option that a colleague can maintain without me.
+
+## References
+
+Microsoft publishes its own version of this decision, and it is worth comparing
+against the sentence above:
+
+- [Microsoft Fabric decision guide: copy activity, Copy job, dataflow, Eventstream, or Spark](https://learn.microsoft.com/fabric/fundamentals/decision-guide-pipeline-dataflow-spark)
+- [What is Data Factory in Microsoft Fabric?](https://learn.microsoft.com/fabric/data-factory/data-factory-overview)
+- [Pipeline overview](https://learn.microsoft.com/fabric/data-factory/pipeline-overview)
+- [Differences between Azure Data Factory and Fabric Data Factory](https://learn.microsoft.com/fabric/data-factory/compare-fabric-data-factory-and-azure-data-factory), if your team already runs ADF
+- [Pipelines pricing for Data Factory in Microsoft Fabric](https://learn.microsoft.com/fabric/data-factory/pricing-pipelines), because the cheapest tool to write is not always the cheapest to run hourly
+
+More in [docs/15-resources-and-learning-paths.md](15-resources-and-learning-paths.md).

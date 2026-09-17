@@ -22,22 +22,11 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+from fabric_config import ENVIRONMENT_NAME, LAKEHOUSES, WORKSPACES  # noqa: F401
+
 FABRIC = "https://api.fabric.microsoft.com"
-ENVIRONMENT_NAME = "env_forestops"
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ENVIRONMENT_YML = REPO_ROOT / "environments" / "environment.yml"
-
-WORKSPACES = {
-    "bronze": "de310cba-1e49-4608-9c25-55f297fb6dc7",
-    "silver": "0f742d8e-000b-4280-bf8e-c9157d5235c1",
-    "gold": "da08264c-b08a-49c3-9dc1-e219913cbea7",
-}
-
-LAKEHOUSES = {
-    "bronze": ("lh_bronze", "207c2a7d-52eb-4c1b-badc-162c21a5292d"),
-    "silver": ("lh_silver", "a5e9f744-5d18-4552-990f-a04a121a6466"),
-    "gold": ("lh_gold", "e42f056d-3e4b-42bf-9ed7-6e7effdc78ab"),
-}
 
 
 def get_token() -> str:

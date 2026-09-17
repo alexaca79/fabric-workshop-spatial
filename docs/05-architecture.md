@@ -225,3 +225,17 @@ explicit check.
 - It does not carry a legal or regulatory guarantee. Every gold number traces to
   a silver row and a scene, which is what makes it defensible, but the defence is
   the traceability rather than the classifier.
+
+## References
+
+The medallion layout here follows the Microsoft reference architecture rather
+than inventing one:
+
+- [Understand medallion architecture for Fabric with OneLake](https://learn.microsoft.com/fabric/onelake/onelake-medallion-lakehouse-architecture), including the deployment models that map to the one-workspace and three-workspace choices
+- [Microsoft OneLake patterns and foundational capabilities](https://learn.microsoft.com/fabric/onelake/architecture-patterns)
+- [What is a lakehouse in Microsoft Fabric?](https://learn.microsoft.com/fabric/data-engineering/lakehouse-overview)
+- [Lakehouse and Delta Lake tables](https://learn.microsoft.com/fabric/data-engineering/lakehouse-and-delta-tables), for how Fabric discovers tables and what the Tables area will and will not pick up
+- [Lakehouse end-to-end scenario: overview and architecture](https://learn.microsoft.com/fabric/data-engineering/tutorial-lakehouse-introduction), a second worked example against different data
+- [Use Microsoft Fabric to design an enterprise BI solution](https://learn.microsoft.com/azure/architecture/example-scenario/analytics/enterprise-bi-microsoft-fabric) in the Azure Architecture Center
+
+More in [docs/15-resources-and-learning-paths.md](15-resources-and-learning-paths.md).

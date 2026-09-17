@@ -207,3 +207,13 @@ that a notebook which works today can break tomorrow because a transitive
 dependency moved underneath it. The `pandas` upgrade above is a good example:
 nothing errored, and the breakage landed somewhere entirely unrelated to the
 code anyone had changed.
+
+## References
+
+- [Create, configure, and use an environment in Fabric](https://learn.microsoft.com/fabric/data-engineering/create-and-use-environment)
+- [Manage Apache Spark libraries in Microsoft Fabric](https://learn.microsoft.com/fabric/data-engineering/library-management), which covers why inline installation is discouraged in a shared workspace
+- [Manage libraries in Fabric environments](https://learn.microsoft.com/fabric/data-engineering/environment-manage-library)
+- [Apache Spark runtimes in Fabric](https://learn.microsoft.com/fabric/data-engineering/runtime), for what the base image already ships and which runtime version you are pinning against
+- [Manage libraries with limited network access in Fabric](https://learn.microsoft.com/fabric/data-engineering/environment-manage-library-with-outbound-access-protection), the wheel-upload path when the workspace cannot reach PyPI
+
+More in [docs/15-resources-and-learning-paths.md](15-resources-and-learning-paths.md).

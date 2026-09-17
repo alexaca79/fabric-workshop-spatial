@@ -4,10 +4,12 @@
 $ErrorActionPreference = 'Stop'
 $fabricResource = 'https://api.fabric.microsoft.com'
 
+$config = (Get-Content (Join-Path $PSScriptRoot 'env.json') -Raw | ConvertFrom-Json).layers
+
 $layers = @(
-    @{ Workspace = 'jdi-mock-training-bronze'; WorkspaceId = 'de310cba-1e49-4608-9c25-55f297fb6dc7'; Lakehouse = 'lh_bronze' },
-    @{ Workspace = 'jdi-mock-training-silver'; WorkspaceId = '0f742d8e-000b-4280-bf8e-c9157d5235c1'; Lakehouse = 'lh_silver' },
-    @{ Workspace = 'jdi-mock-training-gold'; WorkspaceId = 'da08264c-b08a-49c3-9dc1-e219913cbea7'; Lakehouse = 'lh_gold' }
+    @{ Workspace = $config.bronze.workspace; WorkspaceId = $config.bronze.workspaceId; Lakehouse = $config.bronze.lakehouse },
+    @{ Workspace = $config.silver.workspace; WorkspaceId = $config.silver.workspaceId; Lakehouse = $config.silver.lakehouse },
+    @{ Workspace = $config.gold.workspace; WorkspaceId = $config.gold.workspaceId; Lakehouse = $config.gold.lakehouse }
 )
 
 $created = @()
