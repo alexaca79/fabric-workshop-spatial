@@ -174,8 +174,8 @@ def main() -> int:
     }
     with isolated_session() as session:
         workspace = request(session, "GET", f"{API}/v1/workspaces/{WORKSPACE}").json()
-        if workspace["displayName"] != "fabric-training":
-            raise RuntimeError("Workspace name mismatch")
+        if workspace.get("id") != WORKSPACE:
+            raise RuntimeError("Workspace ID mismatch")
         for name, item_id in TARGETS.items():
             base = f"{API}/v1/workspaces/{WORKSPACE}/notebooks/{item_id}"
             record = state["notebooks"].setdefault(name, {"id": item_id})

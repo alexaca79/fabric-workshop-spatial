@@ -31,6 +31,6 @@ Remove-Item $bodyFile -Force
 # Verify from the service rather than trusting the POST responses.
 $live = (az rest --method get --url "$fabricResource/v1/workspaces" --resource $fabricResource | ConvertFrom-Json).value
 $live |
-    Where-Object { $_.displayName -like 'fabric-mock-training*' } |
+    Where-Object { $_.id -in $workspaces.Id } |
     Select-Object displayName, id, capacityId |
     Format-List
