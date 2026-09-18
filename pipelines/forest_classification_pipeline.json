@@ -2,9 +2,9 @@
   "name": "forest_classification_pipeline",
   "objectId": null,
   "properties": {
-    "description": "Monthly stand-level forest condition for the JDI Woodlands licence area. Runs bronze ingest, silver derivation, a data quality gate, gold classification and enrichment, then publishes the star schema that Direct Lake reads. Parameterised on area of interest and date window so one pipeline serves every licence block.",
+    "description": "Monthly stand-level forest condition for the Woodlands licence area. Runs bronze ingest, silver derivation, a data quality gate, gold classification and enrichment, then publishes the star schema that Direct Lake reads. Parameterised on area of interest and date window so one pipeline serves every licence block.",
     "annotations": [
-      "jdi-woodlands",
+      "fabric-woodlands",
       "forest-classification",
       "medallion"
     ],

@@ -1,4 +1,4 @@
-# Reassign the jdi-mock-training workspaces to a target Fabric capacity.
+# Reassign the fabric-mock-training workspaces to a target Fabric capacity.
 # Usage: pwsh -File scripts/fabric_assign_capacity.ps1 -CapacityId <guid>
 param(
     [Parameter(Mandatory = $true)]
@@ -31,6 +31,6 @@ Remove-Item $bodyFile -Force
 # Verify from the service rather than trusting the POST responses.
 $live = (az rest --method get --url "$fabricResource/v1/workspaces" --resource $fabricResource | ConvertFrom-Json).value
 $live |
-    Where-Object { $_.displayName -like 'jdi-mock-training*' } |
+    Where-Object { $_.id -in $workspaces.Id } |
     Select-Object displayName, id, capacityId |
     Format-List

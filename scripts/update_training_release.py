@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 WORKSPACE = "60a018e6-4688-4a64-84af-0574e0bc8d3a"
 TENANT = "711a9076-1115-4c36-b7b4-82b4f3a05f6f"
 API = "https://api.fabric.microsoft.com"
-RECOVERY = Path.home() / "JDI-training-retired-app-20260917-125920/notebook-before-validation-fix"
+RECOVERY = Path.home() / "Fabric-training-retired-app-20260917-125920/notebook-before-validation-fix"
 STATE_PATH = ROOT / "scripts/verification/training-release-state.json"
 TARGETS = {
     "00_setup_lakehouse_and_config": "bea0df2d-1f46-43b7-842b-7bec94e71272",
@@ -174,8 +174,8 @@ def main() -> int:
     }
     with isolated_session() as session:
         workspace = request(session, "GET", f"{API}/v1/workspaces/{WORKSPACE}").json()
-        if workspace["displayName"] != "jdi-training":
-            raise RuntimeError("Workspace name mismatch")
+        if workspace.get("id") != WORKSPACE:
+            raise RuntimeError("Workspace ID mismatch")
         for name, item_id in TARGETS.items():
             base = f"{API}/v1/workspaces/{WORKSPACE}/notebooks/{item_id}"
             record = state["notebooks"].setdefault(name, {"id": item_id})

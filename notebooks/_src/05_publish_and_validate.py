@@ -24,7 +24,7 @@ CRS_ANALYSIS = 2953
 # Writes Gold publishing tables and reads the Bronze register from the shared
 # lab lakehouse.
 LAYER = "gold"
-WORKSPACE = "jdi-training"
+WORKSPACE = "fabric-training"
 LAKEHOUSE = "lh_woodlands"
 
 TABLE_STAND_REGISTER = "bronze_stand_register"

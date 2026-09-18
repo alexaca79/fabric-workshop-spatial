@@ -4,7 +4,7 @@
   "branch": "feat/manual-planetary-download",
   "scope": "Manual public-scene download, upload, and exact solution cells for Labs 00-05. Existing native Map/Data Agent workflow remains covered by the separate prior rehearsal receipt.",
   "workspace": {
-    "name": "jdi-training-manual",
+    "name": "fabric-training-manual",
     "id": "5785367c-0109-4ea9-beb5-05fb0edbe4dc"
   },
   "lakehouse": {
@@ -787,25 +787,46 @@
   ],
   "screenshot_directory": "images/training/manual-download",
   "artifact_sha256": {
-    "notebooks/student/00_setup_lakehouse_and_config_STUDENT.ipynb": "86f637488188b957626f3961f3fa0dcdabac42f4db25d688dfc62f72a0a6c78b",
-    "notebooks/student/01_bronze_stac_ingest_STUDENT.ipynb": "23cad8ce47f08e0c860acbfff3f55a9a9d13672f00b2c030f7423bf75a446405",
-    "notebooks/student/02_silver_reproject_and_indices_STUDENT.ipynb": "20e714c6a7517456b5c535215efc785daa0121ea80fce338f3b264c07882f5c7",
-    "notebooks/student/03_gold_forest_classification_STUDENT.ipynb": "1431029ed8be4c20d9c2785035f2c846fe03aa66f8a5165fd80f61b28fecfc5f",
-    "notebooks/student/04_gold_ai_enrichment_foundry_STUDENT.ipynb": "eca11474454abde88be7ec3412917a45f60158b84e880c701973312f2673c625",
-    "notebooks/student/05_publish_and_validate_STUDENT.ipynb": "1b3eca90144d426b05d38b819a80e250b180dc14cc3607760617d8b57d3a6929",
-    "notebooks/solutions/00_setup_lakehouse_and_config.ipynb": "9e53b9b6b02d54082024a2997b0629444e577425a2be48aebf1f33e721ea901e",
-    "notebooks/solutions/01_bronze_stac_ingest.ipynb": "f0350f1de39d4c68156a4cf12c15a1236b751f352635792be4c5d3341df5ad84",
-    "notebooks/solutions/02_silver_reproject_and_indices.ipynb": "5340df772c7a43dd912cd43842e5b4fb9066624ffc78c9f246722d9a6bf9b189",
-    "notebooks/solutions/03_gold_forest_classification.ipynb": "1a7677fb5c2f8a218b9223848201d5ace3888c78ea66b372cf61c3b6484a5702",
-    "notebooks/solutions/04_gold_ai_enrichment_foundry.ipynb": "bc187984d4862427623abb7969a8f47d95666c66ba7d11a9d80c3097b02cb0f4",
-    "notebooks/solutions/05_publish_and_validate.ipynb": "72c55450b8cf49fee0e206ba07f7c002b08e4f90ce5463014b9b624b2c20e033",
+    "notebooks/student/00_setup_lakehouse_and_config_STUDENT.ipynb": "0170ade80639c9a9365b0567aca14b383ab0af9bf2aae7f30f7e23ae35bb0cb2",
+    "notebooks/student/01_bronze_stac_ingest_STUDENT.ipynb": "63bd0f1849697e078025187e75cf783614c3107dad6cbbb8d175b65a9a168b13",
+    "notebooks/student/02_silver_reproject_and_indices_STUDENT.ipynb": "d6b2c9fba7e8fa24b32c54745cae2a41dbbedee9b911a95ee5b0fb4bef452ee1",
+    "notebooks/student/03_gold_forest_classification_STUDENT.ipynb": "8516877d5471c9946814f1f94095871b0537ca1ec19b529267648840e210ee3b",
+    "notebooks/student/04_gold_ai_enrichment_foundry_STUDENT.ipynb": "98eec4bb2c611963046cd00b89783dcf753814075ae71eda9d3589ef2540af78",
+    "notebooks/student/05_publish_and_validate_STUDENT.ipynb": "65fdaa4cf5be5d69cf17ab31841106d3326ad08cfb9bfd15121c781d7dd5b64d",
+    "notebooks/solutions/00_setup_lakehouse_and_config.ipynb": "eb4894a0d6aec3ef52cb96e9c44e8a682ce4e84c54408569730ed8d20d5d6252",
+    "notebooks/solutions/01_bronze_stac_ingest.ipynb": "5f6a8424bcd5670530039af871dfdaa0d85932da8d5b021489fce6917d9d96ab",
+    "notebooks/solutions/02_silver_reproject_and_indices.ipynb": "5ae6730458c2ad41b296aea8dda031e379f2108a545a230eed23ac002def0ab2",
+    "notebooks/solutions/03_gold_forest_classification.ipynb": "f4ebd23d2deda2166520e3318dabc76d2408b3c6aac229ca573b033b76a5563f",
+    "notebooks/solutions/04_gold_ai_enrichment_foundry.ipynb": "63cbd42635e8c5d3c186ae47b9c3052a4a95fad84dc66596de503805287bf976",
+    "notebooks/solutions/05_publish_and_validate.ipynb": "084faa103267b289f0eba43f378b598faaf2ac49a18882716d105f48a2c3916d",
     "docs/download-imagery.html": "a95f562e97e753def507974a8ebe0f4cb96fc5ab63a572b47a9aa9d276f1a417",
-    "environments/environment.yml": "70a22ebaba68fa9a17aa740159bec2145997d103e732cea0f6c3c2f8e593b7a6"
+    "environments/environment.yml": "95a2bdaa275b5652f550f80cd46af0cbe29fcd8c9323c4bdb37c75b7040c8f26"
   },
   "limitations": [
     "Synthetic stands and heuristic classification, not validated inventory.",
     "One June acquisition is used within a June-August reporting window; it is not a seasonal composite.",
     "Previous-year baseline is simulated; narratives are offline stubs.",
     "Original rehearsal Map and Data Agent were preserved, not rebound to the isolated download test lakehouse."
-  ]
+  ],
+  "anonymization": {
+    "date": "2026-09-18",
+    "scope": "Customer and workspace labels generalized in local workshop artifacts.",
+    "verification": "Original live-run records and hashes are retained; no Fabric resources were renamed or rerun.",
+    "source_artifact_sha256": {
+      "notebooks/student/00_setup_lakehouse_and_config_STUDENT.ipynb": "86f637488188b957626f3961f3fa0dcdabac42f4db25d688dfc62f72a0a6c78b",
+      "notebooks/student/01_bronze_stac_ingest_STUDENT.ipynb": "23cad8ce47f08e0c860acbfff3f55a9a9d13672f00b2c030f7423bf75a446405",
+      "notebooks/student/02_silver_reproject_and_indices_STUDENT.ipynb": "20e714c6a7517456b5c535215efc785daa0121ea80fce338f3b264c07882f5c7",
+      "notebooks/student/03_gold_forest_classification_STUDENT.ipynb": "1431029ed8be4c20d9c2785035f2c846fe03aa66f8a5165fd80f61b28fecfc5f",
+      "notebooks/student/04_gold_ai_enrichment_foundry_STUDENT.ipynb": "eca11474454abde88be7ec3412917a45f60158b84e880c701973312f2673c625",
+      "notebooks/student/05_publish_and_validate_STUDENT.ipynb": "1b3eca90144d426b05d38b819a80e250b180dc14cc3607760617d8b57d3a6929",
+      "notebooks/solutions/00_setup_lakehouse_and_config.ipynb": "9e53b9b6b02d54082024a2997b0629444e577425a2be48aebf1f33e721ea901e",
+      "notebooks/solutions/01_bronze_stac_ingest.ipynb": "f0350f1de39d4c68156a4cf12c15a1236b751f352635792be4c5d3341df5ad84",
+      "notebooks/solutions/02_silver_reproject_and_indices.ipynb": "5340df772c7a43dd912cd43842e5b4fb9066624ffc78c9f246722d9a6bf9b189",
+      "notebooks/solutions/03_gold_forest_classification.ipynb": "1a7677fb5c2f8a218b9223848201d5ace3888c78ea66b372cf61c3b6484a5702",
+      "notebooks/solutions/04_gold_ai_enrichment_foundry.ipynb": "bc187984d4862427623abb7969a8f47d95666c66ba7d11a9d80c3097b02cb0f4",
+      "notebooks/solutions/05_publish_and_validate.ipynb": "72c55450b8cf49fee0e206ba07f7c002b08e4f90ce5463014b9b624b2c20e033",
+      "docs/download-imagery.html": "a95f562e97e753def507974a8ebe0f4cb96fc5ab63a572b47a9aa9d276f1a417",
+      "environments/environment.yml": "70a22ebaba68fa9a17aa740159bec2145997d103e732cea0f6c3c2f8e593b7a6"
+    }
+  }
 }

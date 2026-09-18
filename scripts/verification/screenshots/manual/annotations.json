@@ -1,7 +1,7 @@
 {
   "captures": [
     {"file": "01-workspace-create.png", "title": "Facilitator: name the shared training workspace", "focus": [
-      {"box": [377, 99, 536, 32], "badge": [330, 115], "text": "Use jdi-training-manual for this rehearsal."},
+      {"box": [377, 99, 536, 32], "badge": [330, 115], "text": "Use fabric-training-manual for this rehearsal."},
       {"box": [377, 499, 100, 34], "badge": [530, 511], "text": "Open Advanced, then choose the approved Fabric capacity."}
     ]},
     {"file": "02-capacity-assignment.png", "title": "Facilitator: use the existing F64 capacity", "focus": [
@@ -49,7 +49,7 @@
     ]},
     {"file": "13-environment-picker.png", "title": "Choose the Environment from the correct workspace", "focus": [
       {"box": [118, 190, 139, 27], "badge": [289, 173], "text": "Select env_forestops."},
-      {"box": [669, 190, 145, 27], "badge": [751, 446], "text": "Verify Location is jdi-training-manual, not one of the reference workspaces."},
+      {"box": [669, 190, 145, 27], "badge": [751, 446], "text": "Verify Location is fabric-training-manual, not one of the reference workspaces."},
       {"box": [852, 578, 75, 32], "badge": [809, 567], "text": "Confirm, then repeat the attachment for every notebook."}
     ]},
     {"file": "14-lakehouse-picker.png", "title": "Attach the Lakehouse item, not the SQL endpoint", "focus": [
@@ -115,7 +115,7 @@
     ]},
     {"file": "27-map-lakehouse.png", "title": "Connect the Map to your own lakehouse", "focus": [
       {"box": [148, 185, 160, 34], "badge": [346, 271], "text": "Select lh_woodlands_demo, or your own suffixed Lakehouse."},
-      {"box": [695, 185, 140, 34], "badge": [756, 288], "text": "Confirm Location is jdi-training-manual."},
+      {"box": [695, 185, 140, 34], "badge": [756, 288], "text": "Confirm Location is fabric-training-manual."},
       {"box": [877, 578, 50, 32], "badge": [834, 550], "text": "Select Add to connect the source."}
     ]},
     {"file": "28-map-show-geojson.png", "title": "Display the exported stand polygons", "focus": [

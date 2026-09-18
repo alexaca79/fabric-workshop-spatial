@@ -1,6 +1,6 @@
 ---
-title: Deployment guide for JDI
-description: How to review, deploy and verify the forest classification workshop in a JDI Fabric tenant, including the workspace topology and outbound access protection decisions that have to be made first
+title: Deployment guide for Fabric
+description: How to review, deploy and verify the forest classification workshop in a Microsoft Fabric tenant, including the workspace topology and outbound access protection decisions that have to be made first
 author: Workshop Delivery Team
 ms.date: 2026-09-17
 ms.topic: how-to
@@ -13,9 +13,9 @@ keywords:
 estimated_reading_time: 15
 ---
 
-## Deployment guide for JDI
+## Deployment guide for Fabric
 
-This is the practical guide to standing the workshop up in a JDI tenant. It
+This is the practical guide to standing the workshop up in a Fabric tenant. It
 assumes you have a Fabric capacity and workspace admin rights, and that you want
 to satisfy yourself the thing works before a room of people depends on it.
 
@@ -109,7 +109,7 @@ sandbox.
 
 ## Decision 2: one workspace or three
 
-JDI convention is to separate medallion layers into their own workspaces, and
+The reference deployment separates medallion layers into their own workspaces, and
 this repository is built that way, so the default should suit you. The reasons
 are worth stating because they are the argument you will need if anyone pushes
 back on the extra setup.
@@ -170,7 +170,7 @@ Recommended for the first run. Nothing to install, nothing to edit, and you see
 each object as it is created.
 
 1. Create three workspaces, one per layer, on the capacity you intend to use.
-   Name them however JDI names things; nothing in the notebooks depends on
+   Use your organization's naming convention; nothing in the notebooks depends on
    workspace names.
 2. Create one lakehouse per workspace, named `lh_bronze`, `lh_silver` and
    `lh_gold`. These names do matter to the shortcut instructions below, though
@@ -318,7 +318,7 @@ committed notebook bundle needs to be regenerated.
 
 ## One-workspace and three-workspace names
 
-The participant guide intentionally uses `jdi-training`, `lh_woodlands` and
+The participant guide intentionally uses `fabric-training`, `lh_woodlands` and
 `env_forestops`. This guide uses `lh_bronze`, `lh_silver` and `lh_gold` across
 three workspaces. The notebook bundle defaults to the participant topology;
 facilitators using three workspaces should deploy through the supplied scripts,

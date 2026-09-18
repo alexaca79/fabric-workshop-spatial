@@ -60,7 +60,7 @@ RULE_VERSION = "rule_v1"
 # --- Medallion layer --------------------------------------------------------
 # Writes Gold tables and reads Silver from the shared lab lakehouse.
 LAYER = "gold"
-WORKSPACE = "jdi-training"
+WORKSPACE = "fabric-training"
 LAKEHOUSE = "lh_woodlands"
 
 TABLE_OBSERVATIONS = "silver_stand_observations"

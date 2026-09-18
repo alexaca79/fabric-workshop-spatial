@@ -31,7 +31,7 @@
 # | Attach | Value | Why |
 # |---|---|---|
 # | Environment | `env_forestops` | Brings the geospatial stack, which the base runtime lacks |
-# | Default lakehouse | `lh_woodlands` in `jdi-training` | Shared lab lakehouse |
+# | Default lakehouse | `lh_woodlands` in `fabric-training` | Shared lab lakehouse |
 #
 # If either is missing, the next cell stops you rather than letting you find out
 # forty minutes later.
@@ -101,7 +101,7 @@ RANDOM_SEED = 20260902
 # The manual lab uses one workspace and one lakehouse. Table prefixes preserve
 # the medallion layers while keeping participant setup short.
 LAYER = "bronze"
-WORKSPACE = "jdi-training"
+WORKSPACE = "fabric-training"
 LAKEHOUSE = "lh_woodlands"
 TABLE_STAND_REGISTER = "bronze_stand_register"
 

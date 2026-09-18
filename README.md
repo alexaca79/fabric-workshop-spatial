@@ -21,8 +21,9 @@ Desktop, Docker, or an AI API key. Allow a full workshop day.
 * Your own learner or pair identifier for naming notebooks and a lakehouse
 * About 1 GB of free local space for the manual imagery download
 
-The screenshots use `jdi-training-manual` in Contoso. Use the workspace your
-facilitator provides. Each learner or pair needs a separate lakehouse.
+Screenshot workspace labels are generalized as `fabric-training-manual`.
+Use the workspace your facilitator provides. Each learner or pair needs a
+separate lakehouse.
 
 ## Complete The Exercises
 

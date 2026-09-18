@@ -37,7 +37,7 @@ problem, and the next section explains how to show it honestly in the report.
 
 ## Create the model
 
-1. Open the `jdi-mock-training-gold` workspace.
+1. Open the `fabric-mock-training-gold` workspace.
 2. Open `lh_gold`, then use **New semantic model** from the Lakehouse ribbon.
 3. Select `gold_stand_facts`, `gold_dim_stand`, `gold_dim_date` and
    `gold_dim_forest_class`. Nothing else.

@@ -2,7 +2,7 @@
   {
     "file": "18-manual-01-scene.png",
     "raw_sha256": "4f0d351e9be597424e43341753fa6763efdf40073621eade5ffbc6af2baa22ac",
-    "annotated_sha256": "d11dfa890d4a88e571162ff2dd6547c86468860ad1b2e978f7bc1b33015e62e0",
+    "annotated_sha256": "11701adb41b3ad9d9adeb7e413174f49aa6ed8899a48d71ff3519479ca813e0c",
     "raw_size": [
       1027,
       634
@@ -16,7 +16,7 @@
   {
     "file": "18-manual-02-bands.png",
     "raw_sha256": "985ef3f1db944d72757552813b5925e88c3df50fa8e7562cc044cc73ce360787",
-    "annotated_sha256": "f134ff6785bcac141e1372d69e1aab6221e2e57029748f4bac82af6ff67521a5",
+    "annotated_sha256": "7eea6174df951e0720f1f40f95989947a400ac058c1cc16f39b991ca8421d5c7",
     "raw_size": [
       1027,
       634
@@ -30,7 +30,7 @@
   {
     "file": "18-manual-03-download.png",
     "raw_sha256": "8b29f885439b4dd5da9b3b8b6a031a442b881be9ed9e2dfc9ca0a6d7508e17b2",
-    "annotated_sha256": "1e7a52aedb29091240adf96a3ed257a8ccf75381708b1aee688f7f83fafad778",
+    "annotated_sha256": "6d1bf80ef1647bf5ac7f0bd1be46a7ed73d446aca3852728a545e8e9d9566dc9",
     "raw_size": [
       1280,
       900
@@ -43,8 +43,8 @@
   },
   {
     "file": "18-manual-04-upload-menu.png",
-    "raw_sha256": "49fc2c0fd41467011d1076e78081eb12b4f55d36bda353f9df6427216bdfc5fc",
-    "annotated_sha256": "b05d2bdf8085c8b140cbcb61d7af427703e53bd8a612140c349827d81b36088d",
+    "raw_sha256": "0adda52fc66deef0b07d5923d6fb31cacd446804d158bfdb5dd4f8a1b4814001",
+    "annotated_sha256": "9bfd4a9c19bfc29b712087449029a800eb6fe12f9fb6a276de0ecc6c74dd4e9a",
     "raw_size": [
       1027,
       634
@@ -57,8 +57,8 @@
   },
   {
     "file": "18-manual-05-uploaded.png",
-    "raw_sha256": "9f5440536af399d0c2fb6841235ade6d60c83b89588b003a227769ab7714c295",
-    "annotated_sha256": "ff44cd87b702b644baf91bee7716dfdea4e66a5d5babb5d86b0ea519f08cac42",
+    "raw_sha256": "7f010dcddf8e93b17717bf04c5261371917550c733c672ab025f7cfb7b6afe92",
+    "annotated_sha256": "2512d5ff9c8bf68dc4afab86d810cf561b8a86e205ae65e821e0602194096a6c",
     "raw_size": [
       1027,
       634

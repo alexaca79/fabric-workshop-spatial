@@ -17,7 +17,7 @@ from pathlib import Path
 import nbformat
 
 ROOT = Path(__file__).resolve().parents[1]
-WORKSPACE = "jdi-training-manual"
+WORKSPACE = "fabric-training-manual"
 LAKEHOUSE = "lh_woodlands_demo"
 
 
@@ -28,7 +28,7 @@ def normalize(source: str) -> str:
 
 def configure_labels(source: str) -> str:
     """Retarget the two display labels, rejecting unexpected existing values."""
-    labels = {"WORKSPACE": ("jdi-training", WORKSPACE),
+    labels = {"WORKSPACE": ("fabric-training", WORKSPACE),
               "LAKEHOUSE": ("lh_woodlands", LAKEHOUSE)}
 
     def replace(match: re.Match[str]) -> str:
@@ -78,7 +78,7 @@ def prepare_payload(lab: int) -> dict:
     if evidence["workspace"]["name"] != WORKSPACE or evidence["lakehouse"]["name"] != LAKEHOUSE:
         raise ValueError("The evidence does not identify the approved rehearsal workspace and lakehouse")
     target = next(item for item in evidence["notebooks"] if item["lab"] == f"{lab:02d}")
-    return {"purpose": "jdi-manual-rehearsal-v1", "lab": f"{lab:02d}",
+    return {"purpose": "fabric-manual-rehearsal-v1", "lab": f"{lab:02d}",
             "workspace_id": evidence["workspace"]["id"], "notebook_id": target["id"],
             "notebook_name": student_path.stem, "total_cells": len(student.cells),
             "student_sha256": hashlib.sha256(student_path.read_bytes()).hexdigest(),
