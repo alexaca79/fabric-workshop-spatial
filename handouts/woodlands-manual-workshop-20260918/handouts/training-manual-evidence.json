@@ -12,7 +12,7 @@
     "verification": "Azure Resource Manager GET and Fabric capacities GET succeeded"
   },
   "workspace": {
-    "name": "jdi-training-manual",
+    "name": "fabric-training-manual",
     "id": "5785367c-0109-4ea9-beb5-05fb0edbe4dc",
     "status": "created_in_portal",
     "verification": "Fabric workspace GET confirmed displayName and capacityId after portal creation",

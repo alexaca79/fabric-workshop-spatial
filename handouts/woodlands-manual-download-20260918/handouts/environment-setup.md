@@ -21,7 +21,7 @@ Return to the [student guide](student-guide.md) after setup.
 
 ### Create The Environment
 
-1. Open the Contoso workspace `jdi-training-manual`. Confirm its assigned
+1. Open the Contoso workspace `fabric-training-manual`. Confirm its assigned
   `rayfintestenv` F64 capacity is active.
 2. Select **New item**, search for **Environment**, and select it.
 3. Enter `env_forestops`, then select **Create**.

@@ -163,7 +163,7 @@ def build(output: Path, *, draft: bool = False) -> int:
     presentation = new_deck()
     total = len(captures) + 2
     slide = blank(presentation, BG)
-    text_box(slide, 0.75, 0.62, 11.8, 0.4, "JDI WOODLANDS | MANUAL FABRIC WORKSHOP", 12, GREEN, bold=True)
+    text_box(slide, 0.75, 0.62, 11.8, 0.4, "WOODLANDS | MANUAL FABRIC WORKSHOP", 12, GREEN, bold=True)
     text_box(slide, 0.75, 1.4, 11.8, 1.3, "Woodlands in Fabric", 44, WHITE, bold=True)
     text_box(slide, 0.75, 2.75, 11.7, 0.8,
              "Student notebooks. Your lakehouse. A native Map and data agent.", 23, WHITE)

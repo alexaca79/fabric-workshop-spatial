@@ -76,7 +76,7 @@ if INPUT_MODE not in {"manual", "stac"}:
 # --- Medallion layer --------------------------------------------------------
 # Writes Bronze tables and files to the shared lab lakehouse.
 LAYER = "bronze"
-WORKSPACE = "jdi-training"
+WORKSPACE = "fabric-training"
 LAKEHOUSE = "lh_woodlands"
 
 TABLE_SCENE_CATALOG = "bronze_scene_catalog"

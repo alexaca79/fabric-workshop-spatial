@@ -66,6 +66,7 @@ def annotate(raw: Path, output: Path, capture: dict) -> dict:
     source_hash = hashlib.sha256(raw.read_bytes()).hexdigest()
     with Image.open(raw) as original:
         source = original.convert("RGB")
+        anonymization = original.info.get("Anonymization")
     image_width, image_height = source.size
     probe = ImageDraw.Draw(source)
     caption_font = font(16)
@@ -124,7 +125,9 @@ def annotate(raw: Path, output: Path, capture: dict) -> dict:
     metadata = PngInfo()
     metadata.add_text("Source SHA256", source_hash)
     metadata.add_text("Source", f"raw/{raw.name}")
-    metadata.add_text("Treatment", "Original portal pixels with numbered circle and arrow overlays")
+    metadata.add_text("Treatment", "Source capture with numbered circle and arrow overlays")
+    if anonymization:
+        metadata.add_text("Anonymization", anonymization)
     output.parent.mkdir(parents=True, exist_ok=True)
     annotated.save(output, pnginfo=metadata)
     if hashlib.sha256(raw.read_bytes()).hexdigest() != source_hash:

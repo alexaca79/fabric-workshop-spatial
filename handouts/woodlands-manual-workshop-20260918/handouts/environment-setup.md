@@ -14,13 +14,13 @@ estimated_reading_time: 8
 
 ## Manual Portal Setup
 
-The facilitator performs this once in `jdi-training-manual`. Students import
+The facilitator performs this once in `fabric-training-manual`. Students import
 their six notebooks, create their own lakehouse, then select this Environment.
 Do not create another Environment for each learner.
 
 ### Create The Environment
 
-1. Open the Contoso workspace `jdi-training-manual`. Confirm its assigned
+1. Open the Contoso workspace `fabric-training-manual`. Confirm its assigned
   `rayfintestenv` F64 capacity is active.
 2. Select **New item**, search for **Environment**, and select it.
 3. Enter `env_forestops`, then select **Create**.

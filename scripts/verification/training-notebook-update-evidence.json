@@ -15,7 +15,7 @@
   },
   "target": {
     "environment": "existing training/test workspace",
-    "workspace_name": "jdi-training",
+    "workspace_name": "fabric-training",
     "workspace_id": "60a018e6-4688-4a64-84af-0574e0bc8d3a",
     "tenant_id": "711a9076-1115-4c36-b7b4-82b4f3a05f6f",
     "auth_profile_alias": "contoso",
@@ -40,7 +40,7 @@
     "post_publish_readback": "NOT_APPLICABLE_NO_PUBLISH",
     "nbformat_validation": "NOT_RUN",
     "recovery_helper_syntax_validation": "PASS",
-    "recovery_folder": "C:/Users/chenalex/JDI-training-retired-app-20260917-125920/notebook-before-validation-fix"
+    "recovery_folder": "C:/Users/chenalex/Fabric-training-retired-app-20260917-125920/notebook-before-validation-fix"
   },
   "notebooks": [
     {

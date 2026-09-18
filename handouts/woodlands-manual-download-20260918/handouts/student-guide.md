@@ -15,7 +15,7 @@ manually create a **Map** and a **Fabric data agent**.
 
 Allow a full workshop day. You need basic Python familiarity to complete the
 numbered TODO exercises. Use public Sentinel-2 imagery and synthetic stands,
-not JDI production inventory.
+not production inventory.
 
 Use the files in [notebooks/student](../student). Each has a visible
 `Lab NN` title, a **Student notebook** banner, numbered `TODO` exercises and
@@ -38,7 +38,7 @@ own identifier when working alongside other students.
 
 | Item              | Example name            | Who creates it                  |
 |-------------------|-------------------------|---------------------------------|
-| Workspace         | `jdi-training-manual`    | Facilitator, once               |
+| Workspace         | `fabric-training-manual`    | Facilitator, once               |
 | Capacity          | `rayfintestenv` (F64)    | Existing; do not recreate       |
 | Notebook folder   | `student-demo`          | You                             |
 | Lakehouse         | `lh_woodlands_demo`      | You, after all notebook uploads |
@@ -57,8 +57,8 @@ and [Environment setup](environment-setup.md#manual-portal-setup) before class.
 You need the extracted workshop bundle and Contributor or higher workspace access.
 
 1. Sign in to [Fabric](https://app.fabric.microsoft.com) with your Contoso account.
-2. Select **Workspaces** > **jdi-training-manual**. Check the workspace name.
-   Leave the older `jdi-training` reference workspace and its results unchanged.
+2. Select **Workspaces** > **fabric-training-manual**. Check the workspace name.
+   Leave the older `fabric-training` reference workspace and its results unchanged.
 3. Select **New folder**, enter `student-demo`, and select **Create**.
 4. Open your new folder before importing the notebooks.
 
@@ -108,7 +108,7 @@ Checkpoint: all six student notebooks are present before you create the lakehous
 
 ## 3. Create Your Lakehouse Manually
 
-1. Return to your learner folder in the `jdi-training-manual` workspace.
+1. Return to your learner folder in the `fabric-training-manual` workspace.
 2. Select **New item** > **All items**, search for **Lakehouse**, and select it.
 3. Enter `lh_woodlands_demo`. Keep **Lakehouse schemas** checked.
 4. Select **Create** and wait for the lakehouse to open.
@@ -140,11 +140,11 @@ Repeat these steps for all six learner notebooks. An imported filename or a
 4. In the Home ribbon, open **Environment**. A fresh import may show
    **Workspace default**. On a narrow screen, first open the ribbon's **More
    items** menu (`...`). Select **Change environment**.
-5. Select the `env_forestops` row whose **Location** is exactly `jdi-training-manual`,
+5. Select the `env_forestops` row whose **Location** is exactly `fabric-training-manual`,
    then select **Confirm**. Other workspaces have environments with the same name.
 6. In Explorer, select **Add data items**, then **From OneLake catalog**.
    In older portal layouts this is **Add lakehouse**.
-7. Filter to `lh_woodlands_demo`. Select the **Lakehouse** row in `jdi-training-manual`,
+7. Filter to `lh_woodlands_demo`. Select the **Lakehouse** row in `fabric-training-manual`,
    not the same-named SQL analytics endpoint,
    then select **Connect** or **Add**, as shown by your portal.
 8. Open the lakehouse's **More options** (`...`) menu and select **Set as default
@@ -154,10 +154,10 @@ Repeat these steps for all six learner notebooks. An imported filename or a
 9. If you already started a Spark session, stop it and reconnect after changing
    attachments. Do not run exercises against the old session configuration.
 10. In each configuration cell where these labels occur, set
-   `WORKSPACE = "jdi-training-manual"` and `LAKEHOUSE = "lh_woodlands_demo"`.
+   `WORKSPACE = "fabric-training-manual"` and `LAKEHOUSE = "lh_woodlands_demo"`.
    Use your identifier instead of `demo`. These strings do not establish attachments.
 
-![Choose env_forestops from the jdi-training-manual workspace.](images/training/manual/13-environment-picker.png)
+![Choose env_forestops from the fabric-training-manual workspace.](images/training/manual/13-environment-picker.png)
 
 ![Select the Lakehouse item rather than the same-named SQL endpoint.](images/training/manual/14-lakehouse-picker.png)
 
@@ -198,7 +198,7 @@ Exercise cells: **8, 14, 20, 21, 23 and 27**. Allow about 50 minutes.
 
 1. Run the Environment check in Cell 4; it must report the packages available.
 2. In Cell 6, keep the supplied area, `USE_SYNTHETIC_STANDS=True`, count 120,
-   `WORKSPACE="jdi-training-manual"` and your own lakehouse name.
+   `WORKSPACE="fabric-training-manual"` and your own lakehouse name.
 3. Complete bounding-box validation. Confirm reversed longitude and impossible
    latitude fail the exercise checks.
 4. Generate synthetic stands in EPSG:2953. Complete the attributes and hectare
@@ -377,7 +377,7 @@ Allow 20-30 minutes. This is a **Map item**, not a Power BI map visual.
 
 ![Name and create the native Map in your learner folder.](images/training/manual/26-map-create.png)
 
-![Select the Lakehouse from jdi-training-manual and add it to the Map.](images/training/manual/27-map-lakehouse.png)
+![Select the Lakehouse from fabric-training-manual and add it to the Map.](images/training/manual/27-map-lakehouse.png)
 
 ![Select the maps folder and choose Show on map for the GeoJSON file.](images/training/manual/28-map-show-geojson.png)
 
@@ -610,7 +610,7 @@ Take a second close-up when the title and result do not fit legibly together.
 | Import option unavailable       | Verify workspace role and selected folder               |
 | Duplicate notebook name         | Cancel overwrite; use a participant suffix               |
 | Missing geospatial package      | Attach published env_forestops, then restart session     |
-| Environment list has duplicates | Select the row whose Location is jdi-training-manual     |
+| Environment list has duplicates | Select the row whose Location is fabric-training-manual     |
 | Missing Bronze table or file    | Check default lakehouse and upstream lab completion     |
 | STAC timeout, 429 or empty data  | Retain outputs; ask facilitator about source availability |
 | FAIL printed but cell succeeded | Stop and correct the exercise; do not trust job status alone |
@@ -644,11 +644,11 @@ permissions. Students start at Step 1 after this preparation.
 1. Sign in to Contoso. Verify the directory without recording account menus.
 2. Confirm `rayfintestenv` is active and remains F64. If paused, obtain owner
    approval before resuming; do not create a replacement capacity.
-3. Select **Workspaces** > **New workspace** and enter `jdi-training-manual`.
+3. Select **Workspaces** > **New workspace** and enter `fabric-training-manual`.
 4. In the license/capacity section, choose the existing `rayfintestenv` Fabric
    capacity, then create the workspace.
 5. Open **Workspace settings** and verify the capacity assignment. Preserve
-   the older `jdi-training` reference workspace and its items.
+   the older `fabric-training` reference workspace and its items.
 6. Provide approved learners Contributor access through your normal access
    process. Do not create public links or change tenant-wide sharing policies.
 7. Complete [manual Environment setup](environment-setup.md#manual-portal-setup).
@@ -661,7 +661,7 @@ permissions. Students start at Step 1 after this preparation.
 10. Stagger Spark starts and imagery ingestion. Separate lakehouses prevent
     write collisions but still share the F64's compute capacity.
 
-![Name the facilitator workspace jdi-training-manual and open Advanced.](images/training/manual/01-workspace-create.png)
+![Name the facilitator workspace fabric-training-manual and open Advanced.](images/training/manual/01-workspace-create.png)
 
 ![Select rayfintestenv in West US 2 and apply the workspace configuration.](images/training/manual/02-capacity-assignment.png)
 

@@ -123,12 +123,12 @@ def three_workspace_layout():
          12, MUTED)
 
     layers = [
-        ("BRONZE", "jdi-mock-training-bronze", "lh_bronze", BRONZE,
+        ("BRONZE", "fabric-mock-training-bronze", "lh_bronze", BRONZE,
          ["bronze_stand_register", "bronze_scene_catalog", "Files/bronze/scenes/"]),
-        ("SILVER", "jdi-mock-training-silver", "lh_silver", SILVER,
+        ("SILVER", "fabric-mock-training-silver", "lh_silver", SILVER,
          ["silver_stand_observations", "shortcut: bronze_stand_register",
           "shortcut: bronze_scene_catalog"]),
-        ("GOLD", "jdi-mock-training-gold", "lh_gold", GOLD,
+        ("GOLD", "fabric-mock-training-gold", "lh_gold", GOLD,
          ["gold_stand_facts + dims", "shortcut: silver_stand_observations",
           "shortcut: bronze_stand_register"]),
     ]

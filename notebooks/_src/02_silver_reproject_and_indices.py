@@ -111,7 +111,7 @@ MIN_VALID_PIXEL_FRACTION = 0.60
 # Writes Silver tables while reading Bronze by plain table name from the shared
 # lab lakehouse.
 LAYER = "silver"
-WORKSPACE = "jdi-training"
+WORKSPACE = "fabric-training"
 LAKEHOUSE = "lh_woodlands"
 
 TABLE_STAND_REGISTER = "bronze_stand_register"

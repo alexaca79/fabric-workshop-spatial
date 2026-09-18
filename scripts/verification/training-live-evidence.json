@@ -9,9 +9,9 @@
     "within_limit": true
   },
   "target": {
-    "environment": "existing jdi-training training/test workspace",
+    "environment": "existing fabric-training training/test workspace",
     "workspace_id": "60a018e6-4688-4a64-84af-0574e0bc8d3a",
-    "workspace_name": "jdi-training",
+    "workspace_name": "fabric-training",
     "tenant_id": "711a9076-1115-4c36-b7b4-82b4f3a05f6f",
     "subscription_id": "a0c62bdd-d642-4fdb-b372-ae041cf83ce3",
     "auth_profile_alias": "contoso",
@@ -96,7 +96,7 @@
     "status": "PASS",
     "timestamp_utc": "2026-09-17T16:53:16.7771372Z",
     "transport": "Read-only TDS using System.Data.SqlClient, encrypted connection, and approved isolated Azure CLI database-audience token",
-    "query_label": "JDI_Training_ReadOnly_Validation_20260917",
+    "query_label": "Fabric_Training_ReadOnly_Validation_20260917",
     "command_timeout_seconds": 35,
     "connection_timeout_seconds": 20,
     "sql_statements": "Catalog SELECTs plus bounded scalar aggregate SELECTs only; no DDL, DML, refresh, or notebook execution",

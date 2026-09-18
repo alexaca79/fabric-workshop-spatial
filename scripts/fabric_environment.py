@@ -98,7 +98,7 @@ def ensure_environment(workspace_id: str, token: str) -> str:
         "POST", f"{FABRIC}/v1/workspaces/{workspace_id}/environments", token,
         {
             "displayName": ENVIRONMENT_NAME,
-            "description": "Geospatial + STAC stack for the JDI Woodlands workshop.",
+            "description": "Geospatial + STAC stack for the Woodlands workshop.",
         },
     )
     if status not in (200, 201, 202):

@@ -50,7 +50,7 @@ BATCH_SIZE = 10
 # --- Medallion layer --------------------------------------------------------
 # Reads and writes gold only, so no cross-layer shortcuts are needed here.
 LAYER = "gold"
-WORKSPACE = "jdi-training"
+WORKSPACE = "fabric-training"
 LAKEHOUSE = "lh_woodlands"
 
 TABLE_CLASSIFICATION = "gold_stand_classification"
