@@ -2,7 +2,7 @@
 title: Spark Environment setup
 description: Why the workshop uses a published Fabric Environment for the geospatial stack, how to build it, and how to attach it to notebooks
 author: Workshop Delivery Team
-ms.date: 2026-09-02
+ms.date: 2026-09-18
 ms.topic: how-to
 keywords:
   - fabric environment
@@ -23,9 +23,67 @@ Do this once per workspace before Session 1. A first publish took about six
 minutes on an F64 in our build, so allow ten and start it before the room
 arrives.
 
-The workshop runs across three workspaces, one per medallion layer, so each of
-them needs its own copy of the Environment. The layout and the shortcut wiring
-are covered in [13-three-workspace-layout.md](13-three-workspace-layout.md).
+The [manual student walkthrough](16-manual-upload-labs.md) uses one published
+Environment in `jdi-training-manual`, shared by the learner notebooks. The
+separate [three-workspace layout](13-three-workspace-layout.md) needs one
+Environment per workspace; its scripted setup is documented below.
+
+## Manual Portal Setup
+
+The facilitator performs this once in `jdi-training-manual`. Students import
+their six notebooks, create their own lakehouse, then select this Environment.
+Do not create another Environment for each learner.
+
+### Create The Environment
+
+1. Open the Contoso workspace `jdi-training-manual`. Confirm its assigned
+  `rayfintestenv` F64 capacity is active.
+2. Select **New item**, search for **Environment**, and select it.
+3. Enter `env_forestops`, then select **Create**.
+4. In the **Home** ribbon, check **Runtime 1.3** (Spark 3.5, Python 3.11), the
+  workshop's previously verified runtime. If unavailable, stop for compatibility
+  validation instead of selecting a different major runtime without testing.
+
+![Check Runtime 1.3 in the Environment Home ribbon.](images/training/manual/10-environment-runtime.png)
+
+### Import Libraries
+
+1. Open the navigation menu, then **Libraries** > **External repositories**.
+  On a wider screen the navigation is already visible.
+2. Select **More items** (`...`) > **Import YML** > **Upload to Full mode**.
+  Confirm **Import**, then select
+  the [Environment YAML file](../environments/environment.yml) from the bundle's
+  **handouts** folder.
+3. Alternatively, select **YML editor view** > **Full mode**, select all editor
+  text and paste the file contents with **Ctrl+V**. Return to **List view**.
+  Do not upload the file as a custom Python library or add a top-level `name`:
+  the portal accepts `channels` and `dependencies`, not a Conda environment name.
+4. Confirm the list contains 14 libraries and the definition retains `numpy<2`, `pandas>=2.1,<3`,
+  `typing-extensions>=4.15`, `affine<3`, `zarr>=2.16` and all the other supplied
+  packages. Do not substitute the older unpinned requirements file.
+
+![Use the Full mode library definition and Save before publishing.](images/training/manual/11-environment-libraries.png)
+
+### Publish And Check
+
+1. Select **Save** and confirm **Save changes**. In **Home**, select **Publish**,
+  review **Pending changes**, select **Publish all**, then confirm **Publish**.
+2. Wait for success. Saving a draft or seeing **Publishing** is not completion.
+  Allow about ten minutes; actual time varies.
+3. Return to the workspace and confirm `env_forestops` is available. Attach it
+  to each notebook using the Home ribbon selector.
+4. Start a new session and run Lab 00's Environment check. Lab 01's raster load
+  remains the functional check for the full geospatial stack.
+
+![Published Environment library rows report Success.](images/training/manual/12-environment-published.png)
+
+Checkpoint: publication succeeded, every learner selects the Environment from
+the correct workspace, and required imports pass. Do not substitute a
+`%pip install` cell for a missing attachment.
+
+If approved outbound policy blocks public packages, use the organization's
+approved dependency process. Do not disable outbound protection. See
+[libraries with limited network access](https://learn.microsoft.com/fabric/data-engineering/environment-manage-library-with-outbound-access-protection).
 
 ## Why not just use %pip install
 
@@ -107,7 +165,6 @@ notebook job as `System_Cancelled_Session_Statements_Failed`, which names no
 cell and no exception. See
 [14-debugging-notebook-failures.md](14-debugging-notebook-failures.md) for the
 tracer that recovers the real traceback.
-
 
 ## Verified resolved versions
 

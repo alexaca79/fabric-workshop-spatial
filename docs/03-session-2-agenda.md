@@ -193,21 +193,6 @@ Hands-on (33 min):
 
 Checkpoint: a report page that answers the problem statement from 0:00.
 
-### Optional alternative: publish as a Fabric App
-
-Same gold layer, different audience. Where the Power BI report serves anyone
-who wants to explore, a Fabric App serves one role with fixed questions. The
-Chief Forester dashboard in `apps/chief-forester/` is five cards, a class
-breakdown, a review queue and a stand detail panel, and nothing else.
-
-Run it as a 10 minute demo, or as a 25 minute hands-on extension if Docker
-works on every machine and the Fabric Apps workload is enabled in the tenant.
-Notebook 06 publishes the snapshot. Decision guide and delivery notes in
-[11-fabric-app-option.md](11-fabric-app-option.md).
-
-The teaching point is not the SDK. It is that a gold layer which can only feed
-one consumer is not really a gold layer.
-
 ## 3:35 Step 5, make it repeatable, assignment, office hours (25 min)
 
 ![The scheduled pipeline: five notebook activities and one quality gate](images/pipeline-graph.png)
@@ -228,9 +213,8 @@ one consumer is not really a gold layer.
 | Item                              | Where                                                     |
 |-----------------------------------|------------------------------------------------------------|
 | Slide deck                        | `decks/out/session-2-build-it-end-to-end.pptx`             |
-| Student notebooks 01 to 06        | `notebooks/student/`                                       |
-| Solution notebooks 01 to 06       | `notebooks/solutions/`                                     |
+| Student notebooks 01 to 05        | `notebooks/student/`                                       |
+| Solution notebooks 01 to 05       | `notebooks/solutions/`                                     |
 | Pipeline definition               | `pipelines/forest_classification_pipeline.json`            |
 | Power BI build guide              | `powerbi/semantic-model-guide.md`                          |
-| Fabric App, optional              | `apps/chief-forester/` and `docs/11-fabric-app-option.md`   |
 | Fallback scenes, pre-staged       | `ws-woodlands-shared` Lakehouse `Files/bronze/scenes/`      |

@@ -2,7 +2,7 @@
 title: Pre-flight check
 description: Dependency-free environment and access verification script to run at the start of Session 1, with a triage table for every failure mode
 author: Workshop Delivery Team
-ms.date: 2026-09-02
+ms.date: 2026-09-17
 ms.topic: troubleshooting
 keywords:
   - preflight
@@ -92,7 +92,7 @@ def _geo_libs():
         except ImportError:
             missing.append(mod)
     if missing:
-        raise ImportError(f"missing {missing}; run the %pip cell or attach env-woodlands-geo")
+        raise ImportError(f"missing {missing}; attach env_forestops and restart the session")
     return f"{len(present)} geospatial libraries present"
 
 
@@ -139,7 +139,7 @@ in front of the room.
 | Delta write fails with a permission error             | Workspace on a Pro licence, or Viewer role        | Facilitator moves you to the shared capacity workspace                             |
 | DNS resolution fails                                  | Tenant blocks outbound traffic from Spark         | Switch to the cached-scene fallback in `docs/09-troubleshooting.md`                 |
 | STAC reachable but asset reads return 403             | Signing step skipped                              | Every asset href must pass through `planetary_computer.sign`                        |
-| `missing ['odc.stac', ...]`                           | Environment not attached                          | Run the `%pip install` cell, or attach `env-woodlands-geo`                          |
+| `missing ['odc.stac', ...]`                           | Environment not attached                          | Attach `env_forestops`, then restart the notebook session                           |
 | Spark session takes longer than five minutes to start | Capacity throttled or cold                        | Facilitator checks capacity metrics; use a neighbour's screen in the meantime       |
 | `FOUNDRY_ENDPOINT not set`                            | Expected before Session 2                         | Ignore for Session 1; notebook 04 falls back to an offline stub                     |
 

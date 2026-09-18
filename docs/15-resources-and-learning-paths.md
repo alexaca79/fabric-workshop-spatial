@@ -28,7 +28,7 @@ feature that moved.
 
 | Artifact | Where | Why it matters later |
 |---|---|---|
-| Seven notebooks, solutions and exercises | `notebooks/` | The exercise version has numbered blanks; the solution is the answer key |
+| Six notebooks, solutions and exercises | `notebooks/` | The exercise version has numbered blanks; the solution is the answer key |
 | Pinned library set | [environments/environment.yml](../environments/environment.yml) | Each pin has a comment naming the failure it prevents |
 | Deployment runbook | [DEPLOY.md](../DEPLOY.md) | The two decisions and the portal or scripted path |
 | Debugging method | [docs/14-debugging-notebook-failures.md](14-debugging-notebook-failures.md) | How to recover a traceback Fabric will not show you |

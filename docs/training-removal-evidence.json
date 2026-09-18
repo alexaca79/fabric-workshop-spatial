@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "timestamp_utc": "2026-09-17T16:53:16.7771372Z",
+  "status": "PASS_WITH_RETAINED_OUT_OF_SCOPE_ARTIFACTS",
+  "target": {
+    "environment": "existing jdi-training training/test workspace",
+    "workspace_id": "60a018e6-4688-4a64-84af-0574e0bc8d3a",
+    "workspace_name": "jdi-training",
+    "tenant_id": "711a9076-1115-4c36-b7b4-82b4f3a05f6f",
+    "subscription_id": "a0c62bdd-d642-4fdb-b372-ae041cf83ce3",
+    "auth_profile_alias": "contoso",
+    "auth_guards": "Profile paths loaded from the approved tenant index; tenant and allowed subscription rechecked with az account show immediately before each mutation. No login or account switch.",
+    "fabric_skill_header": "spark-cli"
+  },
+  "before": {
+    "inventory_timestamp_utc": "2026-09-17T16:42:14.4479110Z",
+    "inventory_http_status": 200,
+    "inventory_complete_single_page": true,
+    "item_count": 15,
+    "description": "JDI Woodlands manual notebook labs and Chief Forester Rayfin demo",
+    "capacity_id": "93ba24b6-cddf-4b84-a587-935d1513efb1",
+    "items": [
+      {"id": "c085ec59-5b1f-49de-80d3-36fadf82be82", "displayName": "lh_woodlands", "type": "SQLEndpoint"},
+      {"id": "60a61b25-42e1-45eb-8911-958fa69e53d7", "displayName": "woodlands-chief-forester", "type": "SQLEndpoint"},
+      {"id": "8a1192a3-d354-423c-82d2-302d2fd49c66", "displayName": "lh_woodlands", "type": "Lakehouse"},
+      {"id": "5e77036d-18d1-4eba-a0d5-cea55d2ea751", "displayName": "env_forestops", "type": "Environment"},
+      {"id": "9eca318b-969a-4ff6-86ad-d3b745c14607", "displayName": "woodlands-chief-forester", "type": "AppBackend"},
+      {"id": "b128bab4-b583-4078-8779-2a5e7efce8f6", "displayName": "woodlands-chief-forester", "type": "SQLDatabase"},
+      {"id": "d94a018e-57c8-4ef8-b428-44bde261ef8a", "displayName": "00_environment_verify", "type": "Notebook"},
+      {"id": "bea0df2d-1f46-43b7-842b-7bec94e71272", "displayName": "00_setup_lakehouse_and_config", "type": "Notebook"},
+      {"id": "10897000-a69e-49de-9f1a-1b01d545ba03", "displayName": "01_bronze_stac_ingest", "type": "Notebook"},
+      {"id": "69cd204a-24ca-49eb-8b70-20571ae56e51", "displayName": "02_silver_reproject_and_indices", "type": "Notebook"},
+      {"id": "46854abd-c58f-4f0d-86b3-7cbb3ba95fb2", "displayName": "03_gold_forest_classification", "type": "Notebook"},
+      {"id": "65741505-c52b-4234-b152-7fec02186e2a", "displayName": "04_gold_ai_enrichment_foundry", "type": "Notebook"},
+      {"id": "f478c3cb-4924-4736-9366-4264cd9b1a96", "displayName": "05_publish_and_validate", "type": "Notebook"},
+      {"id": "045a0c2f-19d9-4ee4-962c-0c8b5771bfa8", "displayName": "06_publish_fabric_app_snapshot", "type": "Notebook"},
+      {"id": "f10bf435-ca0f-4a41-9b4d-038e351de821", "displayName": "zz_probe_pipeline_data_verify", "type": "Notebook"}
+    ]
+  },
+  "mutations": [
+    {
+      "timestamp_utc": "2026-09-17T16:44:24.1148532Z",
+      "method": "DELETE",
+      "path": "/v1/workspaces/60a018e6-4688-4a64-84af-0574e0bc8d3a/items/9eca318b-969a-4ff6-86ad-d3b745c14607",
+      "verified_name": "woodlands-chief-forester",
+      "verified_type": "AppBackend",
+      "verification_get_http_status": 200,
+      "http_status": 200,
+      "readback_http_status": 404,
+      "readback_error_code": "EntityNotFound",
+      "permanent_delete_requested": false
+    },
+    {
+      "timestamp_utc": "2026-09-17T16:46:32.3283459Z",
+      "method": "PATCH",
+      "path": "/v1/workspaces/60a018e6-4688-4a64-84af-0574e0bc8d3a",
+      "http_status": 200,
+      "body": {"description": "JDI Woodlands manual notebook labs: Bronze, Silver, Gold and Power BI"},
+      "readback_http_status": 200,
+      "description_matches": true,
+      "display_name_unchanged": true,
+      "capacity_assignment_unchanged": true
+    }
+  ],
+  "database_cascade": {
+    "database_id": "b128bab4-b583-4078-8779-2a5e7efce8f6",
+    "verified_name": "woodlands-chief-forester",
+    "verified_type": "SQLDatabase",
+    "before_get_http_status": 200,
+    "after_parent_delete_get_http_status": 404,
+    "after_error_code": "EntityNotFound",
+    "database_delete_request_sent": false,
+    "reason": "Database disappeared after the AppBackend DELETE. A duplicate database DELETE was not sent.",
+    "related_endpoint_id": "60a61b25-42e1-45eb-8911-958fa69e53d7",
+    "endpoint_before_get_http_status": 200,
+    "endpoint_inventory_type": "SQLEndpoint",
+    "endpoint_exact_get_type": "MirroredWarehouse",
+    "endpoint_after_get_http_status": 404,
+    "endpoint_after_error_code": "EntityNotFound",
+    "endpoint_delete_request_sent": false,
+    "stored_snapshots": "App database and its stored data, including app snapshots, are absent from active inventory with the deleted database. Retained backups or soft-delete storage were not inspected or purged."
+  },
+  "after": {
+    "inventory_http_status": 200,
+    "inventory_complete_single_page": true,
+    "item_count": 12,
+    "description": "JDI Woodlands manual notebook labs: Bronze, Silver, Gold and Power BI",
+    "capacity_id": "93ba24b6-cddf-4b84-a587-935d1513efb1",
+    "all_non_target_item_ids_retained": true,
+    "added_item_count": 0,
+    "removed_item_count": 3,
+    "items": [
+      {"id": "c085ec59-5b1f-49de-80d3-36fadf82be82", "displayName": "lh_woodlands", "type": "SQLEndpoint"},
+      {"id": "8a1192a3-d354-423c-82d2-302d2fd49c66", "displayName": "lh_woodlands", "type": "Lakehouse"},
+      {"id": "5e77036d-18d1-4eba-a0d5-cea55d2ea751", "displayName": "env_forestops", "type": "Environment"},
+      {"id": "d94a018e-57c8-4ef8-b428-44bde261ef8a", "displayName": "00_environment_verify", "type": "Notebook"},
+      {"id": "bea0df2d-1f46-43b7-842b-7bec94e71272", "displayName": "00_setup_lakehouse_and_config", "type": "Notebook"},
+      {"id": "10897000-a69e-49de-9f1a-1b01d545ba03", "displayName": "01_bronze_stac_ingest", "type": "Notebook"},
+      {"id": "69cd204a-24ca-49eb-8b70-20571ae56e51", "displayName": "02_silver_reproject_and_indices", "type": "Notebook"},
+      {"id": "46854abd-c58f-4f0d-86b3-7cbb3ba95fb2", "displayName": "03_gold_forest_classification", "type": "Notebook"},
+      {"id": "65741505-c52b-4234-b152-7fec02186e2a", "displayName": "04_gold_ai_enrichment_foundry", "type": "Notebook"},
+      {"id": "f478c3cb-4924-4736-9366-4264cd9b1a96", "displayName": "05_publish_and_validate", "type": "Notebook"},
+      {"id": "045a0c2f-19d9-4ee4-962c-0c8b5771bfa8", "displayName": "06_publish_fabric_app_snapshot", "type": "Notebook"},
+      {"id": "f10bf435-ca0f-4a41-9b4d-038e351de821", "displayName": "zz_probe_pipeline_data_verify", "type": "Notebook"}
+    ],
+    "notebook_folder_id": "77b7006a-778d-4a41-97d5-ada3bffcfd9f"
+  },
+  "protected_verification": [
+    {"id": "8a1192a3-d354-423c-82d2-302d2fd49c66", "name": "lh_woodlands", "type": "Lakehouse", "after_get_http_status": 200, "status": "PASS"},
+    {"id": "c085ec59-5b1f-49de-80d3-36fadf82be82", "name": "lh_woodlands", "type": "SQLEndpoint", "after_get_http_status": 200, "status": "PASS"},
+    {"id": "5e77036d-18d1-4eba-a0d5-cea55d2ea751", "name": "env_forestops", "type": "Environment", "after_get_http_status": 200, "status": "PASS"},
+    {"id": "93ba24b6-cddf-4b84-a587-935d1513efb1", "name": "rayfintestenv", "type": "Capacity", "sku": "F64", "state": "Active", "after_list_http_status": 200, "status": "PASS"}
+  ],
+  "scope_compliance": {
+    "other_workspace_requests": 0,
+    "protected_ndvi_sandbox_workspace_id": "77b3331e-2b7b-47a5-8e19-6526dcaed16f",
+    "protected_ndvi_sandbox_touched": false,
+    "capacity_mutations": 0,
+    "lakehouse_or_endpoint_mutations": 0,
+    "notebook_mutations": 0,
+    "new_notebook_jobs": 0,
+    "ingestion_or_backfill_runs": 0,
+    "bearer_tokens_printed_or_persisted": false
+  },
+  "final_cleanup": {
+    "status": "PASS_SCOPED_CLEANUP",
+    "started_utc": "2026-09-17T17:11:47.8302790Z",
+    "finished_live_utc": "2026-09-17T17:14:32.4129113Z",
+    "live_duration_seconds": 164.583,
+    "limit_seconds": 300,
+    "within_live_limit": true,
+    "environment": "existing jdi-training training/test workspace",
+    "workspace_id": "60a018e6-4688-4a64-84af-0574e0bc8d3a",
+    "workspace_name": "jdi-training",
+    "historical_records_preserved": "All original before, mutations, database_cascade, after, protected_verification, and scope_compliance records above describe the earlier stage and are unchanged.",
+    "auth_guard": {
+      "checked_utc": "2026-09-17T17:13:13.5110391Z",
+      "profile_alias": "contoso",
+      "index_path": "C:/Users/chenalex/.azure-tenants/index.json",
+      "azure_config_dir": "C:/Users/chenalex/.azure-tenants/contoso",
+      "azd_config_dir": "C:/Users/chenalex/.azd-tenants/contoso",
+      "tenant_id": "711a9076-1115-4c36-b7b4-82b4f3a05f6f",
+      "subscription_id": "a0c62bdd-d642-4fdb-b372-ae041cf83ce3",
+      "allowed_subscription_verified": true,
+      "method": "Reload approved profile and assert both profile paths, tenant, and allowed subscription against az account show immediately before DELETE; no login or account switch."
+    },
+    "retired_notebook": {
+      "id": "045a0c2f-19d9-4ee4-962c-0c8b5771bfa8",
+      "verified_name": "06_publish_fabric_app_snapshot",
+      "verified_type": "Notebook",
+      "before_get_http_status": 200,
+      "job_history_observed_utc": "2026-09-17T17:13:11.4127416Z",
+      "job_history_http_status": 200,
+      "job_history_complete_single_page": true,
+      "recent_job_count": 2,
+      "active_job_count": 0,
+      "jobs": [
+        {"id": "eccceba6-b9c2-40c7-878a-0ad531a96077", "status": "Completed", "start_utc": "2026-09-17T16:22:48.1613852Z", "end_utc": "2026-09-17T16:24:02.6252487Z"},
+        {"id": "5068ddf5-4f6c-4dc3-8ce9-260002560810", "status": "Completed", "start_utc": "2026-09-17T16:13:09.6439939Z", "end_utc": "2026-09-17T16:14:36.1398764Z"}
+      ],
+      "delete_requested_utc": "2026-09-17T17:13:13.5116989Z",
+      "method": "DELETE",
+      "path": "/v1/workspaces/60a018e6-4688-4a64-84af-0574e0bc8d3a/items/045a0c2f-19d9-4ee4-962c-0c8b5771bfa8",
+      "http_status": 200,
+      "readback_http_status": 404,
+      "readback_error_code": "EntityNotFound",
+      "delete_requests": 1,
+      "hard_delete_requested": false,
+      "definition_requested": false,
+      "recovery_note": "Existing ZIP recovery archive metadata and its three entries were verified; no getDefinition POST or notebook job was needed."
+    },
+    "snapshot_export": {
+      "path": "Files/app-snapshot",
+      "prior_deletion_source": "Main task reported dedicated OneLake delete-directory MCP recursive=true completed with HTTP 200 success after downloading all six files.",
+      "delete_requests_in_final_cleanup": 0,
+      "absence_check_count": 1,
+      "absence_check_method": "HEAD",
+      "observed_utc": "2026-09-17T17:14:13.3338445Z",
+      "http_status": 404,
+      "error_code": "PathNotFound",
+      "archive_path": "C:/Users/chenalex/JDI-training-retired-app-20260917-125920/cloud-export",
+      "archived_file_count": 6,
+      "archived_total_bytes": 102035,
+      "local_metadata_matches_expected_sizes": true,
+      "files": [
+        {"path": "run-20260917T161427Z/ClassBreakdown.json", "size_bytes": 1677},
+        {"path": "run-20260917T161427Z/PeriodSummary.json", "size_bytes": 497},
+        {"path": "run-20260917T161427Z/StandSnapshot.json", "size_bytes": 48843},
+        {"path": "run-20260917T162354Z/ClassBreakdown.json", "size_bytes": 1677},
+        {"path": "run-20260917T162354Z/PeriodSummary.json", "size_bytes": 498},
+        {"path": "run-20260917T162354Z/StandSnapshot.json", "size_bytes": 48843}
+      ]
+    },
+    "recovery_archives": {
+      "app_archive_path": "C:/Users/chenalex/JDI-training-retired-app-20260917-125920",
+      "app_archive_directory_exists": true,
+      "app_source_and_snapshot_directories_observed": ["src", "rayfin", ".snapshot", "cloud-export"],
+      "notebook_archive_path": "C:/Users/chenalex/JDI-training-retired-lab06-20260917-123550.zip",
+      "notebook_archive_size_bytes": 25507,
+      "notebook_archive_entries": [
+        {"name": "06_publish_fabric_app_snapshot.py", "size_bytes": 22661},
+        {"name": "06_publish_fabric_app_snapshot.ipynb", "size_bytes": 29557},
+        {"name": "06_publish_fabric_app_snapshot_STUDENT.ipynb", "size_bytes": 27165}
+      ],
+      "verification_scope": "Local file metadata and ZIP entry metadata only; no archive writes, secret reads, or content-equivalence claim."
+    },
+    "latest_inventory": {
+      "observed_utc": "2026-09-17T17:14:32.3311620Z",
+      "http_status": 200,
+      "complete_single_page": true,
+      "before_item_count": 17,
+      "after_item_count": 16,
+      "removed_item_count": 1,
+      "non_target_items_missing": 0,
+      "active_app_or_sql_database_count": 0,
+      "retired_notebook_count": 0,
+      "core_solution_notebook_count": 6,
+      "preflight_and_probe_notebook_count": 2,
+      "student_notebook_count_observed": 5,
+      "student_folder_id_observed": "9ed28e43-eaed-4fed-931c-a945c346e6c6",
+      "student_note": "All five student notebooks visible before cleanup were retained. No claim is made that a sixth import completed; browser subfolderID 95476 was not used as a REST folder GUID. Student bindings and job history were not inspected or changed.",
+      "items": [
+        {"id": "8a1192a3-d354-423c-82d2-302d2fd49c66", "displayName": "lh_woodlands", "type": "Lakehouse"},
+        {"id": "c085ec59-5b1f-49de-80d3-36fadf82be82", "displayName": "lh_woodlands", "type": "SQLEndpoint"},
+        {"id": "5e77036d-18d1-4eba-a0d5-cea55d2ea751", "displayName": "env_forestops", "type": "Environment"},
+        {"id": "d94a018e-57c8-4ef8-b428-44bde261ef8a", "displayName": "00_environment_verify", "type": "Notebook"},
+        {"id": "bea0df2d-1f46-43b7-842b-7bec94e71272", "displayName": "00_setup_lakehouse_and_config", "type": "Notebook"},
+        {"id": "10897000-a69e-49de-9f1a-1b01d545ba03", "displayName": "01_bronze_stac_ingest", "type": "Notebook"},
+        {"id": "69cd204a-24ca-49eb-8b70-20571ae56e51", "displayName": "02_silver_reproject_and_indices", "type": "Notebook"},
+        {"id": "46854abd-c58f-4f0d-86b3-7cbb3ba95fb2", "displayName": "03_gold_forest_classification", "type": "Notebook"},
+        {"id": "65741505-c52b-4234-b152-7fec02186e2a", "displayName": "04_gold_ai_enrichment_foundry", "type": "Notebook"},
+        {"id": "f478c3cb-4924-4736-9366-4264cd9b1a96", "displayName": "05_publish_and_validate", "type": "Notebook"},
+        {"id": "f10bf435-ca0f-4a41-9b4d-038e351de821", "displayName": "zz_probe_pipeline_data_verify", "type": "Notebook"},
+        {"id": "e44cad16-4a4b-4ba3-96e3-9be3ccf8000d", "displayName": "00_setup_lakehouse_and_config_STUDENT", "type": "Notebook"},
+        {"id": "97ae815f-226a-4b7d-99ac-dc4f6a2ee6a4", "displayName": "01_bronze_stac_ingest_STUDENT", "type": "Notebook"},
+        {"id": "394697a3-caa3-4ded-9c24-d44e543f77a5", "displayName": "02_silver_reproject_and_indices_STUDENT", "type": "Notebook"},
+        {"id": "77497ba3-983f-4475-a9df-2c6c26b45e8b", "displayName": "03_gold_forest_classification_STUDENT", "type": "Notebook"},
+        {"id": "581c0c5f-2714-40b8-b471-569bbfada0b9", "displayName": "04_gold_ai_enrichment_foundry_STUDENT", "type": "Notebook"}
+      ]
+    },
+    "protected_verification": [
+      {"id": "8a1192a3-d354-423c-82d2-302d2fd49c66", "name": "lh_woodlands", "type": "Lakehouse", "get_http_status": 200},
+      {"id": "c085ec59-5b1f-49de-80d3-36fadf82be82", "name": "lh_woodlands", "type": "SQLEndpoint", "get_http_status": 200},
+      {"id": "5e77036d-18d1-4eba-a0d5-cea55d2ea751", "name": "env_forestops", "type": "Environment", "get_http_status": 200},
+      {"id": "93ba24b6-cddf-4b84-a587-935d1513efb1", "name": "rayfintestenv", "type": "Capacity", "list_http_status": 200, "sku": "F64", "state": "Active", "observed_utc": "2026-09-17T17:14:31.6034696Z"}
+    ],
+    "protected_onelake_directories": [
+      {"path": "Files/bronze", "head_http_status": 200, "list_http_status": 200, "complete_single_page": true, "child_count": 1, "children": ["scenes"]},
+      {"path": "Tables", "head_http_status": 200, "list_http_status": 200, "complete_single_page": true, "child_count": 1, "children": ["dbo"]}
+    ],
+    "previously_removed_item_readbacks": [
+      {"id": "9eca318b-969a-4ff6-86ad-d3b745c14607", "name": "woodlands-chief-forester", "original_type": "AppBackend", "get_http_status": 404, "error_code": "EntityNotFound"},
+      {"id": "b128bab4-b583-4078-8779-2a5e7efce8f6", "name": "woodlands-chief-forester", "original_type": "SQLDatabase", "get_http_status": 404, "error_code": "EntityNotFound"},
+      {"id": "60a61b25-42e1-45eb-8911-958fa69e53d7", "name": "woodlands-chief-forester", "original_type": "SQLEndpoint", "get_http_status": 404, "error_code": "EntityNotFound"}
+    ],
+    "scope_compliance": {
+      "other_workspace_requests": 0,
+      "new_notebook_jobs": 0,
+      "notebook_deletes": 1,
+      "notebook_renames_updates_or_publishes": 0,
+      "student_binding_or_job_mutations": 0,
+      "onelake_mutations": 0,
+      "capacity_mutations": 0,
+      "hard_delete_requests": 0,
+      "definition_posts": 0,
+      "bearer_tokens_printed_or_persisted": false,
+      "local_tests_rerun": false,
+      "note": "Only the two requested evidence JSON files were edited. Existing stage/data validation facts remain historic; directory accessibility does not constitute a fresh row-level or pixel-level validation."
+    },
+    "remaining_cleanup_blockers": []
+  },
+  "remaining_blockers": [
+    "RESOLVED in final_cleanup: exact retired target notebook 06_publish_fabric_app_snapshot was deleted at 2026-09-17T17:13:13.5116989Z after identity and inactive-job checks; DELETE returned 200 and readback returned 404 EntityNotFound. Other workspaces remain out of scope.",
+    "RESOLVED in final_cleanup: main task archived six snapshot export files and reported the successful directory deletion; the single final HEAD of Files/app-snapshot returned 404 PathNotFound. Files/bronze and Tables remain accessible with their child directories present; deletion was not repeated.",
+    "No secure-erasure or retained-backup claim is made; no permanent-delete option was requested."
+  ]
+}

@@ -257,10 +257,6 @@ def build_stand_register(aoi_bbox, n_stands=SYNTHETIC_STAND_COUNT, seed=RANDOM_S
     grid = grid[grid.intersects(frame.geometry.iloc[0])].reset_index(drop=True)
     #@end
 
-    if len(grid) > n_stands:
-        keep = rng.choice(len(grid), size=n_stands, replace=False)
-        grid = grid.iloc[sorted(keep)].reset_index(drop=True)
-
     # Jitter the vertices so the stands look surveyed rather than tessellated.
     jitter = spacing * 0.06
     grid["geometry"] = [
@@ -268,6 +264,12 @@ def build_stand_register(aoi_bbox, n_stands=SYNTHETIC_STAND_COUNT, seed=RANDOM_S
                  for x, y in geom.exterior.coords[:-1]])
         for geom in grid.geometry
     ]
+
+    grid = grid[grid.geometry.is_valid & grid.within(frame.geometry.iloc[0])].reset_index(drop=True)
+    if len(grid) < n_stands:
+        raise ValueError(f"Only {len(grid)} valid interior cells are available for {n_stands} stands")
+    keep = rng.choice(len(grid), size=n_stands, replace=False)
+    grid = grid.iloc[sorted(keep)].reset_index(drop=True)
 
     n = len(grid)
     natural = rng.random(n) < 0.30
