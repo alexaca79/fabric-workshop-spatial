@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Woodlands | Download Sentinel-2 imagery</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme = param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --cp-bg: #f7f4ef;
+      --cp-bg-elevated: #fcfbf8;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #f5f5f5;
+      --cp-border: #dedede;
+      --cp-border-strong: #919191;
+      --cp-text: #242424;
+      --cp-text-muted: #5c5c5c;
+      --cp-text-soft: #6f6f6f;
+      --cp-accent: #b11f4b;
+      --cp-accent-hover: #9a1a41;
+      --cp-accent-soft: rgba(177, 31, 75, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #0078d4;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.86);
+      --cp-panel-strong: rgba(255, 255, 255, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.55);
+      --cp-highlight: rgba(177, 31, 75, 0.12);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #3d3b3a;
+      --cp-bg-elevated: #343231;
+      --cp-surface: #292929;
+      --cp-surface-soft: #2e2e2e;
+      --cp-border: #474747;
+      --cp-border-strong: #5f5f5f;
+      --cp-text: #dedede;
+      --cp-text-muted: #919191;
+      --cp-text-soft: #b0b0b0;
+      --cp-accent: #fd8ea1;
+      --cp-accent-hover: #fb7b91;
+      --cp-accent-soft: rgba(253, 142, 161, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #4da6ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-overlay: rgba(41, 41, 41, 0.88);
+      --cp-panel: rgba(41, 41, 41, 0.72);
+      --cp-panel-strong: rgba(41, 41, 41, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.04);
+      --cp-highlight: rgba(253, 142, 161, 0.12);
+    }
+    * { box-sizing: border-box; letter-spacing: 0; }
+    body { margin: 0; background: var(--cp-surface); color: var(--cp-text); font: 16px/1.45 "Segoe UI", Aptos, Calibri, sans-serif; }
+    header { border-bottom: 1px solid var(--cp-border); padding: 16px 24px; background: var(--cp-surface-soft); }
+    header span { color: var(--cp-text-muted); margin-left: 12px; }
+    main { max-width: 960px; margin: 0 auto; padding: 28px 24px 40px; }
+    h1 { font-size: 28px; line-height: 1.2; margin: 0 0 8px; }
+    p { margin: 8px 0 16px; }
+    .scene { display: grid; grid-template-columns: 1fr 160px; gap: 24px; align-items: start; }
+    .scene img { width: 160px; height: 128px; object-fit: cover; border: 1px solid var(--cp-border); }
+    .scene small { display: block; overflow-wrap: anywhere; color: var(--cp-text-muted); }
+    a { color: var(--cp-link); }
+    .row { display: grid; grid-template-columns: 1fr 92px 116px; gap: 16px; align-items: center; border-bottom: 1px solid var(--cp-border); padding: 14px 0; }
+    .row code { display: block; font: 12px/1.5 Consolas, "Courier New", monospace; color: var(--cp-text-muted); overflow-wrap: anywhere; }
+    .size { font-variant-numeric: tabular-nums; text-align: right; color: var(--cp-text-muted); font-size: 14px; }
+    button { min-height: 44px; border: 1px solid var(--cp-border-strong); border-radius: 4px; padding: 8px 12px; background: var(--cp-surface); color: var(--cp-text); font: inherit; cursor: pointer; }
+    button:hover { background: var(--cp-accent-soft); border-color: var(--cp-accent); }
+    button:focus-visible, a:focus-visible { outline: 3px solid var(--cp-link); outline-offset: 3px; }
+    button:disabled { opacity: 0.55; cursor: wait; }
+    #status { min-height: 52px; padding: 12px 0; color: var(--cp-text-muted); }
+    #status.error { color: var(--cp-danger); }
+    footer { margin-top: 20px; color: var(--cp-text-muted); font-size: 13px; }
+    #retry { display: none; }
+    @media (max-width: 560px) {
+      header { padding: 12px 16px; }
+      header span { display: block; margin: 4px 0 0; }
+      main { padding: 22px 16px; }
+      h1 { font-size: 24px; }
+      .scene { grid-template-columns: 1fr; gap: 12px; }
+      .scene img { width: 100%; height: 132px; object-fit: contain; background: var(--cp-surface-soft); }
+      .row { grid-template-columns: minmax(0, 1fr) 104px; gap: 10px; }
+      .size { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header><strong>WOODLANDS / FABRIC</strong><span>Lab 01 input files</span></header>
+  <main>
+    <section class="scene" aria-label="Selected scene">
+      <div>
+        <h1>Sentinel-2, June 29, 2026</h1>
+        <p>Central New Brunswick / Tile 19TFM / EPSG:32619</p>
+        <small id="scene-id">S2C_MSIL2A_20260629T152621_R068_T19TFM_20260629T201011</small>
+        <p><a id="catalogue" target="_blank" rel="noopener noreferrer">Source metadata</a></p>
+      </div>
+      <img id="preview" alt="Sentinel-2 natural-colour preview of the selected New Brunswick scene" hidden>
+    </section>
+    <div id="files" aria-label="Original scene files"></div>
+    <p id="status" role="status" aria-live="polite">Loading Planetary Computer metadata...</p>
+    <button id="retry" type="button">Retry connection</button>
+    <footer>Microsoft Planetary Computer / Copernicus Sentinel data 2026. Five original TIFFs: approximately 685 MB. The preview is not an analysis input.</footer>
+    <noscript>JavaScript is required for these download controls. Use the signing-link fallback in the imagery handout.</noscript>
+  </main>
+  <script>
+    const sceneId = document.getElementById("scene-id").textContent;
+    const itemUrl = `https://planetarycomputer.microsoft.com/api/stac/v1/collections/sentinel-2-l2a/items/${sceneId}`;
+    const bands = [["B04", "Red / 10 m", "245.9 MB"], ["B08", "Near infrared / 10 m", "296.0 MB"],
+      ["B11", "Shortwave infrared / 20 m", "72.5 MB"], ["B12", "Shortwave infrared / 20 m", "69.9 MB"],
+      ["SCL", "Scene classification / 20 m", "0.8 MB"]];
+    const status = document.getElementById("status");
+    document.getElementById("catalogue").href = itemUrl;
+
+    async function readJson(url) {
+      const response = await fetch(url, {credentials: "omit", signal: AbortSignal.timeout(45000)});
+      if (!response.ok) throw new Error(`Planetary Computer returned HTTP ${response.status}. Retry the connection.`);
+      return response.json();
+    }
+
+    function showStatus(text, error = false) {
+      status.textContent = text;
+      status.className = error ? "error" : "";
+    }
+
+    function addRow(title, filename, size, download) {
+      const row = document.createElement("div");
+      row.className = "row";
+      const label = document.createElement("div");
+      const heading = document.createElement("strong");
+      heading.textContent = title;
+      const name = document.createElement("code");
+      name.textContent = filename;
+      label.append(heading, name);
+      const bytes = document.createElement("span");
+      bytes.className = "size";
+      bytes.textContent = size;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = "Download";
+      button.setAttribute("aria-label", `Download ${filename}`);
+      button.addEventListener("click", async () => {
+        button.disabled = true;
+        try {
+          await download();
+          showStatus(`Requested ${filename}. Confirm it finishes in your browser's Downloads before uploading.`);
+        } catch (error) {
+          showStatus(error.name === "TimeoutError" ? "Connection timed out. Retry this file." : "Download could not start. Check your connection and retry this file.", true);
+        } finally {
+          button.disabled = false;
+        }
+      });
+      row.append(label, bytes, button);
+      document.getElementById("files").append(row);
+    }
+
+    async function load() {
+      document.getElementById("files").replaceChildren();
+      document.getElementById("retry").style.display = "none";
+      showStatus("Loading Planetary Computer metadata...");
+      try {
+        const item = await readJson(itemUrl);
+        if (item.id !== sceneId || item.collection !== "sentinel-2-l2a") throw new Error("Unexpected scene metadata");
+        for (const asset of Object.values(item.assets)) {
+          const address = new URL(asset.href);
+          if (address.hostname.endsWith(".blob.core.windows.net")) {
+            address.search = "";
+            address.hash = "";
+            asset.href = address.href;
+          }
+        }
+        const metadata = new Blob([JSON.stringify(item, null, 2) + "\n"], {type: "application/json"});
+        addRow("STAC metadata", "item.json", "~22 KB", async () => {
+          const link = document.createElement("a");
+          const objectUrl = URL.createObjectURL(metadata);
+          link.href = objectUrl;
+          link.download = "item.json";
+          document.body.append(link);
+          link.click();
+          link.remove();
+          setTimeout(() => URL.revokeObjectURL(objectUrl), 10000);
+        });
+        for (const [band, label, size] of bands) {
+          const source = new URL(item.assets[band].href);
+          if (source.protocol !== "https:" || !source.hostname.endsWith(".blob.core.windows.net")) throw new Error("Unexpected asset location");
+          const filename = decodeURIComponent(source.pathname.split("/").pop());
+          addRow(`${band} / ${label}`, filename, size, async () => {
+            const signingUrl = new URL("https://planetarycomputer.microsoft.com/api/sas/v1/sign");
+            signingUrl.searchParams.set("href", source.href);
+            const signed = await readJson(signingUrl);
+            const destination = new URL(signed.href);
+            if (destination.origin !== source.origin || destination.pathname !== source.pathname) throw new Error("Unexpected signed destination");
+            const link = document.createElement("a");
+            link.href = destination.href;
+            link.download = filename;
+            link.referrerPolicy = "no-referrer";
+            document.body.append(link);
+            link.click();
+            link.remove();
+          });
+        }
+        const preview = document.getElementById("preview");
+        preview.onload = () => { preview.hidden = false; };
+        preview.src = item.assets.rendered_preview.href;
+        showStatus("Ready: item.json and five original TIFFs.");
+      } catch (error) {
+        showStatus("Cannot reach Planetary Computer. Check your connection and retry, or use the handout's signing-link fallback.", true);
+        document.getElementById("retry").style.display = "inline-block";
+      }
+    }
+    document.getElementById("retry").addEventListener("click", load);
+    load();
+  </script>
+</body>
+</html>

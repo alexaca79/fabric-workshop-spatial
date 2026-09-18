@@ -1,12 +1,9 @@
-# Notebook 04: Gold - AI enrichment with Microsoft Foundry, and its guardrails
-# Session 2, Step 3 at 2:05. Budget 45 minutes.
-
 # %% [markdown]
-# # 04 · Add AI where it earns its place
+# # Lab 04 - Validate offline stand narratives
 #
-# **Session 2, Step 3.** A language model turns twelve numeric columns into a
-# two-sentence note a planner reads in a tooltip. It is never asked to calculate,
-# classify or decide.
+# Build and validate two-sentence stand notes from the Gold measurements. This
+# classroom notebook uses deterministic offline examples, not a model service.
+# The native Fabric Data Agent is created separately after Lab 05.
 #
 # ## Where a model earns its place here
 #
@@ -28,22 +25,16 @@
 # well. Everything in this notebook exists to make that failure visible.
 
 # %%
-# The Environment carries the geospatial stack. `openai` is deliberately not in
-# it, because this notebook must stay runnable with USE_OFFLINE_STUB when nobody
-# has Foundry access. Install it only if you are running the live AI path.
-# %pip install -q openai
+print("Offline narrative exercise: no endpoint, API key or model download is required.")
 
 # %% [markdown]
 # ## Step 1 · Configuration
 #
-# `USE_OFFLINE_STUB` keeps this notebook runnable without Foundry access. The
-# stub produces the same table shape, so nothing downstream has to know whether
-# AI was enabled. That is what makes `enable_ai=false` a supported configuration
-# rather than a broken one.
+# The output table records `stubbed` for valid offline text and suppresses invalid
+# text. A stub is a classroom example, not evidence of a live model response.
 
 # %%
 import json
-import os
 import re
 from datetime import datetime, timezone
 
@@ -53,33 +44,23 @@ from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.getOrCreate()
 
-FOUNDRY_ENDPOINT = os.environ.get("FOUNDRY_ENDPOINT", "")
-FOUNDRY_API_KEY = os.environ.get("FOUNDRY_API_KEY", "")
-FOUNDRY_DEPLOYMENT = os.environ.get("FOUNDRY_DEPLOYMENT", "gpt-4o-mini")
-FOUNDRY_API_VERSION = os.environ.get("FOUNDRY_API_VERSION", "2024-10-21")
-
-USE_OFFLINE_STUB = not (FOUNDRY_ENDPOINT and FOUNDRY_API_KEY)
-
 NARRATIVE_SAMPLE_SIZE = 40   # keep the workshop run short and cheap
 BATCH_SIZE = 10
 
 # --- Medallion layer --------------------------------------------------------
 # Reads and writes gold only, so no cross-layer shortcuts are needed here.
 LAYER = "gold"
-WORKSPACE = "jdi-mock-training-gold"
-LAKEHOUSE = "lh_gold"
+WORKSPACE = "jdi-training"
+LAKEHOUSE = "lh_woodlands"
 
 TABLE_CLASSIFICATION = "gold_stand_classification"
 TABLE_CHANGE = "gold_stand_change"
 TABLE_NARRATIVE = "gold_stand_narrative"
 
-
 def report(name, ok, detail=""):
     print(f"[{'PASS' if ok else 'FAIL'}] {name:<44} {detail}")
 
-
-print(f"Foundry endpoint configured: {bool(FOUNDRY_ENDPOINT)}")
-print(f"Running mode: {'offline stub' if USE_OFFLINE_STUB else f'live model, {FOUNDRY_DEPLOYMENT}'}")
+print("Running mode: offline stub")
 
 # %% [markdown]
 # ## Step 2 · Assemble the input rows
@@ -123,7 +104,7 @@ def build_stand_payload(row):
     #@hint Deliberately omit anything the planner should not see in a tooltip
     #@hint Keep nulls as None rather than filling them. The model must be told the value is missing.
     #@stub return {"stand_id": row.get("stand_id")}
-    #@solution
+#@solution
     return {
         "stand_id": row.get("stand_id"),
         "licence_block": row.get("licence_block"),
@@ -139,8 +120,7 @@ def build_stand_payload(row):
         "observation_count": row.get("observation_count"),
         "period_end": str(row.get("period_end")) if row.get("period_end") is not None else None,
     }
-    #@end
-
+#@end
 
 sample_payload = build_stand_payload(rows.iloc[0].to_dict())
 print(json.dumps(sample_payload, indent=2, default=str))
@@ -234,14 +214,12 @@ print("reading the output. Both belong in your test set.")
 # %%
 NUMBER_PATTERN = re.compile(r"-?\d+(?:\.\d+)?")
 
-
 def canonical(value):
     """Normalise a number so 0.70, 0.7 and .7 compare equal."""
     try:
         return f"{float(value):g}"
     except (TypeError, ValueError):
         return str(value)
-
 
 def allowed_numbers(payload):
     """Every numeric token the model is permitted to reproduce."""
@@ -251,7 +229,7 @@ def allowed_numbers(payload):
     #@todo Return the set
     #@hint period_end is a string like "2026-08-31" and contains three legitimate numbers
     #@stub return set()
-    #@solution
+#@solution
     allowed = set()
     for value in payload.values():
         if isinstance(value, (int, float)) and value == value:
@@ -259,8 +237,7 @@ def allowed_numbers(payload):
         elif isinstance(value, str):
             allowed.update(canonical(tok) for tok in NUMBER_PATTERN.findall(value))
     return allowed
-    #@end
-
+#@end
 
 def validate_response(text, payload):
     """Parse and check a model response against the row that produced it."""
@@ -273,7 +250,7 @@ def validate_response(text, payload):
     #@todo Otherwise return (parsed, "ok")
     #@hint Return the parsed object even on numeric_mismatch, so the failure can be inspected
     #@stub return None, "schema_invalid"
-    #@solution
+#@solution
     try:
         parsed = json.loads(text)
     except json.JSONDecodeError:
@@ -292,8 +269,7 @@ def validate_response(text, payload):
         return parsed, "numeric_mismatch"
 
     return parsed, "ok"
-    #@end
-
+#@end
 
 # %% [markdown]
 # ### Prove the guard works
@@ -327,13 +303,12 @@ report("malformed response is caught", validate_response(malformed_response, sam
 # %% [markdown]
 # ## Step 7 · The offline stub
 #
-# Deterministic, no model, same table shape. This is what keeps the pipeline
-# runnable for participants without Foundry access and makes `enable_ai=false` a
-# tested path rather than a hopeful one.
+# Deterministic text keeps this exercise reproducible for either imagery route.
+# Validate it against the same structured payload before writing the Gold table.
 
 # %%
 def offline_stub(payload):
-    """Deterministic narrative used when Foundry is unavailable."""
+    """Return a deterministic classroom narrative from measured inputs."""
     cls = payload.get("spectral_class") or "unclassified"
     ndmi = payload.get("ndmi_mean")
     change_type = payload.get("change_type") or "none"
@@ -349,7 +324,6 @@ def offline_stub(payload):
     attention = "review" if change_type in {"disturbance", "moisture_stress"} else "none"
     return {"summary": f"{first} {second}", "attention": attention, "values_used": []}
 
-
 print(offline_stub(sample_payload)["summary"])
 print()
 print(offline_stub({**sample_payload, "ndmi_mean": None})["summary"])
@@ -361,53 +335,22 @@ print("to clear, and it is a low bar that models miss regularly.")
 # %% [markdown]
 # ## Step 8 · Generate
 #
-# Temperature zero, because this is a formatting task rather than a creative one.
-# Two runs over the same row should produce the same sentence. A planner who
-# refreshes the report and sees new wording will not trust either version.
+# Serialize the offline response and run the schema/numeric checks from Step 5.
+# Only validated text is retained. No external service is contacted.
 
 # %%
-def create_client():
-    if USE_OFFLINE_STUB:
-        return None
-    from openai import AzureOpenAI
-
-    return AzureOpenAI(
-        azure_endpoint=FOUNDRY_ENDPOINT,
-        api_key=FOUNDRY_API_KEY,
-        api_version=FOUNDRY_API_VERSION,
-    )
-
-
-def generate_narrative(client, payload):
-    """One schema-constrained completion for one stand."""
-    #@todo Call client.chat.completions.create with the deployment, temperature 0,
-    #@todo response_format json_object, the system prompt, and the payload as JSON
-    #@todo Return the message content
-    #@hint response_format={"type": "json_object"} is enforced by the service; asking in prose is not
-    #@stub return ""
-    #@solution
-    response = client.chat.completions.create(
-        model=FOUNDRY_DEPLOYMENT,
-        temperature=0,
-        response_format={"type": "json_object"},
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {
-                "role": "user",
-                "content": (
-                    "Write the stand note from these values only.\n"
-                    f"Return JSON with keys: {list(RESPONSE_KEYS)}.\n\n"
-                    f"{json.dumps(payload, indent=2)}"
-                ),
-            },
-        ],
-    )
-    return response.choices[0].message.content or ""
-    #@end
-
+def generate_narrative(payload):
+    """Validate one offline response before labelling it as a stub."""
+    #@todo Serialize offline_stub(payload) with json.dumps and validate_response
+    #@todo Return the parsed response and "stubbed" only if validation returned "ok"
+    #@hint Preserve the original validation status when the response is invalid.
+    #@stub return None, "not_completed"
+#@solution
+    parsed, status = validate_response(json.dumps(offline_stub(payload)), payload)
+    return parsed, "stubbed" if status == "ok" else status
+#@end
 
 # %%
-client = create_client()
 generated_at = datetime.now(timezone.utc)
 records = []
 
@@ -416,23 +359,14 @@ for start in range(0, len(rows), BATCH_SIZE):
     for _, row in batch.iterrows():
         payload = build_stand_payload(row.to_dict())
 
-        #@todo If USE_OFFLINE_STUB, call offline_stub and set status to "stubbed"
-        #@todo Otherwise call generate_narrative and validate_response
-        #@todo Catch any exception and set status to "suppressed:<ExceptionName>"
-        #@todo Set narrative to the summary only when status is ok or stubbed, else None
-        #@hint A failed call must never fail the whole run. Notebook 05 depends on this table existing.
-        #@stub parsed, status = offline_stub(payload), "stubbed"
-        #@solution
-        if USE_OFFLINE_STUB:
-            parsed, status = offline_stub(payload), "stubbed"
-        else:
-            try:
-                parsed, status = validate_response(generate_narrative(client, payload), payload)
-            except Exception as exc:
-                parsed, status = None, f"suppressed:{type(exc).__name__}"
-
-        narrative = parsed["summary"] if parsed and status in {"ok", "stubbed"} else None
-        #@end
+        #@todo Call generate_narrative(payload), retaining its parsed response and status
+        #@todo Keep the summary only for a validated "stubbed" response, otherwise use None
+        #@hint A rejected narrative remains visible through validation_status.
+        #@stub parsed, status, narrative = None, "not_completed", None
+#@solution
+        parsed, status = generate_narrative(payload)
+        narrative = parsed["summary"] if parsed and status == "stubbed" else None
+#@end
 
         records.append({
             "stand_id": payload["stand_id"],
@@ -440,7 +374,7 @@ for start in range(0, len(rows), BATCH_SIZE):
             "narrative": narrative,
             "attention": (parsed or {}).get("attention", "none"),
             "validation_status": status,
-            "model_deployment": "offline-stub" if USE_OFFLINE_STUB else FOUNDRY_DEPLOYMENT,
+            "model_deployment": "offline-stub",
             "generated_at_utc": generated_at,
         })
 
@@ -453,8 +387,8 @@ print(narratives["validation_status"].value_counts())
 # %% [markdown]
 # ### Why batch and print
 #
-# A 500-stand run that fails at stand 480 with nothing written is an afternoon
-# nobody gets back. Writing per batch turns a total loss into a partial one.
+# Progress is printed per batch. The next step writes the complete result table;
+# a printed batch count alone does not prove that anything was saved.
 
 # %% [markdown]
 # ## Step 9 · Read some
@@ -531,7 +465,6 @@ def validate_without_guard(text, payload):
         parsed = None
     return (parsed, "ok") if parsed else (None, "schema_invalid")
 
-
 _, guarded = validate_response(invented_response, sample_payload)
 _, unguarded = validate_without_guard(invented_response, sample_payload)
 
@@ -546,8 +479,9 @@ print("as a validated fact. Nothing about the sentence signals a problem.")
 # ## Checkpoint
 #
 # You are done when `gold_stand_narrative` exists, every row carries a
-# `validation_status`, and at least one row has a status other than `ok` or
-# `stubbed`, because that means the guard is doing its job.
+# `validation_status`, and the result matches the selected mode. In offline mode,
+# every row should be `stubbed`. In live mode, review every non-`ok` status to
+# confirm the numeric guard is doing its job.
 #
 # ## What to take away
 #

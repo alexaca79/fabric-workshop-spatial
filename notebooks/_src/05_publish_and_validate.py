@@ -1,31 +1,11 @@
-# Notebook 05: Publish - star schema, Direct Lake semantic model, and automation
-# Session 2, Steps 4 and 5 at 2:50. Budget 45 minutes plus 25.
-
 # %% [markdown]
-# # 05 · Publish it, then make it repeatable
+# # Lab 05 - Publish Gold tables and the Fabric Map layer
 #
-# **Session 2, Steps 4 and 5.** Build the star schema Direct Lake wants, confirm
-# Direct Lake is actually being used, and wire the five notebooks into a
-# scheduled pipeline.
+# Build and validate the Gold fact and dimension tables, write the run summary,
+# and export every stand as a WGS84 polygon. These outputs support the native
+# Fabric Map and Fabric Data Agent that you create from the handout.
 #
-# ## Why Direct Lake
-#
-# The gold tables are already Delta files in OneLake. Direct Lake reads them
-# directly: no import refresh to schedule, no duplicate copy, no DirectQuery
-# round trip per visual.
-#
-# The cost is discipline in the model. A star schema, a real date table, and
-# nothing that forces a fallback. The fallback is silent by default, which is why
-# this notebook checks for it explicitly.
-#
-# ## What forces a fallback
-#
-# | Cause | Fix |
-# |---|---|
-# | Binary columns in the model | Keep WKB in the Lakehouse, publish lat and lon as doubles |
-# | Calculated columns on large tables | Compute them here, in Spark, and store them |
-# | A view rather than a table | Materialise it |
-# | Row counts above the capacity limit | Aggregate, or move up an SKU |
+# No semantic model, report, scheduled pipeline or external application is needed.
 
 # %%
 from datetime import date, datetime, timezone
@@ -41,14 +21,13 @@ CRS_WGS84 = 4326
 CRS_ANALYSIS = 2953
 
 # --- Medallion layer --------------------------------------------------------
-# Writes to gold. Note this notebook reaches all the way back to bronze for the
-# stand register, so lh_gold needs a shortcut to bronze as well as to silver.
-# That surprises people, so it is called out here rather than buried.
+# Writes Gold publishing tables and reads the Bronze register from the shared
+# lab lakehouse.
 LAYER = "gold"
-WORKSPACE = "jdi-mock-training-gold"
-LAKEHOUSE = "lh_gold"
+WORKSPACE = "jdi-training"
+LAKEHOUSE = "lh_woodlands"
 
-TABLE_STAND_REGISTER = "bronze_stand_register"      # shortcut -> bronze
+TABLE_STAND_REGISTER = "bronze_stand_register"
 TABLE_CLASSIFICATION = "gold_stand_classification"
 TABLE_CHANGE = "gold_stand_change"
 TABLE_NARRATIVE = "gold_stand_narrative"
@@ -58,10 +37,8 @@ TABLE_DIM_STAND = "gold_dim_stand"
 TABLE_DIM_DATE = "gold_dim_date"
 TABLE_DIM_CLASS = "gold_dim_forest_class"
 
-
 def report(name, ok, detail=""):
     print(f"[{'PASS' if ok else 'FAIL'}] {name:<44} {detail}")
-
 
 # %% [markdown]
 # ## Step 1 · The star schema
@@ -87,13 +64,11 @@ def report(name, ok, detail=""):
 from shapely import wkb
 import geopandas as gpd
 
-
 def load_stand_register(table):
     pdf = spark.table(table).toPandas()
     srids = pdf["srid"].dropna().unique()
     geometry = [wkb.loads(bytes(v)) if v is not None else None for v in pdf["geometry_wkb"]]
     return gpd.GeoDataFrame(pdf.drop(columns=["geometry_wkb"]), geometry=geometry, crs=int(srids[0]))
-
 
 register = load_stand_register(TABLE_STAND_REGISTER)
 
@@ -260,7 +235,6 @@ def write_gold(df, table):
     )
     return spark.table(table).count()
 
-
 for frame, table in [
     (facts, TABLE_FACTS),
     (dim_stand, TABLE_DIM_STAND),
@@ -317,176 +291,7 @@ display(spark.sql(f"""
 """))
 
 # %% [markdown]
-# ## Step 9 · Build the semantic model
-#
-# This part happens in the Fabric portal. Ten minutes, and it is the block that
-# runs long, because it involves several clicks in places people have not looked
-# before.
-#
-# 1. Open `lh_gold`, then **New semantic model** from the ribbon.
-# 2. Name it `sm_woodlands_forest`.
-# 3. Include exactly four tables: `gold_stand_facts`, `gold_dim_stand`,
-#    `gold_dim_date`, `gold_dim_forest_class`.
-# 4. In the model view, create the relationships:
-#
-#    | From | To | Cardinality |
-#    |---|---|---|
-#    | `gold_stand_facts[stand_id]` | `gold_dim_stand[stand_id]` | many to one |
-#    | `gold_stand_facts[date_key]` | `gold_dim_date[date_key]` | many to one |
-#    | `gold_stand_facts[forest_class]` | `gold_dim_forest_class[forest_class]` | many to one |
-#
-# 5. Select `gold_dim_date`, then **Mark as date table**, using the `date` column.
-# 6. Sort `forest_class` by `display_order` so the legend reads in a sensible
-#    order rather than alphabetically.
-#
-# ### Measures
-#
-# Add these in the model. They are the four a planner actually uses.
-#
-# ```dax
-# Stand Count = DISTINCTCOUNT ( gold_stand_facts[stand_id] )
-#
-# Total Area (ha) = SUM ( gold_stand_facts[area_ha] )
-#
-# Harvested Area (ha) =
-# CALCULATE (
-#     [Total Area (ha)],
-#     gold_stand_facts[change_type] = "harvest"
-# )
-#
-# Stands Needing Review =
-# CALCULATE (
-#     [Stand Count],
-#     gold_stand_facts[requires_review] = TRUE ()
-# )
-#
-# Trusted Coverage % =
-# DIVIDE (
-#     CALCULATE ( [Stand Count], gold_stand_facts[is_trusted] = TRUE () ),
-#     [Stand Count]
-# )
-# ```
-#
-# `Trusted Coverage %` belongs on the report page, visible, not hidden in a
-# tooltip. A planner looking at a month where only 40 percent of stands had
-# usable imagery needs to know that without asking.
-
-# %% [markdown]
-# ## Step 10 · Confirm Direct Lake is actually being used
-#
-# The fallback to DirectQuery is silent. Check rather than assume.
-#
-# In the Power BI service, open the semantic model settings and look at the
-# Direct Lake behaviour, or run a Performance Analyzer trace on the report page
-# and read the query type in the trace.
-#
-# The checks below catch the causes before the model is even created.
-
-# %%
-issues = []
-
-for table in (TABLE_FACTS, TABLE_DIM_STAND, TABLE_DIM_DATE, TABLE_DIM_CLASS):
-    schema = spark.table(table).schema
-    binary_cols = [f.name for f in schema.fields if f.dataType.typeName() == "binary"]
-    if binary_cols:
-        issues.append(f"{table} carries binary columns {binary_cols}, which force a DirectQuery fallback")
-
-    rows = spark.table(table).count()
-    if rows > 300_000_000:
-        issues.append(f"{table} has {rows:,} rows, above the Direct Lake limit for smaller SKUs")
-
-if not spark.catalog.tableExists(TABLE_FACTS):
-    issues.append(f"{TABLE_FACTS} does not exist")
-
-for issue in issues:
-    print(f"  ISSUE  {issue}")
-report("no known Direct Lake fallback causes", not issues,
-       "checked binary columns and row counts")
-
-# %% [markdown]
-# ## Step 11 · Build the report page
-#
-# One page, four visuals, answering the problem statement.
-#
-# | Visual | Type | Configuration |
-# |---|---|---|
-# | Stand map | Map | Latitude `lat`, Longitude `lon`, Legend `forest_class`, Size `Total Area (ha)` |
-# | Area by class | Stacked column | Axis `month_name`, Legend `forest_class`, Value `Total Area (ha)` |
-# | Review queue | Table | `stand_id`, `licence_block`, `change_type`, `severity`, `area_ha`, `narrative` |
-# | Coverage card | Card | `Trusted Coverage %` |
-#
-# Add a slicer on `gold_dim_date[month_name]` and one on
-# `gold_dim_stand[licence_block]`.
-#
-# ### The tooltip
-#
-# Put `narrative` in the map tooltip. Where a narrative was suppressed, show a
-# message rather than a blank:
-#
-# ```dax
-# Stand Note =
-# COALESCE (
-#     SELECTEDVALUE ( gold_stand_facts[narrative] ),
-#     "No validated summary for this stand and period."
-# )
-# ```
-#
-# A blank tooltip reads as a bug. An explicit message reads as a system that
-# knows what it does not know.
-
-# %% [markdown]
-# ## Step 12 · Make it repeatable
-#
-# **Session 2, Step 5.** The pipeline definition is in
-# `pipelines/forest_classification_pipeline.json`. Import it, or build it in the
-# portal from the structure below.
-#
-# ```
-# [ Set run parameters ]
-#            |
-#            v
-# [ 01 bronze STAC ingest ]
-#            |
-#            v
-# [ 02 silver reproject and indices ]
-#            |
-#            v
-#     < quality gate >  ---- fails ---->  [ Notify and stop ]
-#            |
-#         passes
-#            v
-# [ 03 gold classification ]
-#            |
-#            v
-#   < enable_ai = true >  ---- false ---->  skip
-#            |
-#          true
-#            v
-# [ 04 AI enrichment ]
-#            |
-#            v
-# [ 05 publish ]
-#            |
-#            v
-# [ Refresh semantic model ]
-# ```
-#
-# ### Parameters
-#
-# | Parameter | Example | Purpose |
-# |---|---|---|
-# | `aoi_name` | `central-nb-block-a` | Names outputs and partitions |
-# | `aoi_bbox` | `[-66.9, 46.1, -66.4, 46.4]` | West, south, east, north |
-# | `date_start` | `2026-06-01` | Compositing window |
-# | `date_end` | `2026-08-31` | |
-# | `max_cloud_cover` | `20` | STAC filter |
-# | `enable_ai` | `true` | Skips notebook 04 when false |
-#
-# Parameters, not values edited inside notebooks. The moment someone has to open
-# a notebook to change a date, the pipeline has stopped being automated.
-
-# %% [markdown]
-# ## Step 13 · Publish the run summary
+# ## Step 9 - Publish the run summary
 #
 # One row per pipeline run, written every time. This is what you look at when
 # someone asks why last month's numbers moved.
@@ -516,13 +321,11 @@ print(run_summary.T)
 # %% [markdown]
 # ## Export the native Fabric Map layer
 #
-# Run this supplied cell after completing the Gold exercises. It exports one
-# reporting period as WGS84 polygons and keeps stands without a classified
-# result visible. Those stands are not the same as the `unclassified` class.
+# Run the supplied cell below after completing the Gold exercises. It exports the latest reporting period as WGS84 polygons to `Files/gold/maps/stand_classification.geojson` in your default lakehouse. It keeps every registered stand, including stands without a classified result. The `no_classified_result` display category is different from the classifier's `unclassified` class.
 #
-# The file is a snapshot, not a live Delta table. After changing the data,
-# rerun this export and refresh the map. Create the Map and Data Agent manually
-# using docs/16-manual-upload-labs.md. No Power BI model is required for them.
+# Confirm `readback` is `PASS` and `registered_stands = retained_stands + stands_without_result`. `register_coverage` uses all registered stands as its denominator. The export is a file snapshot: rerun it and refresh the map after changing the data.
+#
+# Next, follow [the manual walkthrough](../../docs/16-manual-upload-labs.md) to create a native Fabric Map and Fabric Data Agent in the portal. Neither item is created by this notebook, and neither requires a Power BI semantic model.
 
 # %%
 import json
@@ -612,7 +415,6 @@ def export_stand_map(register, facts, dim_class, output_path, period_end=None):
     }
 
 
-# %%
 map_export = export_stand_map(
     register, facts, dim_class,
     Path("/lakehouse/default/Files/gold/maps/stand_classification.geojson"),
@@ -620,38 +422,16 @@ map_export = export_stand_map(
 print(json.dumps(map_export, indent=2))
 
 # %% [markdown]
-# ## Step 14 · What breaks in production
-#
-# Rehearse these before they happen, because each one will.
-#
-# | Failure | What you see | What to do |
-# |---|---|---|
-# | No clear scene in the month | Trusted coverage collapses, gate closes | Publish the gap honestly. A month with no data is a real answer. |
-# | Area of interest crosses a UTM zone | Mosaic artefacts along a straight line | Reproject before mosaicking, which silver already does |
-# | Stand IDs change in the register | Orphaned facts, blanks in visuals | Version the register and keep a surrogate key |
-# | Foundry deployment version changes | Narrative wording shifts | `model_deployment` tells you which one wrote each row |
-# | Capacity throttled | Pipeline times out mid-run | Bronze is append-only, so a re-run is safe |
-#
-# The last row is the payoff for the bronze contract. Because bronze never
-# overwrites, a failed run costs time and nothing else.
-
-# %% [markdown]
 # ## Final checkpoint
 #
-# You are done when:
+# The notebook work is complete when:
 #
-# - Four gold model tables exist with clean referential integrity
-# - The semantic model is created and Direct Lake is confirmed
-# - A report page answers the problem statement from the start of the session
-# - The pipeline runs on a schedule with the quality gate wired in
+# - Four Gold model tables exist with clean referential integrity
+# - All required checks pass and the run summary is written
+# - The map GeoJSON readback passes and includes all registered stands
+# - The reporting period, coverage exclusions and offline narratives are explained
 #
-# ## Where to go next
-#
-# The assignment brief is in `docs/08-assignment.md`. Two weeks, your own
-# operating area, one extension of your choice.
-#
-# The thing worth carrying out of this room is not the classifier. It is the
-# shape: bronze that never lies about what arrived, silver that makes things
-# comparable, gold that means something to a named person making a named
-# decision, and a language model kept firmly on the side of the work where being
-# fluent is the whole job.
+# Next, follow the supplied manual walkthrough to create and test your native
+# Fabric Map and Fabric Data Agent. Both are required for the full manual
+# workshop, but neither is created by this notebook. Open the guide from the
+# extracted bundle's handouts folder; notebook import does not upload that guide.

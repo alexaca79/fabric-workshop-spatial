@@ -1,0 +1,811 @@
+{
+  "status": "verified",
+  "verified_at_utc": "2026-09-18T14:52:45.189254+00:00",
+  "branch": "feat/manual-planetary-download",
+  "scope": "Manual public-scene download, upload, and exact solution cells for Labs 00-05. Existing native Map/Data Agent workflow remains covered by the separate prior rehearsal receipt.",
+  "workspace": {
+    "name": "jdi-training-manual",
+    "id": "5785367c-0109-4ea9-beb5-05fb0edbe4dc"
+  },
+  "lakehouse": {
+    "name": "lh_woodlands_download_demo",
+    "id": "df380250-94dc-453c-a301-54f665b012c6",
+    "default_schema": "dbo"
+  },
+  "environment": {
+    "name": "env_forestops",
+    "runtime": "1.3",
+    "capacity": "rayfintestenv",
+    "sku": "F64"
+  },
+  "live_job": {
+    "id": "14deb9af-fee6-422f-aa69-ef98db5b68a8",
+    "itemId": "e1c83bfb-c21d-4a17-b650-ba7ab0b2e095",
+    "jobType": "RunNotebook",
+    "invokeType": "Manual",
+    "status": "Completed",
+    "failureReason": null,
+    "rootActivityId": "f652e29e-3570-4105-a91f-baf374dea1a1",
+    "startTimeUtc": "2026-09-18T14:21:47.7247473",
+    "endTimeUtc": "2026-09-18T14:25:09.8108403"
+  },
+  "live_verification": {
+    "started_at_utc": "2026-09-18T14:22:34.186750+00:00",
+    "status": "passed",
+    "labs": [
+      {
+        "notebook": "00_setup_lakehouse_and_config.ipynb",
+        "sha256": "9e53b9b6b02d54082024a2997b0629444e577425a2be48aebf1f33e721ea901e",
+        "cells": [
+          {
+            "number": 4,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 6,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 8,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 10,
+            "checks_passed": 3,
+            "status": "PASS"
+          },
+          {
+            "number": 12,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 14,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 16,
+            "checks_passed": 6,
+            "status": "PASS"
+          },
+          {
+            "number": 18,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 20,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 21,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 23,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 25,
+            "checks_passed": 4,
+            "status": "PASS"
+          },
+          {
+            "number": 27,
+            "checks_passed": 1,
+            "status": "PASS"
+          },
+          {
+            "number": 29,
+            "checks_passed": 0,
+            "status": "PASS"
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "notebook": "01_bronze_stac_ingest.ipynb",
+        "sha256": "f0350f1de39d4c68156a4cf12c15a1236b751f352635792be4c5d3341df5ad84",
+        "cells": [
+          {
+            "number": 4,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 6,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 9,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 11,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 13,
+            "checks_passed": 4,
+            "status": "PASS"
+          },
+          {
+            "number": 15,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 17,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 19,
+            "checks_passed": 5,
+            "status": "PASS"
+          },
+          {
+            "number": 21,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 24,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 26,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 28,
+            "checks_passed": 6,
+            "status": "PASS"
+          },
+          {
+            "number": 30,
+            "checks_passed": 2,
+            "status": "PASS"
+          },
+          {
+            "number": 32,
+            "checks_passed": 0,
+            "status": "PASS"
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "notebook": "02_silver_reproject_and_indices.ipynb",
+        "sha256": "5340df772c7a43dd912cd43842e5b4fb9066624ffc78c9f246722d9a6bf9b189",
+        "cells": [
+          {
+            "number": 4,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 6,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 8,
+            "checks_passed": 2,
+            "status": "PASS"
+          },
+          {
+            "number": 10,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 12,
+            "checks_passed": 3,
+            "status": "PASS"
+          },
+          {
+            "number": 14,
+            "checks_passed": 1,
+            "status": "PASS"
+          },
+          {
+            "number": 16,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 18,
+            "checks_passed": 2,
+            "status": "PASS"
+          },
+          {
+            "number": 20,
+            "checks_passed": 2,
+            "status": "PASS"
+          },
+          {
+            "number": 22,
+            "checks_passed": 2,
+            "status": "PASS"
+          },
+          {
+            "number": 24,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 27,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 29,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 31,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 32,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 34,
+            "checks_passed": 5,
+            "status": "PASS"
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "notebook": "03_gold_forest_classification.ipynb",
+        "sha256": "1a7677fb5c2f8a218b9223848201d5ace3888c78ea66b372cf61c3b6484a5702",
+        "cells": [
+          {
+            "number": 4,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 6,
+            "checks_passed": 3,
+            "status": "PASS"
+          },
+          {
+            "number": 8,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 10,
+            "checks_passed": 6,
+            "status": "PASS"
+          },
+          {
+            "number": 12,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 14,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 16,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 17,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 19,
+            "checks_passed": 4,
+            "status": "PASS"
+          },
+          {
+            "number": 22,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 24,
+            "checks_passed": 0,
+            "status": "PASS"
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "notebook": "04_gold_ai_enrichment_foundry.ipynb",
+        "sha256": "bc187984d4862427623abb7969a8f47d95666c66ba7d11a9d80c3097b02cb0f4",
+        "cells": [
+          {
+            "number": 3,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 5,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 7,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 9,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 11,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 14,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 16,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 18,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 20,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 22,
+            "checks_passed": 3,
+            "status": "PASS"
+          },
+          {
+            "number": 24,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 26,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 27,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 30,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 32,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 34,
+            "checks_passed": 5,
+            "status": "PASS"
+          },
+          {
+            "number": 36,
+            "checks_passed": 0,
+            "status": "PASS"
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "notebook": "05_publish_and_validate.ipynb",
+        "sha256": "72c55450b8cf49fee0e206ba07f7c002b08e4f90ce5463014b9b624b2c20e033",
+        "cells": [
+          {
+            "number": 3,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 6,
+            "checks_passed": 3,
+            "status": "PASS"
+          },
+          {
+            "number": 9,
+            "checks_passed": 2,
+            "status": "PASS"
+          },
+          {
+            "number": 11,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 13,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 15,
+            "checks_passed": 4,
+            "status": "PASS"
+          },
+          {
+            "number": 17,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 19,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 21,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 23,
+            "checks_passed": 0,
+            "status": "PASS"
+          },
+          {
+            "number": 25,
+            "checks_passed": 0,
+            "status": "PASS"
+          }
+        ],
+        "status": "PASS"
+      }
+    ],
+    "map_export": {
+      "path": "/lakehouse/default/Files/gold/maps/stand_classification.geojson",
+      "period_end": "2026-08-31",
+      "registered_stands": 120,
+      "retained_stands": 119,
+      "stands_without_result": 1,
+      "register_coverage": 0.9916666666666667,
+      "readback": "PASS"
+    },
+    "tables": {
+      "bronze_stand_register": 120,
+      "bronze_scene_catalog": 1,
+      "silver_stand_observations": 120,
+      "gold_stand_classification": 119,
+      "gold_stand_change": 119,
+      "gold_stand_narrative": 40,
+      "gold_stand_facts": 119,
+      "gold_dim_stand": 120,
+      "gold_dim_date": 365,
+      "gold_dim_forest_class": 7,
+      "gold_pipeline_run_summary": 1
+    },
+    "finished_at_utc": "2026-09-18T14:25:02.112540+00:00"
+  },
+  "failed_attempts": [
+    {
+      "job": {
+        "id": "9a2fd670-8459-4de7-937b-bd3a1f11da1b",
+        "itemId": "e1c83bfb-c21d-4a17-b650-ba7ab0b2e095",
+        "jobType": "RunNotebook",
+        "invokeType": "Manual",
+        "status": "Failed",
+        "failureReason": {
+          "requestId": "e4b49e9d-d01d-4693-9c2d-4873ac0e900b",
+          "errorCode": "System_Cancelled_Session_Statements_Failed",
+          "message": "System cancelled the Spark session due to statement execution failures",
+          "isRetriable": false
+        },
+        "rootActivityId": "bffaea5a-ea5b-4a5b-af33-dfaf2f18a669",
+        "startTimeUtc": "2026-09-18T14:15:20.7579546",
+        "endTimeUtc": "2026-09-18T14:16:49.1305339"
+      },
+      "cell_evidence": {
+        "started_at_utc": "2026-09-18T14:16:05.925567+00:00",
+        "status": "failed",
+        "labs": [
+          {
+            "notebook": "00_setup_lakehouse_and_config.ipynb",
+            "sha256": "9e53b9b6b02d54082024a2997b0629444e577425a2be48aebf1f33e721ea901e",
+            "cells": [
+              {
+                "number": 4,
+                "checks_passed": 0,
+                "status": "PASS"
+              },
+              {
+                "number": 6,
+                "checks_passed": 0,
+                "status": "PASS"
+              },
+              {
+                "number": 8,
+                "checks_passed": 0,
+                "status": "PASS"
+              },
+              {
+                "number": 10,
+                "checks_passed": 3,
+                "status": "PASS"
+              },
+              {
+                "number": 12,
+                "checks_passed": 0,
+                "status": "PASS"
+              },
+              {
+                "number": 14,
+                "checks_passed": 0,
+                "status": "PASS"
+              },
+              {
+                "number": 16,
+                "checks_passed": 6,
+                "status": "PASS"
+              },
+              {
+                "number": 18,
+                "checks_passed": 0,
+                "status": "PASS"
+              },
+              {
+                "number": 20,
+                "checks_passed": 0,
+                "status": "PASS"
+              },
+              {
+                "number": 21,
+                "checks_passed": 0,
+                "status": "PASS"
+              },
+              {
+                "number": 23,
+                "checks_passed": 0,
+                "status": "PASS"
+              },
+              {
+                "number": 25,
+                "checks_passed": 4,
+                "status": "PASS"
+              },
+              {
+                "number": 27,
+                "checks_passed": 1,
+                "status": "PASS"
+              },
+              {
+                "number": 29,
+                "checks_passed": 0,
+                "status": "PASS"
+              }
+            ],
+            "status": "PASS"
+          },
+          {
+            "notebook": "01_bronze_stac_ingest.ipynb",
+            "sha256": "8b2293095a48ac09c3122ae82af137d28625a1f715495d474689766cb8986329",
+            "cells": [
+              {
+                "number": 4,
+                "checks_passed": 0,
+                "status": "PASS"
+              },
+              {
+                "number": 6,
+                "checks_passed": 0,
+                "status": "PASS"
+              },
+              {
+                "number": 9,
+                "checks_passed": 0,
+                "status": "PASS"
+              },
+              {
+                "number": 11,
+                "checks_passed": 0,
+                "status": "PASS"
+              },
+              {
+                "number": 13,
+                "checks_passed": 4,
+                "status": "PASS"
+              },
+              {
+                "number": 15,
+                "checks_passed": 0,
+                "status": "PASS"
+              }
+            ],
+            "status": "FAILED",
+            "error": {
+              "type": "ValueError",
+              "message": "The asset must have the following fields (from the projection extension): shape, transform, and one of an epsg, wkt2, or projjson"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "repair": "STAC assets now retain their owning Item, preserving item-level projection inheritance in Fabric's ODC runtime.",
+  "scene": {
+    "scene_id": "S2C_MSIL2A_20260629T152621_R068_T19TFM_20260629T201011",
+    "item_url": "https://planetarycomputer.microsoft.com/api/stac/v1/collections/sentinel-2-l2a/items/S2C_MSIL2A_20260629T152621_R068_T19TFM_20260629T201011",
+    "validation": "PASS",
+    "files": [
+      {
+        "band": "B04",
+        "filename": "T19TFM_20260629T152621_B04_10m.tif",
+        "bytes": 245878016,
+        "sha256": "795d0d65fee0d3b11c56fd81de695768f9a03fc7a7ee4174bd50589d182e726f",
+        "source_href": "https://sentinel2l2a01.blob.core.windows.net/sentinel2-l2/19/T/FM/2026/06/29/S2C_MSIL2A_20260629T152621_N0512_R068_T19TFM_20260629T201011.SAFE/GRANULE/L2A_T19TFM_A009476_20260629T152623/IMG_DATA/R10m/T19TFM_20260629T152621_B04_10m.tif"
+      },
+      {
+        "band": "B08",
+        "filename": "T19TFM_20260629T152621_B08_10m.tif",
+        "bytes": 295958436,
+        "sha256": "11bf7ccbf2edd4b2552c1a4009b2ee60231fa284e563f6404c77dc8eb777a911",
+        "source_href": "https://sentinel2l2a01.blob.core.windows.net/sentinel2-l2/19/T/FM/2026/06/29/S2C_MSIL2A_20260629T152621_N0512_R068_T19TFM_20260629T201011.SAFE/GRANULE/L2A_T19TFM_A009476_20260629T152623/IMG_DATA/R10m/T19TFM_20260629T152621_B08_10m.tif"
+      },
+      {
+        "band": "B11",
+        "filename": "T19TFM_20260629T152621_B11_20m.tif",
+        "bytes": 72528247,
+        "sha256": "9ca2285e386c7f1b4dd679454198956f4c8e266242160b97e0654219bc342d14",
+        "source_href": "https://sentinel2l2a01.blob.core.windows.net/sentinel2-l2/19/T/FM/2026/06/29/S2C_MSIL2A_20260629T152621_N0512_R068_T19TFM_20260629T201011.SAFE/GRANULE/L2A_T19TFM_A009476_20260629T152623/IMG_DATA/R20m/T19TFM_20260629T152621_B11_20m.tif"
+      },
+      {
+        "band": "B12",
+        "filename": "T19TFM_20260629T152621_B12_20m.tif",
+        "bytes": 69899937,
+        "sha256": "8a540000053fe2a21c6d56233b5e1272f9b1daabfae241bd7380ec0b86f96267",
+        "source_href": "https://sentinel2l2a01.blob.core.windows.net/sentinel2-l2/19/T/FM/2026/06/29/S2C_MSIL2A_20260629T152621_N0512_R068_T19TFM_20260629T201011.SAFE/GRANULE/L2A_T19TFM_A009476_20260629T152623/IMG_DATA/R20m/T19TFM_20260629T152621_B12_20m.tif"
+      },
+      {
+        "band": "SCL",
+        "filename": "T19TFM_20260629T152621_SCL_20m.tif",
+        "bytes": 758881,
+        "sha256": "dcb17c49914d46523546fd612749f373aa17ad677f2860f5f43d00bcb05b1540",
+        "source_href": "https://sentinel2l2a01.blob.core.windows.net/sentinel2-l2/19/T/FM/2026/06/29/S2C_MSIL2A_20260629T152621_N0512_R068_T19TFM_20260629T201011.SAFE/GRANULE/L2A_T19TFM_A009476_20260629T152623/IMG_DATA/R20m/T19TFM_20260629T152621_SCL_20m.tif"
+      }
+    ],
+    "download_bytes": 685023517
+  },
+  "browser_verification": {
+    "downloads": [
+      {
+        "file": "item.json",
+        "bytes": 20813,
+        "sha256": "8fab70180d6ea2050facbfc4303b49661e14b6163e52c003d65a31d800198807"
+      },
+      {
+        "file": "T19TFM_20260629T152621_B04_10m.tif",
+        "bytes": 245878016,
+        "sha256": "795d0d65fee0d3b11c56fd81de695768f9a03fc7a7ee4174bd50589d182e726f"
+      },
+      {
+        "file": "T19TFM_20260629T152621_B08_10m.tif",
+        "bytes": 295958436,
+        "sha256": "11bf7ccbf2edd4b2552c1a4009b2ee60231fa284e563f6404c77dc8eb777a911"
+      },
+      {
+        "file": "T19TFM_20260629T152621_B11_20m.tif",
+        "bytes": 72528247,
+        "sha256": "9ca2285e386c7f1b4dd679454198956f4c8e266242160b97e0654219bc342d14"
+      },
+      {
+        "file": "T19TFM_20260629T152621_B12_20m.tif",
+        "bytes": 69899937,
+        "sha256": "8a540000053fe2a21c6d56233b5e1272f9b1daabfae241bd7380ec0b86f96267"
+      },
+      {
+        "file": "T19TFM_20260629T152621_SCL_20m.tif",
+        "bytes": 758881,
+        "sha256": "dcb17c49914d46523546fd612749f373aa17ad677f2860f5f43d00bcb05b1540"
+      }
+    ],
+    "layouts": [
+      {
+        "width": 1280,
+        "height": 900,
+        "overflow": false,
+        "preview": "PASS"
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "overflow": false,
+        "preview": "PASS"
+      }
+    ],
+    "retry": "PASS"
+  },
+  "local_tests": {
+    "passed": 94,
+    "failed": 0,
+    "report": "training-manual-download-local-tests.xml"
+  },
+  "notebooks": {
+    "validated": 12,
+    "student_todos_preserved": true,
+    "cloud_bindings_shipped": false,
+    "rebuild_check": "PASS"
+  },
+  "screenshots": [
+    {
+      "file": "18-manual-01-scene.png",
+      "status": "captured"
+    },
+    {
+      "file": "18-manual-02-bands.png",
+      "status": "captured"
+    },
+    {
+      "file": "18-manual-03-download.png",
+      "status": "captured"
+    },
+    {
+      "file": "18-manual-04-upload-menu.png",
+      "status": "captured"
+    },
+    {
+      "file": "18-manual-05-uploaded.png",
+      "status": "captured"
+    }
+  ],
+  "screenshot_directory": "images/training/manual-download",
+  "artifact_sha256": {
+    "notebooks/student/00_setup_lakehouse_and_config_STUDENT.ipynb": "86f637488188b957626f3961f3fa0dcdabac42f4db25d688dfc62f72a0a6c78b",
+    "notebooks/student/01_bronze_stac_ingest_STUDENT.ipynb": "23cad8ce47f08e0c860acbfff3f55a9a9d13672f00b2c030f7423bf75a446405",
+    "notebooks/student/02_silver_reproject_and_indices_STUDENT.ipynb": "20e714c6a7517456b5c535215efc785daa0121ea80fce338f3b264c07882f5c7",
+    "notebooks/student/03_gold_forest_classification_STUDENT.ipynb": "1431029ed8be4c20d9c2785035f2c846fe03aa66f8a5165fd80f61b28fecfc5f",
+    "notebooks/student/04_gold_ai_enrichment_foundry_STUDENT.ipynb": "eca11474454abde88be7ec3412917a45f60158b84e880c701973312f2673c625",
+    "notebooks/student/05_publish_and_validate_STUDENT.ipynb": "1b3eca90144d426b05d38b819a80e250b180dc14cc3607760617d8b57d3a6929",
+    "notebooks/solutions/00_setup_lakehouse_and_config.ipynb": "9e53b9b6b02d54082024a2997b0629444e577425a2be48aebf1f33e721ea901e",
+    "notebooks/solutions/01_bronze_stac_ingest.ipynb": "f0350f1de39d4c68156a4cf12c15a1236b751f352635792be4c5d3341df5ad84",
+    "notebooks/solutions/02_silver_reproject_and_indices.ipynb": "5340df772c7a43dd912cd43842e5b4fb9066624ffc78c9f246722d9a6bf9b189",
+    "notebooks/solutions/03_gold_forest_classification.ipynb": "1a7677fb5c2f8a218b9223848201d5ace3888c78ea66b372cf61c3b6484a5702",
+    "notebooks/solutions/04_gold_ai_enrichment_foundry.ipynb": "bc187984d4862427623abb7969a8f47d95666c66ba7d11a9d80c3097b02cb0f4",
+    "notebooks/solutions/05_publish_and_validate.ipynb": "72c55450b8cf49fee0e206ba07f7c002b08e4f90ce5463014b9b624b2c20e033",
+    "docs/download-imagery.html": "a95f562e97e753def507974a8ebe0f4cb96fc5ab63a572b47a9aa9d276f1a417",
+    "environments/environment.yml": "70a22ebaba68fa9a17aa740159bec2145997d103e732cea0f6c3c2f8e593b7a6"
+  },
+  "limitations": [
+    "Synthetic stands and heuristic classification, not validated inventory.",
+    "One June acquisition is used within a June-August reporting window; it is not a seasonal composite.",
+    "Previous-year baseline is simulated; narratives are offline stubs.",
+    "Original rehearsal Map and Data Agent were preserved, not rebound to the isolated download test lakehouse."
+  ]
+}

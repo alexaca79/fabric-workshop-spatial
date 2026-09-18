@@ -35,10 +35,13 @@ Usage::
 from __future__ import annotations
 
 import argparse
+import ast
+import copy
 import re
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
+from uuid import NAMESPACE_URL, uuid5
 
 import nbformat
 
@@ -48,7 +51,7 @@ SOLUTION_DIR = REPO_ROOT / "notebooks" / "solutions"
 STUDENT_DIR = REPO_ROOT / "notebooks" / "student"
 
 CELL_RE = re.compile(r"^#\s*%%(?P<md>\s*\[markdown\])?(?P<tags>(?:\s+@\w+)*)\s*$")
-MARKER_RE = re.compile(r"^(?P<indent>\s*)#@(?P<marker>todo|hint|stub|solution|end)\b\s?(?P<body>.*)$")
+MARKER_RE = re.compile(r"^(?P<indent>\s*)#@(?P<marker>todo|hint|stub|solution|end|include)\b\s?(?P<body>.*)$")
 
 SOLUTION_BANNER = (
     "> **Solution notebook.** Every cell is complete and runnable. Use it to unblock "
@@ -119,6 +122,19 @@ def render_code(cell: Cell, variant: str) -> str:
             indent = match.group("indent")
             body = match.group("body").rstrip()
 
+            if marker == "include":
+                module = REPO_ROOT / "src" / "forestops" / body
+                if Path(body).name != body or module.suffix != ".py":
+                    raise ValueError("Notebook includes must name a forestops Python module")
+                source = module.read_text(encoding="utf-8")
+                for node in ast.parse(source).body:
+                    if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant) and isinstance(node.value.value, str):
+                        continue
+                    if isinstance(node, ast.ImportFrom) and node.module == "__future__":
+                        continue
+                    out.extend((ast.get_source_segment(source, node) or "").splitlines())
+                    out.append("")
+                continue
             if marker == "solution":
                 in_solution = True
                 continue
@@ -175,7 +191,30 @@ def build_notebook(cells: list[Cell], variant: str, title: str) -> nbformat.Note
             "workshop": {"variant": variant, "title": title},
         }
     )
+    for position, cell in enumerate(nb.cells):
+        cell.id = uuid5(NAMESPACE_URL, f"forestops/{title}/{variant}/{position}").hex[:16]
+        cell.metadata["language"] = "python" if cell.cell_type == "code" else "markdown"
     return nb
+
+
+def preserve_metadata(notebook: nbformat.NotebookNode, existing: nbformat.NotebookNode) -> None:
+    """Preserve cell identities for an in-place, same-structure regeneration."""
+    originals = existing.cells
+    if [cell.cell_type for cell in notebook.cells] != [cell.cell_type for cell in originals]:
+        remaining = iter(originals)
+        originals = []
+        for cell in notebook.cells:
+            original = next((candidate for candidate in remaining
+                             if candidate.cell_type == cell.cell_type
+                             and candidate.source.rstrip() == cell.source.rstrip()), None)
+            if original is None:
+                raise ValueError("Notebook structure changed; reconcile cells in the notebook editor before rebuilding")
+            originals.append(original)
+    notebook.metadata = copy.deepcopy(existing.metadata)
+    for cell, original in zip(notebook.cells, originals, strict=True):
+        cell.id = original.id
+        cell.metadata = copy.deepcopy(original.metadata)
+        cell.metadata["language"] = "python" if cell.cell_type == "code" else "markdown"
 
 
 def target_name(stem: str, variant: str) -> str:
@@ -185,6 +224,7 @@ def target_name(stem: str, variant: str) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="fail if the committed notebooks are stale")
+    parser.add_argument("--only", nargs="+", help="source stems to rebuild; other notebooks are left untouched")
     args = parser.parse_args()
 
     if not SRC_DIR.exists():
@@ -198,6 +238,8 @@ def main() -> int:
     written = 0
 
     for source in sorted(SRC_DIR.glob("*.py")):
+        if args.only and source.stem not in args.only:
+            continue
         cells = parse_source(source)
         if not cells:
             print(f"  skipped {source.name}, no cell markers found")
@@ -206,10 +248,12 @@ def main() -> int:
         for variant, directory in (("solution", SOLUTION_DIR), ("student", STUDENT_DIR)):
             nb = build_notebook(cells, variant, source.stem)
             out_path = directory / target_name(source.stem, variant)
+            if out_path.exists():
+                preserve_metadata(nb, nbformat.read(out_path, as_version=4))
             rendered = nbformat.writes(nb, version=4) + "\n"
 
             if args.check:
-                if not out_path.exists() or out_path.read_text(encoding="utf-8") != rendered:
+                if not out_path.exists() or nbformat.read(out_path, as_version=4) != nb:
                     stale.append(str(out_path.relative_to(REPO_ROOT)))
                 continue
 

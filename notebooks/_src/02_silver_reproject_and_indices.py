@@ -1,8 +1,5 @@
-# Notebook 02: Silver - masking, scaling, reprojection, indices, zonal statistics
-# Session 2, Step 2 at 1:00. Budget 50 minutes, with Copilot writing most of it.
-
 # %% [markdown]
-# # 02 · Analyse it — masking, reprojection and spectral indices
+# # Lab 02 - Analyse masking, reprojection and spectral indices
 #
 # **Session 2, Step 2.** This is the block where Copilot writes most of the code
 # and you find what it assumed. By the end you have one row per stand per scene
@@ -40,15 +37,13 @@
 # | An approximate SCL class list | Thin cirrus survives | Cirrus depresses NDMI, which reads as drought stress |
 
 # %% [markdown]
-# ## Step 0 · Confirm the Environment and the upstream shortcuts
+# ## Step 0 · Confirm the Environment and shared lakehouse
 #
-# Attach `env_forestops` and the `lh_silver` lakehouse from the ribbon.
+# Attach `env_forestops` and the `lh_woodlands` lakehouse from the ribbon.
 #
-# This notebook lives in the silver workspace but reads two bronze tables. It
-# reaches them through OneLake shortcuts in `lh_silver`, not by copying data.
-# The shortcuts only exist once notebooks 00 and 01 have written the tables, so
-# if the reads below fail, the fix is upstream rather than here. Setup steps are
-# in docs/13-three-workspace-layout.md.
+# This notebook reads the Bronze tables and saved imagery written by Labs 00 and
+# 01 in your own default lakehouse. Both input routes use this same handoff.
+# It never searches or downloads replacement imagery.
 
 # %%
 def require_environment(packages):
@@ -69,9 +64,8 @@ def require_environment(packages):
         )
     print(f"environment OK ({len(packages)} packages available)")
 
-
 require_environment([
-    "geopandas", "rioxarray", "rasterio", "odc.stac", "xarray",
+    "geopandas", "rioxarray", "rasterio", "xarray", "zarr",
 ])
 
 # %% [markdown]
@@ -79,6 +73,7 @@ require_environment([
 
 # %%
 import json
+import os
 
 import geopandas as gpd
 import numpy as np
@@ -113,23 +108,20 @@ SCL_INVALID = (
 MIN_VALID_PIXEL_FRACTION = 0.60
 
 # --- Medallion layer --------------------------------------------------------
-# Writes to silver. The two bronze tables below resolve through OneLake
-# shortcuts in lh_silver, which is why they are readable by plain table name.
+# Writes Silver tables while reading Bronze by plain table name from the shared
+# lab lakehouse.
 LAYER = "silver"
-WORKSPACE = "jdi-mock-training-silver"
-LAKEHOUSE = "lh_silver"
+WORKSPACE = "jdi-training"
+LAKEHOUSE = "lh_woodlands"
 
-TABLE_STAND_REGISTER = "bronze_stand_register"      # shortcut -> bronze
-TABLE_SCENE_CATALOG = "bronze_scene_catalog"        # shortcut -> bronze
+TABLE_STAND_REGISTER = "bronze_stand_register"
+TABLE_SCENE_CATALOG = "bronze_scene_catalog"
 TABLE_OBSERVATIONS = "silver_stand_observations"    # written here
 
-# Raster files come through the Files-level shortcut lh_silver/Files/bronze.
-BRONZE_SCENE_ROOT = f"/lakehouse/default/Files/bronze/bronze/scenes/{AOI_NAME}"
-
+BRONZE_SCENE_ROOT = f"/lakehouse/default/Files/bronze/scenes/{AOI_NAME}"
 
 def report(name, ok, detail=""):
     print(f"[{'PASS' if ok else 'FAIL'}] {name:<42} {detail}")
-
 
 # %% [markdown]
 # ## Step 2 · Load the stand register
@@ -139,7 +131,6 @@ def report(name, ok, detail=""):
 # %%
 from shapely import wkb
 
-
 def load_stand_register(table):
     pdf = spark.table(table).toPandas()
     srids = pdf["srid"].dropna().unique()
@@ -147,7 +138,6 @@ def load_stand_register(table):
         raise ValueError(f"register mixes CRS values {sorted(srids)}")
     geometry = [wkb.loads(bytes(v)) if v is not None else None for v in pdf["geometry_wkb"]]
     return gpd.GeoDataFrame(pdf.drop(columns=["geometry_wkb"]), geometry=geometry, crs=int(srids[0]))
-
 
 stands = load_stand_register(TABLE_STAND_REGISTER)
 print(f"{len(stands)} stands, CRS EPSG:{stands.crs.to_epsg()}")
@@ -157,9 +147,9 @@ report("register is in the analysis CRS", stands.crs.to_epsg() == CRS_ANALYSIS)
 # %% [markdown]
 # ## Step 3 · Load the imagery
 #
-# Either reuse the session cache from notebook 01, or re-run the STAC load. The
-# fallback exists because Spark sessions recycle and losing an hour to that is
-# avoidable.
+# Load the persisted dataset from Lab 01, including its input route and scene IDs.
+# A recycled Spark session does not remove lakehouse files. If the dataset is
+# missing or incomplete, finish Lab 01 in this same lakehouse first.
 
 # %%
 def restore_crs(ds):
@@ -177,31 +167,19 @@ def restore_crs(ds):
         ds = ds.rio.write_crs(f"EPSG:{ds.attrs['crs_epsg']}")
     return ds
 
-
 try:
     raw = restore_crs(xr.open_zarr(f"{BRONZE_SCENE_ROOT}/_session_cache.zarr"))
     if raw.rio.crs is None:
         raise ValueError("session cache has no recoverable CRS")
+    if raw.attrs.get("input_mode") not in {"manual", "stac"} or not raw.attrs.get("scene_ids"):
+        raise ValueError("saved imagery has no verified source provenance")
+    if raw.attrs.get("aoi_bbox") != list(AOI_BBOX) or not set(BANDS).issubset(raw.data_vars):
+        raise ValueError("saved imagery does not match this area's five required bands")
     print(f"Loaded session cache: {raw.sizes.get('time')} dates, CRS {raw.rio.crs}")
-except Exception as exc:
-    print(f"Cache unavailable ({type(exc).__name__}), re-running the STAC load")
-    import odc.stac
-    import planetary_computer as pc
-    import pystac_client
+except (OSError, ValueError, KeyError) as exc:
+    raise RuntimeError("Bronze imagery is missing or invalid. Complete Lab 01 in this default lakehouse; no online fallback was attempted.") from exc
 
-    catalog = pystac_client.Client.open(
-        "https://planetarycomputer.microsoft.com/api/stac/v1", modifier=pc.sign_inplace
-    )
-    search = catalog.search(
-        collections=["sentinel-2-l2a"],
-        bbox=list(AOI_BBOX),
-        datetime="2026-06-01/2026-08-31",
-        query={"eo:cloud_cover": {"lt": 20}},
-    )
-    items = sorted(search.items(), key=lambda i: i.properties.get("eo:cloud_cover", 100))[:6]
-    raw = odc.stac.load(items, bands=list(BANDS), bbox=list(AOI_BBOX),
-                        resolution=20, chunks={}, groupby="solar_day")
-
+print(f"Input route: {raw.attrs['input_mode']}; source scenes: {raw.attrs['scene_ids']}")
 print(f"native CRS: {raw.rio.crs}")
 print(f"dates: {[str(t)[:10] for t in raw.time.values]}")
 
@@ -226,7 +204,7 @@ def mask_invalid(ds, scl_band="SCL", invalid=SCL_INVALID):
     #@hint ds["SCL"].isin(list(invalid)) gives you the invalid pixels; you want the inverse
     #@hint .where(keep) sets everything else to NaN, which is what you want
     #@stub return ds
-    #@solution
+#@solution
     if scl_band not in ds:
         raise KeyError(f"{scl_band} not present; cloud masking cannot be skipped silently")
 
@@ -237,8 +215,7 @@ def mask_invalid(ds, scl_band="SCL", invalid=SCL_INVALID):
     masked = masked.assign_attrs(ds.attrs)
     masked["valid_mask"] = keep
     return masked
-    #@end
-
+#@end
 
 masked = mask_invalid(raw)
 kept = float(masked["valid_mask"].mean().compute())
@@ -265,7 +242,6 @@ print(f"  B08 range: {float(raw['B08'].min().compute()):.0f} to {float(raw['B08'
 print("  Surface reflectance is physically bounded between 0 and 1.")
 print("  Those are integers, not reflectance.\n")
 
-
 def scale_reflectance(ds, scale=REFLECTANCE_SCALE):
     """Convert integer surface reflectance to the 0 to 1 range."""
     #@todo Copy the dataset
@@ -273,13 +249,12 @@ def scale_reflectance(ds, scale=REFLECTANCE_SCALE):
     #@todo Return the scaled dataset
     #@hint Do not scale valid_mask. It is a boolean, and dividing it by 10000 is not helpful.
     #@stub return ds
-    #@solution
+#@solution
     out = ds.copy()
     for band in [v for v in ds.data_vars if v != "valid_mask"]:
         out[band] = ds[band].astype("float32") / scale
     return out
-    #@end
-
+#@end
 
 scaled = scale_reflectance(masked)
 peak = float(scaled["B08"].max().compute())
@@ -315,7 +290,6 @@ print("Effectively zero. The bug is invisible in NDVI and fatal in every thresho
 # %%
 from rasterio.enums import Resampling
 
-
 def reproject(ds, target_epsg=CRS_ANALYSIS):
     """Reproject a raster dataset to the analysis CRS."""
     #@todo Raise a ValueError if the dataset has no CRS
@@ -323,14 +297,13 @@ def reproject(ds, target_epsg=CRS_ANALYSIS):
     #@todo Otherwise reproject with rio.reproject and bilinear resampling
     #@hint ds.rio.reproject(f"EPSG:{target_epsg}", resampling=Resampling.bilinear)
     #@stub return ds
-    #@solution
+#@solution
     if ds.rio.crs is None:
         raise ValueError("raster has no CRS; a missing CRS here means spatial metadata was lost upstream")
     if ds.rio.crs.to_epsg() == target_epsg:
         return ds
     return ds.rio.reproject(f"EPSG:{target_epsg}", resampling=Resampling.bilinear)
-    #@end
-
+#@end
 
 projected = reproject(scaled.drop_vars("valid_mask"))
 print(f"before: {scaled.rio.crs}")
@@ -380,7 +353,6 @@ def normalised_difference(a, b):
     denominator = a + b
     return xr.where(denominator == 0, np.nan, (a - b) / denominator)
 
-
 def all_indices(ds):
     """Compute NDVI, NDMI, NBR and EVI from scaled reflectance."""
     #@todo Guard against unscaled input: raise if B08 peaks above 10
@@ -391,7 +363,7 @@ def all_indices(ds):
     #@todo Return them as a single xr.Dataset with keys ndvi, ndmi, nbr, evi
     #@hint The guard is what turns a silent wrong answer into a loud one
     #@stub return xr.Dataset()
-    #@solution
+#@solution
     peak = float(ds["B08"].max().compute())
     if peak > 10.0:
         raise ValueError(
@@ -406,8 +378,7 @@ def all_indices(ds):
         "nbr": normalised_difference(nir, swir2),
         "evi": 2.5 * (nir - red) / (nir + 2.4 * red + 1),
     })
-    #@end
-
+#@end
 
 indices = all_indices(composite).rio.write_crs(CRS_ANALYSIS)
 for name in ("ndvi", "ndmi", "nbr", "evi"):
@@ -462,7 +433,7 @@ def zonal_stats(index_ds, stand_frame, percentiles=(10, 90)):
     #@todo Raise a ValueError if the raster and the stands are in different CRS values
     #@hint Mismatched CRS gives NaN for every stand and no error. Fail loudly instead.
     #@stub pass
-    #@solution
+#@solution
     if stand_frame.crs is None or index_ds.rio.crs is None:
         raise ValueError("both the raster and the stands must declare a CRS before zonal statistics")
     if index_ds.rio.crs.to_epsg() != stand_frame.crs.to_epsg():
@@ -470,7 +441,7 @@ def zonal_stats(index_ds, stand_frame, percentiles=(10, 90)):
             f"raster is EPSG:{index_ds.rio.crs.to_epsg()} and stands are EPSG:{stand_frame.crs.to_epsg()}; "
             "align them first, or every stand returns NaN with no error"
         )
-    #@end
+#@end
 
     index_names = list(index_ds.data_vars)
     records = []
@@ -483,7 +454,7 @@ def zonal_stats(index_ds, stand_frame, percentiles=(10, 90)):
         #@hint index_ds.rio.clip([stand.geometry], crs=stand_frame.crs, drop=True, all_touched=False)
         #@hint A stand outside the window is a real outcome. Record it with zero pixels rather than skipping it.
         #@stub records.append({"stand_id": stand["stand_id"]})
-        #@solution
+#@solution
         record = {"stand_id": stand["stand_id"]}
         try:
             clipped = index_ds.rio.clip([stand.geometry], crs=stand_frame.crs, drop=True, all_touched=False)
@@ -515,10 +486,9 @@ def zonal_stats(index_ds, stand_frame, percentiles=(10, 90)):
         record["valid_pixel_count"] = int(valid)
         record["valid_pixel_fraction"] = float(valid / total) if total else 0.0
         records.append(record)
-        #@end
+#@end
 
     return pd.DataFrame.from_records(records)
-
 
 stats = zonal_stats(indices, stands)
 print(f"{len(stats)} stand rows produced")
@@ -545,7 +515,7 @@ comparison.nlargest(5, "gap")
 
 # %%
 scene_date = pd.to_datetime(str(raw.time.values[0])[:10]).date()
-scene_ids = ",".join(sorted({str(t)[:10] for t in raw.time.values}))
+scene_ids = ",".join(raw.attrs["scene_ids"])
 
 attributes = stands[["stand_id", "licence_block", "species_group", "planted_year", "management_regime"]].copy()
 attributes["area_ha"] = stands.geometry.area.to_numpy() / 10_000.0
@@ -619,7 +589,6 @@ def quality_gate(df, expected_stands, min_trusted_fraction=0.70):
     ))
 
     return results
-
 
 gate = quality_gate(observations, expected_stands=len(stands))
 for name, ok, detail in gate:
