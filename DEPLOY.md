@@ -2,7 +2,7 @@
 title: Deployment guide for JDI
 description: How to review, deploy and verify the forest classification workshop in a JDI Fabric tenant, including the workspace topology and outbound access protection decisions that have to be made first
 author: Workshop Delivery Team
-ms.date: 2026-09-03
+ms.date: 2026-09-17
 ms.topic: how-to
 keywords:
   - deployment
@@ -19,12 +19,18 @@ This is the practical guide to standing the workshop up in a JDI tenant. It
 assumes you have a Fabric capacity and workspace admin rights, and that you want
 to satisfy yourself the thing works before a room of people depends on it.
 
-Everything here has been executed end to end against a live F64 capacity. Where
-a step has a known failure mode, it says so, because the failures are the part
-worth knowing in advance.
+The six solution labs and Environment preflight completed on an F64 capacity.
+The current manual-workspace results and their limitations are recorded in
+[the lab guide](docs/16-manual-upload-labs.md). Live Foundry calls, the optional
+Power BI report and scheduled pipeline are not part of that verified run.
 
 Two decisions have to be made before anything is deployed. Both change what you
 build, so they come first.
+
+For the classroom path that uses one workspace, manual notebook uploads and
+screenshot evidence, follow
+[docs/16-manual-upload-labs.md](docs/16-manual-upload-labs.md). This deployment
+guide remains the production-style three-workspace reference.
 
 ## What you are deploying
 
@@ -33,7 +39,7 @@ build, so they come first.
 | Spark Environment | One published Environment, `env_forestops`, carrying 16 pinned libraries |
 | Lakehouses | One per medallion layer: `lh_bronze`, `lh_silver`, `lh_gold` |
 | Shortcuts | OneLake shortcuts so each layer can read the one before it |
-| Notebooks | Seven, numbered 00 to 06, in `notebooks/solutions/` |
+| Notebooks | Six, numbered 00 to 05, in `notebooks/solutions/` |
 | Pipeline | Optional, `pipelines/forest_classification_pipeline.json` |
 | Semantic model | Optional, built by hand per `powerbi/semantic-model-guide.md` |
 
@@ -136,7 +142,7 @@ reading the wrong layer.
 ### If you would rather use one workspace for the pilot
 
 Reasonable for a first run, and it removes the shortcut step entirely. Create one
-workspace, one lakehouse, and attach it to all seven notebooks. The notebooks
+workspace, one lakehouse, and attach it to all six notebooks. The notebooks
 need no code changes because nothing is qualified by workspace. You lose the
 permissions boundary and the visible dependency graph, so if the pilot goes
 anywhere, plan to split it before it carries real inventory.
@@ -174,8 +180,8 @@ each object as it is created.
    [environments/environment.yml](environments/environment.yml). Publish and
    wait, roughly 6 minutes. Repeat in silver and gold. Environments are
    workspace-scoped, so all three need their own copy.
-4. Upload the seven notebooks from `notebooks/solutions/` into the workspace for
-   their layer: 00 and 01 to bronze, 02 to silver, 03 through 06 to gold. Each
+4. Upload the six notebooks from `notebooks/solutions/` into the workspace for
+   their layer: 00 and 01 to bronze, 02 to silver, 03 through 05 to gold. Each
    notebook declares its layer near the top so you can check.
 5. Bind each notebook by attaching `env_forestops` as the Environment and the
    layer's lakehouse as the default lakehouse. Both are in the notebook ribbon.
@@ -185,7 +191,7 @@ each object as it is created.
 7. Create the shortcuts now that the bronze tables exist. Portal steps are in
    [docs/13-three-workspace-layout.md](docs/13-three-workspace-layout.md).
 8. Run notebook 02 in silver, then create the remaining gold shortcuts.
-9. Run notebooks 03, 04, 05 and 06 in gold, in order.
+9. Run notebooks 03, 04 and 05 in gold, in order.
 
 The order matters in one specific way: a shortcut to a table that does not exist
 yet is rejected, and Fabric reports it as `RequestBodyValidationFailed`, which
@@ -306,23 +312,17 @@ Common failures, in the order you are likely to meet them:
 | `TABLE_OR_VIEW_NOT_FOUND` | Wrong default lakehouse attached, or a missing cross-layer shortcut |
 | Report is slow, no errors | Direct Lake silently fell back to DirectQuery. See the Power BI guide |
 
-One false alarm to ignore: `python scripts/build_all.py --check` always reports
-the notebooks as stale. The generator assigns fresh random cell IDs on every
-run, so the regenerated files never match the committed ones byte for byte even
-when the content is identical. The `validate_notebooks.py` pass in the same
-command is the one that means something.
+`python scripts/build_all.py --check` verifies both generated notebook content
+and notebook structure. Cell IDs are deterministic, so a stale result means the
+committed notebook bundle needs to be regenerated.
 
-## One inconsistency to be aware of
+## One-workspace and three-workspace names
 
-[docs/00-prerequisites.md](docs/00-prerequisites.md) predates the
-three-workspace work and still refers to a single lakehouse named
-`lh_woodlands` and an Environment named `env-woodlands-geo`. The verified
-deployment uses `lh_bronze`, `lh_silver`, `lh_gold` and `env_forestops`.
-
-Where the two disagree, this guide and
-[docs/13-three-workspace-layout.md](docs/13-three-workspace-layout.md) are
-correct. The prerequisites doc is still useful for the participant-facing access
-checks; just ignore its naming.
+The participant guide intentionally uses `jdi-training`, `lh_woodlands` and
+`env_forestops`. This guide uses `lh_bronze`, `lh_silver` and `lh_gold` across
+three workspaces. The notebook bundle defaults to the participant topology;
+facilitators using three workspaces should deploy through the supplied scripts,
+which apply the target bindings for each layer.
 
 ## What to look at if you are reviewing rather than deploying
 

@@ -19,6 +19,12 @@ decks/assets/icons/*.png
 # `python scripts/build_all.py`; commit the result when the content changes.
 !decks/out/*.pptx
 
+# Local workshop review output; keep release decks and raw screenshot evidence.
+decks/out/*-guide-preview.*
+decks/out/manual-qa-*/
+decks/out/qa-training-*.png
+.copilot-tracking/
+
 # Local scratch data - never commit imagery or customer inventory
 data/
 scratch/

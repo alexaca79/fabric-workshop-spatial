@@ -2,7 +2,7 @@
 title: Prerequisites
 description: Access, licences, tooling and environment checks to complete before Session 1 of the forest classification workshop
 author: Workshop Delivery Team
-ms.date: 2026-09-02
+ms.date: 2026-09-17
 ms.topic: how-to
 keywords:
   - prerequisites
@@ -21,25 +21,27 @@ slowly, so raise those first and do the rest while you wait.
 
 | Item                        | What you need                                                     | How to check                                                             |
 |-----------------------------|-------------------------------------------------------------------|--------------------------------------------------------------------------|
-| Microsoft Entra account     | Your JDI work account                                             | Sign in at [app.fabric.microsoft.com](https://app.fabric.microsoft.com)  |
-| Fabric capacity             | Membership of a workspace on an F-SKU or trial capacity           | Workspace settings shows a Licence mode other than Pro                   |
-| Power BI                    | Pro or Premium Per User, or a Fabric capacity that covers viewing | You can create a report in the workshop workspace                        |
-| GitHub Copilot              | An active seat                                                    | The Copilot icon in VS Code is not greyed out                            |
-| Microsoft Foundry           | Access to a project with a chat model deployed                    | The project appears in [ai.azure.com](https://ai.azure.com)              |
+| Microsoft Entra account     | Your approved Contoso workshop account                           | Sign in at [app.fabric.microsoft.com](https://app.fabric.microsoft.com)  |
+| Fabric capacity             | `jdi-training-manual` on existing `rayfintestenv` F64              | Confirm the assigned capacity is Active                                  |
+| Maps and Fabric Data Agent  | Permission to author items and use approved tenant features       | Both appear in New item and the agent can query the learner lakehouse    |
+| Power BI                    | Optional, for the separate report extension                      | Not needed for the native Map or Data Agent lesson                       |
+| GitHub Copilot              | Optional assistance with Python TODO exercises                   | Not needed to execute the browser-based lab                              |
+| Microsoft Foundry           | Optional, for the live-model extension                           | Required Lab 04 uses offline stubs                                       |
 
-If Foundry access is missing, you can still complete every block except the AI
-enrichment exercise, and notebook 04 has an offline stub that produces the same
-table shape without calling a model.
+All six required labs can be completed without Foundry access. Lab 04 uses an
+offline stub with explicit status, not a live model response. The later native
+Fabric Data Agent is a separate live service with its own tenant prerequisites.
 
 ## 2. Fabric workspace
 
-Each participant gets their own workspace so that a mistake in one workspace
-cannot break anyone else's run.
+The manual lab uses one dedicated workspace with a separate lakehouse for each
+learner or pair. Coordinate Spark starts because the capacity is shared.
 
-1. In Fabric, select Workspaces, then New workspace.
-2. Name it `ws-woodlands-<yourname>`.
-3. Under Advanced, set the licence mode to the capacity the facilitator names.
-4. Confirm the workspace opens and you can create items in it.
+1. Open `jdi-training-manual`, prepared by the facilitator in Contoso.
+2. Confirm Contributor or higher access for notebook imports and item creation.
+3. Confirm the existing `rayfintestenv` F64 is assigned and active.
+4. Follow [the manual guide](16-manual-upload-labs.md) to create your notebook
+  folder. Do not recreate the workspace or use the reference `jdi-training` items.
 
 Facilitators: pre-create these workspaces where possible. Self-service creation
 is often blocked by tenant settings, and discovering that at 09:05 costs the
@@ -47,28 +49,26 @@ room twenty minutes.
 
 ## 3. Lakehouse
 
-Create one Lakehouse in your workspace named `lh_woodlands`. Leave schemas
-enabled if your tenant offers the option. Notebook 00 verifies the name and
-fails fast with a clear message if it differs, because every later notebook
-resolves paths from it.
+Upload all six student notebooks first. Then manually create
+`lh_woodlands_<your-name>` with Lakehouse schemas enabled, following the manual
+guide. Attach your own Lakehouse as the default for every notebook, not its
+SQL endpoint or another learner's lakehouse. Keep the table names unchanged.
 
 ## 4. Spark environment
 
-Two options, in order of preference.
+Attach the published `env_forestops` from the training workspace. It supplies
+the pinned libraries from [environment.yml](../environments/environment.yml).
+If missing, the facilitator follows
+[manual portal setup](12-spark-environment.md#manual-portal-setup).
 
-Attach the shared environment. If the facilitator has published a Fabric
-Environment named `env-woodlands-geo`, attach it to your notebooks. It carries
-the libraries in `requirements-fabric.txt` and removes the install wait.
-
-Install per session. If no shared environment exists, the first cell of each
-notebook runs a `%pip install` block. Expect two to four minutes on the first
-run of each session, and note that the install is lost when the session
-recycles.
+Do not run `%pip install` in these notebooks. Ad hoc installation can replace
+Fabric runtime packages. Check the attachment and restart the session instead.
 
 ## 5. Local tooling
 
-You only need local tooling to browse this repository and to use Copilot while
-drafting code. The pipeline itself runs entirely in Fabric.
+No local installation is required for the manual path. Extract the supplied
+bundle and upload its notebooks through Fabric. The following setup is optional
+for browsing the repository and using Copilot.
 
 ```powershell
 git clone <repository-url> "JDI - Training"
@@ -97,17 +97,11 @@ point after Session 1, and the homework asks you to do exactly that.
 
 ## Pre-flight self-check
 
-Run this in a Fabric notebook cell attached to `lh_woodlands`. It should print
-a line per check with no failures.
-
-```python
-%run /repo-or-paste/preflight
-```
-
-If you cannot run it, paste the contents of
-[01-preflight-check.md](01-preflight-check.md) into a cell instead. The script
-is intentionally dependency-free so that it runs before any install has
-happened.
+After importing the notebooks and creating your lakehouse, select the
+published `env_forestops` and pin your lakehouse in Lab 00. Run its supplied
+Environment check. Missing packages mean you must check the attachment and
+restart the session, not paste an install command. Use the manual guide's
+checkpoints to validate each subsequent lab.
 
 ## What to bring
 

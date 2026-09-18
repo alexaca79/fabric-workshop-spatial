@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "timestamp_utc": "2026-09-17T18:15:53.5658576Z",
+  "status": "BLOCKED_NO_PUBLISH",
+  "subsequent_resolution": {
+    "status": "RESOLVED",
+    "receipt": "training-release-state.json",
+    "details": "A restartable update script completed all four compare/merge/publish operations and exact readback. This document retains the earlier blocked attempt as history.",
+    "setup_rerun_receipt": "training-setup-rerun.json"
+  },
+  "historical_evidence": {
+    "path": "docs/training-live-evidence.json",
+    "modified_by_this_attempt": false,
+    "sha256_at_stop": "0F4D122B075BD96EE9869752D01BA741B19169A4CE499A4E60E4C9B03A580F37"
+  },
+  "target": {
+    "environment": "existing training/test workspace",
+    "workspace_name": "jdi-training",
+    "workspace_id": "60a018e6-4688-4a64-84af-0574e0bc8d3a",
+    "tenant_id": "711a9076-1115-4c36-b7b4-82b4f3a05f6f",
+    "auth_profile_alias": "contoso",
+    "isolated_cli_context_verified": true,
+    "subscription_verified_against_profile_allowlist": true
+  },
+  "preflight": {
+    "timestamp_utc": "2026-09-17T18:03:39.9491707Z",
+    "job_items_checked": 14,
+    "job_instances_checked": 8,
+    "active_jobs": 0,
+    "pagination_followed": true,
+    "workspace_name_and_capacity_assignment_verified": true
+  },
+  "workflow": {
+    "transport": "documented authoritative notebook REST fallback",
+    "reason": "No tool_search interface available to load deferred extension tools; active reference notebook is in another workspace.",
+    "get_definition_format": "ipynb",
+    "comparison": "Completed inspection of authoritative definitions and generated local target cells; Lab 00 old assertion and Lab 05 six markdown roles identified.",
+    "merge": "NOT_COMPLETED",
+    "publish_requests_submitted": 0,
+    "post_publish_readback": "NOT_APPLICABLE_NO_PUBLISH",
+    "nbformat_validation": "NOT_RUN",
+    "recovery_helper_syntax_validation": "PASS",
+    "recovery_folder": "C:/Users/chenalex/JDI-training-retired-app-20260917-125920/notebook-before-validation-fix"
+  },
+  "notebooks": [
+    {
+      "name": "00_setup_lakehouse_and_config",
+      "id": "bea0df2d-1f46-43b7-842b-7bec94e71272",
+      "status": "NOT_UPDATED",
+      "original_sha256": "1D036BD09E46CBBB65CFF557332A79E8AB5DBA5AEB3687E0F61991CC4CEB69BA",
+      "new_sha256": null,
+      "planned_code_cells": 1,
+      "planned_markdown_cells": 1,
+      "applied_cells": 0,
+      "all_other_code_unchanged_by_attempt": true,
+      "bindings_preserved_by_no_write": true
+    },
+    {
+      "name": "00_setup_lakehouse_and_config_STUDENT",
+      "id": "e44cad16-4a4b-4ba3-96e3-9be3ccf8000d",
+      "status": "NOT_UPDATED",
+      "original_sha256": "821464B48E5F2D1E2E32748B968DF259443A693FB2F50D174048E8E6A1321D5F",
+      "new_sha256": null,
+      "planned_code_cells": 1,
+      "planned_markdown_cells": 1,
+      "applied_cells": 0,
+      "observed_bindings": "env_forestops attached; no default lakehouse dependency in authoritative definition",
+      "all_other_code_unchanged_by_attempt": true,
+      "bindings_preserved_by_no_write": true
+    },
+    {
+      "name": "05_publish_and_validate",
+      "id": "f478c3cb-4924-4736-9366-4264cd9b1a96",
+      "status": "NOT_UPDATED",
+      "original_sha256": "B0F0FD48B6A8260A14FD6B78A1A50D2825699733C0191B116011B02E36E7B695",
+      "new_sha256": null,
+      "planned_code_cells": 0,
+      "planned_markdown_cells": 6,
+      "applied_cells": 0,
+      "all_code_unchanged_by_attempt": true,
+      "bindings_preserved_by_no_write": true
+    },
+    {
+      "name": "05_publish_and_validate_STUDENT",
+      "id": "f7a9e08d-a8eb-4b01-bef9-2980aa5e3a26",
+      "folder_id": "9ed28e43-eaed-4fed-931c-a945c346e6c6",
+      "status": "NOT_UPDATED",
+      "original_sha256": "A0D0408D5B70968319CB8301CAE03F8B0E01C572D7BB19382DB33053E04FA3D8",
+      "new_sha256": null,
+      "planned_code_cells": 0,
+      "planned_markdown_cells": 6,
+      "applied_cells": 0,
+      "all_code_unchanged_by_attempt": true,
+      "bindings_preserved_by_no_write": true
+    }
+  ],
+  "live_area_predicate_validation": {
+    "status": "NOT_RUN",
+    "current_live_min_area_ha": null,
+    "current_live_max_area_ha": null,
+    "computed_expected_limits_ha": null,
+    "wrong_units_fixture": "NOT_RUN_IN_THIS_ATTEMPT",
+    "full_cloud_notebook_execution": false,
+    "historical_or_user_reported_geometry_results_not_relabelled_as_current": true
+  },
+  "side_effects": {
+    "notebook_runs_started": 0,
+    "probe_notebooks_created": 0,
+    "bronze_silver_gold_writes": 0,
+    "external_imagery_reads": 0,
+    "capacity_changes": 0,
+    "resources_deleted": 0,
+    "other_workspaces_changed": 0,
+    "workspace_source_files_changed": 0,
+    "downstream_data_change_by_attempt": false,
+    "downstream_data_readback": "NOT_RUN"
+  },
+  "blockers": [
+    "A long terminal command stalled at the multiline input prompt before merge preparation. It was cancelled; no publish request was submitted.",
+    "The replacement recovery helper passed PowerShell syntax validation, but the recovered terminal no longer contained the scoped in-memory state. Its guard stopped before any remote operation.",
+    "The bounded time budget was exhausted. Do not resume publication without reconstructing state from recovery snapshots and repeating fresh comparison, schema validation, preservation checks and active-job preflight."
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "as_of_date": "2026-09-18",
+  "status": "ready_for_classroom",
+  "tenant_id": "711a9076-1115-4c36-b7b4-82b4f3a05f6f",
+  "subscription_id": "a0c62bdd-d642-4fdb-b372-ae041cf83ce3",
+  "capacity": {
+    "name": "rayfintestenv",
+    "id": "93ba24b6-cddf-4b84-a587-935d1513efb1",
+    "sku": "F64",
+    "region": "West US 2",
+    "state": "Active",
+    "verification": "Azure Resource Manager GET and Fabric capacities GET succeeded"
+  },
+  "workspace": {
+    "name": "jdi-training-manual",
+    "id": "5785367c-0109-4ea9-beb5-05fb0edbe4dc",
+    "status": "created_in_portal",
+    "verification": "Fabric workspace GET confirmed displayName and capacityId after portal creation",
+    "verified_at_utc": "2026-09-18T01:25:30Z"
+  },
+  "local_export_tests": {
+    "command": "python -m pytest scripts/test_manual_fabric_outputs.py scripts/test_manual_stand_register.py scripts/test_prepare_manual_rehearsal.py scripts/test_annotate_manual_screenshots.py scripts/test_package_manual_workshop.py -q --tb=short --junitxml=docs/training-manual-local-tests.xml",
+    "passed": 72,
+    "failed": 0,
+    "scope": "actual export functions and notebook export cells; source/notebook AST parity; synthetic stand containment; TODO-preserving rehearsal; annotations and original hashes; four-folder ZIP integrity; handout links/frontmatter and screenshot claims; live checks recorded separately",
+    "junit_report": "training-manual-local-tests.xml"
+  },
+  "documentation_validation": {
+    "markdownlint": "PASS for README and four changed workshop guides; MD013 disabled for long tables",
+    "relative_links_and_frontmatter": "PASS",
+    "annotated_screenshots": 45,
+    "originals_preserved": "Raw portal captures retained under images/training/manual/raw; annotations carry source SHA256 metadata",
+    "deck_slides": 47,
+    "deck_review": "All 47 PowerPoint-rendered slides inspected in bounded visual-review batches; revised Bronze crop and final date-aware SQL slide re-rendered and passed fresh-eye verification",
+    "fresh_reader_review": "Completed; clarified date request, filter removal and actual portal save/publish steps"
+  },
+  "notebook_validation": {
+    "command": "python scripts/validate_notebooks.py",
+    "checked": 12,
+    "status": "passed"
+  },
+  "preexisting_test_failure": {
+    "command": "python -m pytest scripts/test_workshop_contracts.py -q --tb=short",
+    "errors": 3,
+    "reason": "Lab 00 fixture continues past the absent revised area marker to unavailable local pyspark",
+    "modified_by_this_task": false
+  },
+  "learner_folder": {"name": "student-demo", "portal_subfolder_id": "95534"},
+  "notebooks": [
+    {"lab": "00", "id": "af4a6cd9-b33b-41b4-8630-ddf06016f61b"},
+    {"lab": "01", "id": "cd1c69c0-8312-4a1a-9a73-d891eb6ff49e"},
+    {"lab": "02", "id": "61a023f2-48b1-48a6-9d02-2c696ac75e4a"},
+    {"lab": "03", "id": "7d368b94-b5b0-4602-8f20-ec4e4fa6acc5"},
+    {"lab": "04", "id": "23d8bbac-e5b5-4f2a-9b54-e3c3af5f42c8"},
+    {"lab": "05", "id": "d1d494c9-7f16-469e-bf36-06184c536b98"}
+  ],
+  "notebook_import": "Six student notebooks imported in the portal before lakehouse creation; success notification and all six links verified",
+  "lakehouse": {
+    "name": "lh_woodlands_demo", "id": "2ad1d57a-7aef-4836-b1ea-bd601f65d6be",
+    "status": "created_in_portal", "default_schema": "dbo"
+  },
+  "environment": {
+    "name": "env_forestops", "id": "7e4f7886-00a1-46b9-b20b-c04a175822ec",
+    "runtime": "1.3", "publish_state": "Success",
+    "publish_start_utc": "2026-09-18T01:42:02.8599106Z",
+    "publish_end_utc": "2026-09-18T01:48:37.0063934Z",
+    "target_version": "d74edc71-0a9d-445b-822c-8b9f0e31c2e9",
+    "library_validation": "Staged YAML readback preserved all 14 constraints; unsupported top-level name removed from shipped file"
+  },
+  "attachments": "All six notebooks ran with env_forestops and lh_woodlands_demo; Labs 03 and 04 required explicit Set as default lakehouse before their successful runs; Lab 03 and Lab 05 bindings independently confirmed by authoritative definition readback",
+  "rehearsal_runs": [
+    {
+      "lab": "00", "requested_at_utc": "2026-09-18T02:10:19.515Z",
+      "execution": "14 cells completed", "validation": "FAILED",
+      "reason": "Only 97/120 synthetic centroids inside the AOI; intersecting boundary hexagons were sampled before jitter",
+      "recovery": "Reproduced locally; filter valid interior polygons after jitter, then sample 120; source/student/solution updated with exercises preserved"
+    },
+    {
+      "lab": "00", "requested_at_utc": "2026-09-18T02:16:48.925Z",
+      "execution": "14 cells completed", "validation": "PASS",
+      "checks_passed": 14, "checks_failed": 0,
+      "register_rows": 120, "centroids_inside": 120,
+      "area_ha_range": [522.8, 859.5], "delta_roundtrip": "PASS",
+      "session": "stopped successfully after capturing checkpoint"
+    },
+    {"lab": "01", "requested_at_utc": "2026-09-18T02:20:33.001Z", "execution": "14 cells completed", "validation": "PASS", "checks_passed": 17, "checks_failed": 0, "catalogue_rows": 6, "dates": 5, "raster_files": 5, "native_epsg": 32619, "session_cache": "written and reloaded by Lab 02", "session": "stopped after checkpoint"},
+    {"lab": "02", "requested_at_utc": "2026-09-18T02:27:42.210Z", "execution": "16 cells completed", "validation": "PASS", "checks_passed": 17, "checks_failed": 0, "observation_rows": 120, "trusted_stands": 119, "quality_gate": "open", "session": "stopped after checkpoint"},
+    {"lab": "03", "requested_at_utc": "2026-09-18T02:40:23.786Z", "execution": "11 cells completed", "validation": "PASS", "checks_passed": 13, "checks_failed": 0, "retained_stands": 119, "review_stands": 13, "historical_baseline": "simulated", "session": "stopped after checkpoint"},
+    {"lab": "04", "requested_at_utc": "2026-09-18T02:45:13.518Z", "execution": "17 cells completed", "validation": "PASS", "checks_passed": 8, "checks_failed": 0, "narratives": 40, "model_deployment": "offline-stub", "failed_narratives": 0, "session": "stopped after checkpoint"},
+    {"lab": "05", "requested_at_utc": "2026-09-18T02:51:41.787Z", "execution": "12 cells completed", "validation": "PASS", "checks_passed": 10, "checks_failed": 0, "gold_stand_facts": 119, "gold_dim_stand": 120, "gold_dim_date": 365, "gold_dim_forest_class": 7, "geojson_readback": "PASS", "session": "stopped after checkpoint"}
+  ],
+  "live_rehearsal": "all_six_labs_sql_map_and_published_data_agent_passed",
+  "blocker": null,
+  "geojson": {
+    "path": "Files/gold/maps/stand_classification.geojson", "bytes": 95181,
+    "period_end": "2026-08-31", "registered_stands": 120,
+    "retained_stands": 119, "stands_without_result": 1,
+    "register_coverage_percent": 99.16666666666667, "readback": "PASS"
+  },
+  "sql_ground_truth": {
+    "endpoint_id": "38445a7f-0354-4eea-b303-f9ddc997fa03",
+    "schema": "dbo", "tables_discovered": 11,
+    "coverage": {"saved_query_id": "19184dc9-f8a8-40e1-baad-8e69f91c86ef", "requested_at_utc": "2026-09-18T04:22:45Z", "verified_at_utc": "2026-09-18T04:24:16Z", "period_end": "2026-08-31", "registered_stands": 120, "retained_stands": 119, "stands_without_result": 1, "register_coverage_percent": 99.17, "earlier_counts_only_query_id": "b833c253-4257-4ecf-9da9-b509221426c5"},
+    "class_summary": {"saved_query_id": "8b298fbd-be98-41c4-8fd6-7d4c8035e169", "period_end": "2026-08-31", "rows": [
+      {"forest_class": "softwood", "retained_stands": 113, "total_ha": 75630.3},
+      {"forest_class": "regenerating", "retained_stands": 3, "total_ha": 2042.1},
+      {"forest_class": "mixedwood", "retained_stands": 3, "total_ha": 1900.0}
+    ]},
+    "review_queue": {"saved_query_id": "32d1e213-ca1c-43b4-b3e2-5ca7c2166590", "count": 13, "period_end": "2026-08-31", "severity": "moderate", "change_type": "disturbance", "validation_status": "stubbed", "ordered_stand_ids": ["CEN-00034", "CEN-00053", "CEN-00090", "CEN-00104", "CEN-00055", "CEN-00101", "CEN-00012", "CEN-00013", "CEN-00058", "CEN-00046", "CEN-00074", "CEN-00070", "CEN-00006"]}
+  },
+  "map_validation": {
+    "status": "PASS", "id": "98b97126-e386-4a87-bd8e-47e67f184c35", "name": "map_woodlands_demo",
+    "source_http_status": 200, "color_by": "map_class", "fill_opacity": 0.65,
+    "colors": {"softwood": "#1B7F4B", "mixedwood": "#7A9E3F", "regenerating": "#9DD08A", "no_classified_result": "#61717D"},
+    "retained_tooltip": {"stand_id": "CEN-00057", "area_ha": 617.28, "is_trusted": true, "valid_pixel_fraction": 0.69, "stand_source": "synthetic"},
+    "missing_tooltip": {"stand_id": "CEN-00059", "area_ha": 699.27, "coverage_status": "no_classified_result", "is_trusted": null, "valid_pixel_fraction": null, "requires_review": null},
+    "coverage_filter": "isolated one gray polygon; removed before final save",
+    "layer_toggle": {"canvas_size": [686, 494], "tested_region": "x=25%-83%, y=48%-90% of canvas", "changed_fraction": 0.5868351418930401, "restored_difference_fraction": 0.0, "pixel_delta_threshold": 20},
+    "initial_view": "Map settings > Set initial view; center near 46.2515,-66.6487; UI zoom 9.2",
+    "reopened_at_utc": "2026-09-18T03:32:49.825Z",
+    "reopen_result": "Viewing mode preserved all four categories, New Brunswick view and ten-field stand tooltip"
+  },
+  "data_agent_validation": {
+    "status": "PASS", "id": "19c2c962-ee1f-41b9-b8d8-b18ec6ec5a47", "name": "agent_woodlands_demo", "created_at_utc": "2026-09-18T03:34:19.028Z",
+    "runtime": "Standard", "instruction_characters": 1589,
+    "source": {"type": "LakehouseTables", "id": "2ad1d57a-7aef-4836-b1ea-bd601f65d6be", "workspace_id": "5785367c-0109-4ea9-beb5-05fb0edbe4dc"},
+    "selected_tables": ["gold_dim_date", "gold_dim_forest_class", "gold_dim_stand", "gold_stand_facts"],
+    "configuration_readback": "Exactly four selected tables are Available; all three saved question/SQL examples have service validationStatus Valid; instructions match the handout",
+    "checks": [
+      {"question": "How many stands are registered?", "result": "PASS", "answer": 120, "generated_sql": "SELECT COUNT(DISTINCT stand_id) AS registered_stands FROM dbo.gold_dim_stand;", "response_seconds": 11},
+      {"question": "How many stands lack a result in the latest period, and what is register coverage? State the reporting period.", "submitted_at_utc": "2026-09-18T03:47:40.082Z", "result": "INCOMPLETE", "reason": "Correct 120/119/1 and 99.17%, but omitted the actual date", "recovery": "Added the latest period_end to the coverage example SELECT and confirmed service validationStatus Valid; retested in a fresh chat"},
+      {"question": "How many stands lack a result in the latest period, and what is register coverage? State the reporting period as a date.", "submitted_at_utc": "2026-09-18T03:50:14.101Z", "result": "PASS", "period_end": "2026-08-31", "registered": 120, "retained": 119, "missing": 1, "coverage_percent": 99.17, "generated_sql_inspected": true, "response_seconds": 12},
+      {"question": "Which stands require review in the latest period? State the count, period, and stand IDs with hectares.", "submitted_at_utc": "2026-09-18T03:51:20.471Z", "result": "PASS", "count": 13, "all_ids_and_areas_match_independent_sql": true, "simulation_limitation_stated": true, "generated_sql_inspected": true, "response_seconds": 14},
+      {"question": "Show latest-period stand counts and hectares by forest class. State the period.", "submitted_at_utc": "2026-09-18T03:52:13.054Z", "result": "PASS", "period_end": "2026-08-31", "all_three_classes_counts_and_areas_match_independent_sql": true, "generated_sql_inspected": true, "response_seconds": 10},
+      {"question": "Are the narratives live model results and are the change flags observed events? Explain the data limitations.", "submitted_at_utc": "2026-09-18T03:53:31.296Z", "result": "PASS", "answer": "Offline example narratives, simulated teaching change flags, synthetic boundaries, partial coverage; not field-verified or operational advice", "response_seconds": 8}
+    ],
+    "publish_requested_at_utc": "2026-09-18T04:01:55.717Z",
+    "microsoft_365_copilot_publication": false,
+    "external_sharing_changes": false,
+    "published_readback_at_utc": "2026-09-18T04:04:47.1028906Z",
+    "published_readback": "Instructions and all three Valid SQL examples exactly match verified draft; only the same four Available Gold tables selected",
+    "published_retest": {"submitted_at_utc": "2026-09-18T04:06:49.771Z", "verified_at_utc": "2026-09-18T04:07:58.543Z", "mode_label": "Published", "period_end": "2026-08-31", "registered": 120, "retained": 119, "missing": 1, "coverage_percent": 99.17, "response_seconds": 25, "result": "PASS", "generated_sql_inspected": true, "query_output_note": "The generated SQL alias register_coverage_percent held fraction 0.991667; the natural-language answer correctly converted it to 99.17%."}
+  },
+  "draft_archive": "../handouts/woodlands-manual-draft-20260917.zip",
+  "screenshot_directory": "images/training/manual",
+  "screenshots": [
+    {"file": "01-workspace-create.png", "status": "captured"},
+    {"file": "02-capacity-assignment.png", "status": "captured"},
+    {"file": "03-learner-folder.png", "status": "captured"},
+    {"file": "04-import-menu.png", "status": "captured"},
+    {"file": "05-upload-dialog.png", "status": "captured"},
+    {"file": "06-import-success.png", "status": "captured"},
+    {"file": "07-six-notebooks.png", "status": "captured"},
+    {"file": "08-lakehouse-create.png", "status": "captured"},
+    {"file": "09-empty-lakehouse.png", "status": "captured"},
+    {"file": "10-environment-runtime.png", "status": "captured"},
+    {"file": "11-environment-libraries.png", "status": "captured"},
+    {"file": "12-environment-published.png", "status": "captured"},
+    {"file": "13-environment-picker.png", "status": "captured"},
+    {"file": "14-lakehouse-picker.png", "status": "captured"},
+    {"file": "15-notebook-attachments.png", "status": "captured"},
+    {"file": "15-default-lakehouse.png", "status": "captured"},
+    {"file": "16-run-cell-and-todo.png", "status": "captured"},
+    {"file": "17-lab00-configuration.png", "status": "captured"},
+    {"file": "18-lab00-checkpoint.png", "status": "captured"},
+    {"file": "19-lab01-bronze.png", "status": "captured"},
+    {"file": "20-lab02-quality.png", "status": "captured"},
+    {"file": "21-lab03-classification.png", "status": "captured"},
+    {"file": "22-lab04-offline-narratives.png", "status": "captured"},
+    {"file": "23-lab05-gold.png", "status": "captured"},
+    {"file": "24-geojson-export.png", "status": "captured"},
+    {"file": "25-sql-endpoint-period.png", "status": "captured"},
+    {"file": "26-map-create.png", "status": "captured"},
+    {"file": "27-map-lakehouse.png", "status": "captured"},
+    {"file": "28-map-show-geojson.png", "status": "captured"},
+    {"file": "29-map-category-style.png", "status": "captured"},
+    {"file": "30-map-tooltip.png", "status": "captured"},
+    {"file": "31-map-coverage-filter.png", "status": "captured"},
+    {"file": "32-map-initial-view.png", "status": "captured"},
+    {"file": "32-map-saved-reopened.png", "status": "captured"},
+    {"file": "33-agent-create.png", "status": "captured"},
+    {"file": "34-agent-lakehouse.png", "status": "captured"},
+    {"file": "35-agent-four-tables.png", "status": "captured"},
+    {"file": "36-agent-instructions.png", "status": "captured"},
+    {"file": "37-agent-example-validation.png", "status": "captured"},
+    {"file": "38-agent-count-answer.png", "status": "captured"},
+    {"file": "39-agent-coverage-answer.png", "status": "captured"},
+    {"file": "40-agent-review-answer.png", "status": "captured"},
+    {"file": "41-agent-publish-dialog.png", "status": "captured"},
+    {"file": "41-agent-published.png", "status": "captured"},
+    {"file": "42-final-workspace.png", "status": "captured"}
+  ]
+}

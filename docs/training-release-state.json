@@ -1,0 +1,191 @@
+{
+  "workspace_id": "60a018e6-4688-4a64-84af-0574e0bc8d3a",
+  "notebooks": {
+    "00_setup_lakehouse_and_config": {
+      "id": "bea0df2d-1f46-43b7-842b-7bec94e71272",
+      "comparison": {
+        "http_status": 202,
+        "operation": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/e8006091-b7c0-424a-9240-dde99116a864"
+      },
+      "changes": [
+        {
+          "cell_number": 16,
+          "cell_type": "code"
+        },
+        {
+          "cell_number": 15,
+          "cell_type": "markdown"
+        }
+      ],
+      "before_sha256": "7b24e87864aa588a19231a9d8bf69dc21c8587c3cf48b84a07894c7feda7d9f4",
+      "expected_sha256": "9950545ebf1c15c312f50c0594e05ed4ebefedfec859bc23f72ea6299f2f168b",
+      "bindings": {
+        "environment": {
+          "environmentId": "5e77036d-18d1-4eba-a0d5-cea55d2ea751",
+          "workspaceId": "60a018e6-4688-4a64-84af-0574e0bc8d3a"
+        },
+        "lakehouse": {
+          "default_lakehouse": "8a1192a3-d354-423c-82d2-302d2fd49c66",
+          "default_lakehouse_name": "lh_woodlands",
+          "default_lakehouse_workspace_id": "60a018e6-4688-4a64-84af-0574e0bc8d3a"
+        }
+      },
+      "submission_started": "2026-09-17T18:37:38.836839+00:00",
+      "publish": {
+        "http_status": 202,
+        "operation": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/444921f5-ce9f-4830-844b-97375e2f5cee"
+      },
+      "publish_status": "Succeeded",
+      "readback": {
+        "http_status": 202,
+        "operation": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/4c7f6aec-21aa-4427-ad39-3a979d0ae5a2"
+      },
+      "readback_status": "PASS",
+      "verified_utc": "2026-09-17T18:39:48.014882+00:00"
+    },
+    "00_setup_lakehouse_and_config_STUDENT": {
+      "id": "e44cad16-4a4b-4ba3-96e3-9be3ccf8000d",
+      "comparison": {
+        "http_status": 202,
+        "operation": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/e616bc0b-68bc-40e5-8cfc-3bbffa15e19a"
+      },
+      "changes": [
+        {
+          "cell_number": 16,
+          "cell_type": "code"
+        },
+        {
+          "cell_number": 15,
+          "cell_type": "markdown"
+        }
+      ],
+      "before_sha256": "b500a2a72d5e005dcc3c85fda795dbc75534e0bb4386a42dff2a3fcc1d24cd11",
+      "expected_sha256": "43e7080e0a3b58d7e8899414312b076cebde7b01883c5aa0f7ecbb779b0515e5",
+      "bindings": {
+        "environment": {
+          "environmentId": "5e77036d-18d1-4eba-a0d5-cea55d2ea751",
+          "workspaceId": "60a018e6-4688-4a64-84af-0574e0bc8d3a"
+        }
+      },
+      "submission_started": "2026-09-17T18:37:42.829735+00:00",
+      "publish": {
+        "http_status": 202,
+        "operation": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/cf63ea0a-6383-4512-8868-05a19371784d"
+      },
+      "publish_status": "Succeeded",
+      "readback": {
+        "http_status": 202,
+        "operation": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/7245e479-ac3e-4a58-9933-b692f2f9e06d"
+      },
+      "readback_status": "PASS",
+      "verified_utc": "2026-09-17T18:39:48.376590+00:00"
+    },
+    "05_publish_and_validate": {
+      "id": "f478c3cb-4924-4736-9366-4264cd9b1a96",
+      "comparison": {
+        "http_status": 202,
+        "operation": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/04c06a40-f76f-4c9f-92ea-a209c11e2bd1"
+      },
+      "changes": [
+        {
+          "cell_number": 2,
+          "cell_type": "markdown"
+        },
+        {
+          "cell_number": 22,
+          "cell_type": "markdown"
+        },
+        {
+          "cell_number": 23,
+          "cell_type": "markdown"
+        },
+        {
+          "cell_number": 25,
+          "cell_type": "markdown"
+        },
+        {
+          "cell_number": 26,
+          "cell_type": "markdown"
+        },
+        {
+          "cell_number": 30,
+          "cell_type": "markdown"
+        }
+      ],
+      "before_sha256": "b3444236c0c2b46e34996916fdf8c04b58a2a4ee7d3d792d3b7b93cb1b1c7e8d",
+      "expected_sha256": "1a7e516c2ed34d9bb0652972040318618c124c05285608e040e782e0ec39287e",
+      "bindings": {
+        "environment": {
+          "environmentId": "5e77036d-18d1-4eba-a0d5-cea55d2ea751",
+          "workspaceId": "60a018e6-4688-4a64-84af-0574e0bc8d3a"
+        },
+        "lakehouse": {
+          "default_lakehouse": "8a1192a3-d354-423c-82d2-302d2fd49c66",
+          "default_lakehouse_name": "lh_woodlands",
+          "default_lakehouse_workspace_id": "60a018e6-4688-4a64-84af-0574e0bc8d3a"
+        }
+      },
+      "submission_started": "2026-09-17T18:37:46.127834+00:00",
+      "publish": {
+        "http_status": 202,
+        "operation": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/e02c3f64-4223-4aae-b102-6af462baa181"
+      },
+      "publish_status": "Succeeded",
+      "readback": {
+        "http_status": 202,
+        "operation": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/d16a4fd6-8b22-41c0-b035-2875b957b13b"
+      },
+      "readback_status": "PASS",
+      "verified_utc": "2026-09-17T18:39:48.736550+00:00"
+    },
+    "05_publish_and_validate_STUDENT": {
+      "id": "f7a9e08d-a8eb-4b01-bef9-2980aa5e3a26",
+      "comparison": {
+        "http_status": 202,
+        "operation": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/545d5df1-9b91-4769-821b-121439c09425"
+      },
+      "changes": [
+        {
+          "cell_number": 2,
+          "cell_type": "markdown"
+        },
+        {
+          "cell_number": 22,
+          "cell_type": "markdown"
+        },
+        {
+          "cell_number": 23,
+          "cell_type": "markdown"
+        },
+        {
+          "cell_number": 25,
+          "cell_type": "markdown"
+        },
+        {
+          "cell_number": 26,
+          "cell_type": "markdown"
+        },
+        {
+          "cell_number": 30,
+          "cell_type": "markdown"
+        }
+      ],
+      "before_sha256": "1363cece19c760417fc97fa8bb868980b94287a939789de43f3f7ac5f17036f0",
+      "expected_sha256": "e30cc3e0a8bf2404328e021840606152a9c69aa5000280ead8ed465983b3f668",
+      "bindings": {},
+      "submission_started": "2026-09-17T18:37:49.777528+00:00",
+      "publish": {
+        "http_status": 202,
+        "operation": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/a659e42d-2ce6-4426-9d23-ee460288caf2"
+      },
+      "publish_status": "Succeeded",
+      "readback": {
+        "http_status": 202,
+        "operation": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/c4a2d618-5e41-49fa-8393-bf937649f9f1"
+      },
+      "readback_status": "PASS",
+      "verified_utc": "2026-09-17T18:39:49.095695+00:00"
+    }
+  },
+  "data_writes": 0
+}

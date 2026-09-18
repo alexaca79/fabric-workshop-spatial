@@ -1,0 +1,199 @@
+{
+  "captures": [
+    {"file": "01-workspace-create.png", "title": "Facilitator: name the shared training workspace", "focus": [
+      {"box": [377, 99, 536, 32], "badge": [330, 115], "text": "Use jdi-training-manual for this rehearsal."},
+      {"box": [377, 499, 100, 34], "badge": [530, 511], "text": "Open Advanced, then choose the approved Fabric capacity."}
+    ]},
+    {"file": "02-capacity-assignment.png", "title": "Facilitator: use the existing F64 capacity", "focus": [
+      {"box": [377, 297, 522, 32], "badge": [330, 313], "text": "Select rayfintestenv - West US 2, not a trial or another capacity."},
+      {"box": [381, 544, 61, 32], "badge": [325, 559], "text": "Apply creates the workspace with this assignment."}
+    ]},
+    {"file": "03-learner-folder.png", "title": "Create your learner folder", "focus": [
+      {"box": [208, 277, 529, 33], "badge": [154, 293], "text": "Replace demo with your learner or pair suffix."},
+      {"box": [595, 317, 66, 33], "badge": [560, 382], "text": "Create the folder, then open it."}
+    ]},
+    {"file": "04-import-menu.png", "title": "Import the student notebooks", "focus": [
+      {"box": [247, 100, 48, 32], "badge": [216, 65], "text": "Select Import, then Notebook."},
+      {"box": [565, 140, 192, 32], "badge": [797, 113], "text": "Choose From this computer."}
+    ]},
+    {"file": "05-upload-dialog.png", "title": "Open the notebook upload", "deck_crop": [620, 48, 1027, 335], "focus": [
+      {"box": [711, 196, 96, 32], "badge": [660, 210], "text": "Choose Upload to select your STUDENT notebook files."}
+    ]},
+    {"file": "06-import-success.png", "title": "Check the import completed", "focus": [
+      {"box": [719, 188, 255, 47], "badge": [661, 211], "text": "Look for Imported successfully. Do not upload again if it already succeeded."}
+    ]},
+    {"file": "07-six-notebooks.png", "title": "Verify the six student notebooks before creating the lakehouse", "focus": [
+      {"box": [184, 286, 279, 26], "badge": [126, 297], "text": "Start with Lab 00. Work through the numbered notebooks in order."},
+      {"box": [183, 510, 237, 28], "badge": [460, 556], "text": "Lab 05 must also be present. Keep solution files in a separate folder."}
+    ]},
+    {"file": "08-lakehouse-create.png", "title": "Create your own schema-enabled lakehouse", "focus": [
+      {"box": [249, 252, 529, 32], "badge": [198, 268], "text": "Name it lh_woodlands_<your suffix>. The rehearsal uses demo."},
+      {"box": [250, 371, 170, 27], "badge": [197, 383], "text": "Leave Lakehouse schemas checked."},
+      {"box": [637, 416, 65, 32], "badge": [590, 478], "text": "Select Create and wait for the lakehouse to open."}
+    ]},
+    {"file": "09-empty-lakehouse.png", "title": "Check the new lakehouse is empty", "focus": [
+      {"box": [110, 311, 108, 61], "badge": [274, 322], "text": "Tables contains the default dbo schema. The notebooks will populate it."},
+      {"box": [109, 376, 80, 29], "badge": [249, 428], "text": "Files will hold imagery caches and the GeoJSON map export."}
+    ]},
+    {"file": "10-environment-runtime.png", "title": "Facilitator: keep the workshop on Runtime 1.3", "focus": [
+      {"box": [335, 89, 208, 30], "badge": [590, 103], "text": "Check 1.3 (Spark 3.5, Delta 3.2). Do not substitute a different major runtime."}
+    ]},
+    {"file": "11-environment-libraries.png", "title": "Facilitator: check Full mode and save the 14-library definition", "focus": [
+      {"box": [198, 88, 144, 32], "badge": [321, 198], "text": "Use YML editor view to paste the supplied Environment definition."},
+      {"box": [154, 324, 112, 49], "badge": [314, 353], "text": "Use Full mode. Scroll the library list to inspect all 14 entries."},
+      {"box": [866, 142, 64, 24], "badge": [881, 207], "text": "Save and confirm. Then Home > Publish > Publish all > Publish."}
+    ]},
+    {"file": "12-environment-published.png", "title": "Facilitator: wait for successful publication", "focus": [
+      {"box": [679, 399, 81, 184], "badge": [641, 434], "text": "All 14 library rows must report Success. Saving alone is not publication."},
+      {"box": [335, 89, 208, 30], "badge": [580, 158], "text": "Runtime stays at 1.3. The notebooks can now attach this Environment."}
+    ]},
+    {"file": "13-environment-picker.png", "title": "Choose the Environment from the correct workspace", "focus": [
+      {"box": [118, 190, 139, 27], "badge": [289, 173], "text": "Select env_forestops."},
+      {"box": [669, 190, 145, 27], "badge": [751, 446], "text": "Verify Location is jdi-training-manual, not one of the reference workspaces."},
+      {"box": [852, 578, 75, 32], "badge": [809, 567], "text": "Confirm, then repeat the attachment for every notebook."}
+    ]},
+    {"file": "14-lakehouse-picker.png", "title": "Attach the Lakehouse item, not the SQL endpoint", "focus": [
+      {"box": [110, 189, 31, 29], "badge": [106, 298], "text": "Choose the Lakehouse icon in the first row. The second row is the SQL endpoint."},
+      {"box": [701, 189, 130, 30], "badge": [756, 313], "text": "Check your lakehouse name and its workspace before adding it."},
+      {"box": [877, 578, 50, 32], "badge": [833, 567], "text": "Select Add. Never attach another learner's lakehouse."}
+    ]},
+    {"file": "15-notebook-attachments.png", "title": "Check the three notebook attachments", "focus": [
+      {"box": [450, 88, 154, 31], "badge": [540, 171], "text": "Language: PySpark (Python)."},
+      {"box": [716, 88, 128, 31], "badge": [877, 151], "text": "Environment: env_forestops from this workspace."},
+      {"box": [130, 299, 169, 32], "badge": [365, 320], "text": "Your lakehouse has the default pin. Repeat for all six notebooks."}
+    ]},
+    {"file": "15-default-lakehouse.png", "title": "Explicitly set your default lakehouse", "focus": [
+      {"box": [416, 331, 194, 32], "badge": [674, 362], "text": "Open the lakehouse's More options menu and choose Set as default lakehouse."},
+      {"box": [137, 302, 161, 25], "badge": [173, 388], "text": "Wait for saving, reopen the notebook, and confirm your lakehouse is still attached."}
+    ]},
+    {"file": "16-run-cell-and-todo.png", "title": "Complete the exercise, then run and validate that cell", "deck_crop": [76, 132, 1015, 602], "focus": [
+      {"box": [289, 260, 82, 18], "badge": [237, 282], "text": "Replace the numbered TODOs with your code; keep validation cells intact."},
+      {"box": [129, 211, 31, 32], "badge": [159, 172], "text": "Select Run cell. Wait for completion and check for PASS before continuing."}
+    ]},
+    {"file": "17-lab00-configuration.png", "title": "Lab 00: check the printed configuration", "focus": [
+      {"box": [216, 414, 204, 43], "badge": [541, 428], "text": "Use EPSG:2953 for analysis and synthetic_stands: true for the workshop."},
+      {"box": [216, 477, 279, 42], "badge": [582, 512], "text": "The workspace and lakehouse labels must match your own setup."}
+    ]},
+    {"file": "18-lab00-checkpoint.png", "title": "Lab 00 checkpoint: all stand centroids are inside the area", "focus": [
+      {"box": [586, 371, 114, 26], "badge": [778, 391], "text": "Confirm 120/120 inside, with PASS. A completed cell can still print FAIL."},
+      {"box": [201, 394, 237, 24], "badge": [162, 442], "text": "The bronze_stand_register table now contains the display centroids."}
+    ]},
+    {"file": "19-lab01-bronze.png", "title": "Lab 01 checkpoint: verify the catalogue and source metadata", "deck_crop": [190, 313, 940, 510], "focus": [
+      {"box": [566, 331, 71, 43], "badge": [857, 345], "text": "This rehearsal found six scenes and wrote all six catalogue rows."},
+      {"box": [572, 373, 225, 24], "badge": [876, 422], "text": "Persist unsigned source URLs, never temporary SAS tokens."},
+      {"box": [571, 431, 233, 26], "badge": [889, 477], "text": "The stored native projection is EPSG:32619. Keep it for reprojection."}
+    ]},
+    {"file": "20-lab02-quality.png", "title": "Lab 02 checkpoint: the Silver quality gate must be open", "focus": [
+      {"box": [581, 363, 203, 24], "badge": [861, 345], "text": "This rehearsal has 119 trusted stands out of 120. Coverage can vary by imagery."},
+      {"box": [201, 441, 260, 27], "badge": [550, 478], "text": "Continue only with Gate open and every validation marked PASS."}
+    ]},
+    {"file": "21-lab03-classification.png", "title": "Lab 03 checkpoint: classifications and review flags", "focus": [
+      {"box": [581, 354, 196, 18], "badge": [843, 363], "text": "Compare only the retained stands: 119 in this rehearsal."},
+      {"box": [581, 414, 202, 18], "badge": [852, 468], "text": "The review queue has 13 stands. The demonstration uses a simulated prior period."}
+    ]},
+    {"file": "22-lab04-offline-narratives.png", "title": "Lab 04 checkpoint: recognize offline demonstration narratives", "focus": [
+      {"box": [595, 392, 78, 23], "badge": [787, 397], "text": "The rehearsal wrote 40 narratives, not one narrative for every stand."},
+      {"box": [595, 432, 113, 24], "badge": [795, 449], "text": "offline-stub is deliberate. These are not live model responses."},
+      {"box": [595, 473, 144, 23], "badge": [816, 510], "text": "Check zero failed rows and keep the validation guard enabled."}
+    ]},
+    {"file": "23-lab05-gold.png", "title": "Lab 05 checkpoint: verify the four Gold tables", "focus": [
+      {"box": [211, 351, 321, 42], "badge": [638, 372], "text": "119 retained facts differ from the full 120-stand register. Keep both counts."},
+      {"box": [211, 394, 321, 41], "badge": [641, 443], "text": "The date and class dimensions are also written to your learner lakehouse."}
+    ]},
+    {"file": "24-geojson-export.png", "title": "Lab 05: check the GeoJSON export readback", "focus": [
+      {"box": [211, 329, 58, 16], "badge": [166, 336], "text": "Use Files/gold/maps/stand_classification.geojson as the native Map layer."},
+      {"box": [362, 389, 34, 16], "badge": [705, 397], "text": "Check 120 registered features, 119 retained results and one missing result."},
+      {"box": [312, 448, 47, 18], "badge": [708, 476], "text": "Readback must report PASS before you build the Map."}
+    ]},
+    {"file": "25-sql-endpoint-period.png", "title": "Independently check the period and register coverage", "focus": [
+      {"box": [120, 180, 68, 31], "badge": [257, 196], "text": "Run the read-only coverage query after the Gold tables synchronize."},
+      {"box": [119, 460, 688, 34], "badge": [871, 521], "text": "For 2026-08-31: 120 registered, 119 retained, one missing and 99.17%. Keep this SQL ground truth."}
+    ]},
+    {"file": "26-map-create.png", "title": "Create a native Fabric Map", "focus": [
+      {"box": [249, 276, 528, 32], "badge": [201, 291], "text": "Use map_woodlands_<your suffix> in your learner folder."},
+      {"box": [637, 392, 65, 32], "badge": [589, 450], "text": "Create the Map item. This is not a Power BI map visual."}
+    ]},
+    {"file": "27-map-lakehouse.png", "title": "Connect the Map to your own lakehouse", "focus": [
+      {"box": [148, 185, 160, 34], "badge": [346, 271], "text": "Select lh_woodlands_demo, or your own suffixed Lakehouse."},
+      {"box": [695, 185, 140, 34], "badge": [756, 288], "text": "Confirm Location is jdi-training-manual."},
+      {"box": [877, 578, 50, 32], "badge": [834, 550], "text": "Select Add to connect the source."}
+    ]},
+    {"file": "28-map-show-geojson.png", "title": "Display the exported stand polygons", "focus": [
+      {"box": [199, 404, 73, 31], "badge": [258, 491], "text": "Select the maps folder, not only its expansion arrow, to open the file pane."},
+      {"box": [566, 286, 157, 30], "badge": [810, 288], "text": "Open the GeoJSON file's More options menu and select Show on map."}
+    ]},
+    {"file": "29-map-category-style.png", "title": "Style the actual categories, including missing results", "focus": [
+      {"box": [704, 258, 276, 33], "badge": [967, 225], "text": "Enable data-driven styling and Color by map_class, using Category."},
+      {"box": [462, 375, 203, 26], "badge": [404, 413], "text": "Use gray #61717D for no_classified_result. It is not a healthy or unclassified stand."},
+      {"box": [708, 480, 49, 29], "badge": [817, 531], "text": "Keep extrusion off and use 65% fill opacity for readable polygons."}
+    ]},
+    {"file": "30-map-tooltip.png", "title": "Inspect the period, quality and synthetic provenance", "focus": [
+      {"box": [534, 196, 66, 17], "badge": [740, 185], "text": "Hover a polygon and check its stand ID, reporting date, class and hectares."},
+      {"box": [544, 350, 60, 17], "badge": [748, 397], "text": "Scroll inside the tooltip to inspect stand_source: synthetic. Collapse the legend if it overlaps."}
+    ]},
+    {"file": "31-map-coverage-filter.png", "title": "Inspect stands with no retained classification", "focus": [
+      {"box": [470, 176, 171, 44], "badge": [732, 202], "text": "Filter coverage_status to no_classified_result. This rehearsal has one such stand."},
+      {"box": [874, 182, 131, 31], "badge": [907, 258], "text": "Remove filters before saving the complete map."}
+    ]},
+    {"file": "32-map-initial-view.png", "title": "Set the view learners will see when the Map opens", "focus": [
+      {"box": [421, 89, 125, 31], "badge": [647, 105], "text": "After Zoom to fit, open Map settings."},
+      {"box": [610, 505, 130, 31], "badge": [837, 521], "text": "Choose Set initial view, close the pane, then Save and wait for confirmation."}
+    ]},
+    {"file": "32-map-saved-reopened.png", "title": "Reopen the saved Map and check all four categories", "focus": [
+      {"box": [842, 50, 104, 31], "badge": [786, 100], "text": "The saved item opens in Viewing mode over the New Brunswick stands."},
+      {"box": [700, 363, 39, 36], "badge": [841, 403], "text": "The gray missing-result polygon remains visible beside retained classifications."}
+    ]},
+    {"file": "33-agent-create.png", "title": "Create your native Fabric Data Agent", "focus": [
+      {"box": [392, 301, 241, 32], "badge": [316, 318], "text": "Name it agent_woodlands_<your suffix> in your learner folder."},
+      {"box": [488, 345, 65, 32], "badge": [518, 442], "text": "Create the item. No Azure OpenAI key is needed for this exercise."}
+    ]},
+    {"file": "34-agent-lakehouse.png", "title": "Add the learner lakehouse as the agent's data source", "focus": [
+      {"box": [117, 189, 155, 29], "badge": [359, 270], "text": "Select your own lakehouse. Verify its workspace in the row details."},
+      {"box": [877, 578, 50, 32], "badge": [815, 571], "text": "Select Add and wait for the source schema to load."}
+    ]},
+    {"file": "35-agent-four-tables.png", "title": "Select only these four Gold tables", "deck_crop": [83, 128, 486, 593], "focus": [
+      {"box": [228, 301, 20, 20], "badge": [164, 311], "text": "gold_dim_date: reporting dates."},
+      {"box": [228, 333, 20, 20], "badge": [164, 343], "text": "gold_dim_forest_class: class labels and definitions."},
+      {"box": [228, 365, 20, 20], "badge": [164, 375], "text": "gold_dim_stand: the full stand register and coverage denominator."},
+      {"box": [228, 493, 20, 20], "badge": [164, 503], "text": "gold_stand_facts: retained stand-period results. Leave the other tables unchecked."}
+    ]},
+    {"file": "36-agent-instructions.png", "title": "Save instructions that define grain, coverage and limitations", "focus": [
+      {"box": [136, 259, 8, 12], "badge": [108, 267], "text": "Paste the complete instructions, replacing the starter text. Click the preview to save."},
+      {"box": [136, 429, 8, 12], "badge": [108, 437], "text": "Coverage uses every registered stand, not only the retained facts."},
+      {"box": [136, 498, 8, 12], "badge": [108, 506], "text": "Keep the simulated-baseline and offline-narrative limitations explicit."}
+    ]},
+    {"file": "37-agent-example-validation.png", "title": "Add and validate the question/SQL pairs", "focus": [
+      {"box": [200, 271, 77, 19], "badge": [151, 279], "text": "Enter the question, then let the portal finish saving before editing its SQL."},
+      {"box": [200, 378, 77, 19], "badge": [151, 387], "text": "Replace the SQL placeholder. Click outside and wait for automatic validation."},
+      {"box": [137, 178, 54, 26], "badge": [277, 188], "text": "Add all three examples. Reopen them and check that the saved queries match the handout."}
+    ]},
+    {"file": "38-agent-count-answer.png", "title": "Check the full-register count against SQL", "focus": [
+      {"box": [216, 306, 33, 17], "badge": [276, 266], "text": "The full register has 120 stands, including stands without a retained fact."},
+      {"box": [157, 381, 117, 26], "badge": [356, 385], "text": "Expand completed steps to inspect the actual source, generated SQL and output."}
+    ]},
+    {"file": "39-agent-coverage-answer.png", "title": "Require a date and whole-register coverage", "focus": [
+      {"box": [391, 223, 76, 18], "badge": [570, 230], "text": "The reporting period must be an actual date: 2026-08-31 in this rehearsal."},
+      {"box": [448, 318, 51, 18], "badge": [602, 342], "text": "119 out of 120 is 99.17%, not 100% of retained facts."},
+      {"box": [158, 393, 120, 27], "badge": [377, 406], "text": "Inspect the generated SQL and compare it with your independent endpoint query."}
+    ]},
+    {"file": "40-agent-review-answer.png", "title": "Verify the review queue and its limitations", "focus": [
+      {"box": [89, 71, 110, 29], "badge": [288, 85], "text": "Expand response, then open Steps completed to inspect SQL and source output."},
+      {"box": [373, 166, 24, 18], "badge": [554, 175], "text": "All 13 stand IDs and hectare values match the independently executed SQL."},
+      {"box": [39, 508, 38, 18], "badge": [110, 578], "text": "Keep the simulated-data limitation. These flags are not operational forestry advice."}
+    ]},
+    {"file": "41-agent-publish-dialog.png", "title": "Publish to Fabric without enabling an additional channel", "focus": [
+      {"box": [235, 278, 6, 20], "badge": [200, 290], "text": "Describe the agent's read-only training purpose and limitations."},
+      {"box": [708, 382, 41, 22], "badge": [837, 393], "text": "Leave Also publish to Microsoft 365 Copilot off for this workshop."},
+      {"box": [589, 471, 96, 32], "badge": [524, 494], "text": "Publish only after all answer checks agree with SQL."}
+    ]},
+    {"file": "41-agent-published.png", "title": "Retest the published version after reopening", "focus": [
+      {"box": [822, 54, 110, 24], "badge": [757, 68], "text": "Switch from Draft to Published. The label confirms which version you are testing."},
+      {"box": [349, 204, 79, 17], "badge": [584, 210], "text": "The published answer still states the correct reporting date."},
+      {"box": [291, 332, 49, 18], "badge": [518, 353], "text": "Recheck 120 registered, 119 retained, one missing and 99.17% coverage against SQL."}
+    ]},
+    {"file": "42-final-workspace.png", "title": "Hand in links to your completed Fabric items", "focus": [
+      {"box": [182, 457, 162, 26], "badge": [413, 469], "text": "Submit the published Data Agent and its independently checked answers."},
+      {"box": [182, 591, 158, 25], "badge": [413, 578], "text": "Submit the saved Map, lakehouse and six completed notebook links. Stop your Spark session."}
+    ]}
+  ]
+}

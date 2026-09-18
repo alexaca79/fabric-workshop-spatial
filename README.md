@@ -2,7 +2,7 @@
 title: Automating Forest Classification on Microsoft Fabric
 description: One-day workshop repository for JDI Woodlands covering a bronze, silver and gold forest classification pipeline built on Microsoft Fabric, Planetary Computer, GitHub Copilot, Microsoft Foundry and Power BI
 author: Workshop Delivery Team
-ms.date: 2026-09-02
+ms.date: 2026-09-18
 ms.topic: overview
 keywords:
   - microsoft fabric
@@ -19,18 +19,30 @@ estimated_reading_time: 8
 A one-day, two-session workshop that takes a working team from an empty Fabric
 workspace to an automated forest classification pipeline: Sentinel-2 imagery
 lands in bronze, reprojection and spectral analysis happen in silver, stand-level
-classification and AI enrichment land in gold, and a Direct Lake semantic model
-drives a Power BI map.
+classification and guarded narratives land in gold. The manual student path
+finishes with a native Fabric Map and Fabric Data Agent. A Direct Lake semantic
+model and Power BI report are separate optional extensions.
 
 Every exercise runs against open data, so the repository works before anyone has
 been granted access to production Woodlands inventory.
 
 ## Deploying this in a JDI tenant
 
-Start with [DEPLOY.md](DEPLOY.md). It covers the two decisions that have to be
-made before anything is built, workspace topology and outbound access
-protection, then the portal and scripted deployment paths and how to verify the
-result.
+For the learner-led, single-workspace path, start with
+[the manual upload lab guide](docs/16-manual-upload-labs.md). It uses
+`jdi-training-manual` in Contoso on `rayfintestenv` F64. Upload all six student
+notebooks, create your own lakehouse, complete the TODO exercises, then
+manually create a native Fabric Map and Fabric Data Agent. The guide includes
+45 annotated portal screenshots, with numbered circles and arrows.
+
+Open the [extracted Start Here handout](handouts/woodlands-manual-workshop-20260918/handouts/START-HERE.md),
+download the [complete workshop ZIP](handouts/woodlands-manual-workshop-20260918.zip),
+or open the [47-slide manual workshop deck](decks/out/woodlands-manual-workshop.pptx).
+The learner bundle has only four top-level folders: **student**, **solutions**,
+**handouts**, and **deck**. Repository authoring and deployment files stay separate.
+
+Use [DEPLOY.md](DEPLOY.md) for the production-style three-workspace topology,
+outbound access protection decisions, scripted deployment and deeper verification.
 
 ## Taking it further after the workshop
 
@@ -41,10 +53,32 @@ covering every Fabric component used here.
 
 ## Status: verified end to end
 
-The whole pipeline has been executed against a live Fabric F64 capacity, not
-just authored. All six notebooks run to completion across three workspaces, the
-OneLake shortcuts resolve, and the output data passes 27 correctness checks
-covering grain, index ranges, referential integrity and map geometry.
+The manual rehearsal completed in `jdi-training-manual` on September 18, 2026:
+all six labs, independent Gold SQL checks, a saved/reopened native Map and a
+published Data Agent passed. The latest period is **2026-08-31**, with
+**120 registered stands, 119 retained results and one missing result (99.17%)**.
+All 40 narratives are offline stubs; change flags use a simulated baseline.
+The 12 downloadable notebooks validate, preserve the student TODO exercises,
+and have no cloud dependency bindings. All 72 focused local tests passed.
+See [manual rehearsal evidence](docs/training-manual-evidence.json).
+
+### Earlier Reference Rehearsal
+
+The six core labs and the Environment preflight completed in `jdi-training`
+on September 17, 2026. All 83 solution code cells matched the live definitions
+at that verification. A persisted cloud probe passed 23 checks and reads; a
+separate current-data validation passed 22 assertions covering grain, keys,
+dates, ranges and geometry. See [the live evidence](docs/training-live-evidence.json).
+
+The later local lab check corrected a synthetic-area validation false failure
+in Lab 00; three focused regression tests passed then. Processing outputs were
+unchanged. The cloud equivalence receipt predates that validation correction
+and the new map export; it is not evidence for the new manual rehearsal.
+
+That run produced 102 classified facts from 120 synthetic stands. Eighteen
+stands were excluded by the quality gate, so whole-register coverage was
+85 percent. All 40 narratives used the offline stub. Live Foundry, a Power BI
+report, Direct Lake execution and scheduling were not verified outcomes.
 
 Running it for real found four bugs that reading the code would not have:
 
@@ -85,8 +119,9 @@ Planetary Computer (STAC)          Woodlands stand register
 +-------------------------------------------------------+
                           |
                           v
-        Direct Lake semantic model  ->  Power BI map
-        Fabric App (Rayfin SDK)     ->  Chief Forester dashboard
+      GeoJSON export             ->  Native Fabric Map
+      Gold Delta tables          ->  Fabric Data Agent
+      Optional semantic model    ->  Power BI report
 ```
 
 ## Repository layout
@@ -97,7 +132,6 @@ Planetary Computer (STAC)          Woodlands stand register
 | `decks/`      | Slide generators, icon renderer, shared theme, and the built `.pptx` files     |
 | `notebooks/`  | `solutions/` fully worked notebooks, `student/` skeletons, and `sample-outputs/` |
 | `src/`        | `forestops` helper package imported by the notebooks                           |
-| `apps/`       | `chief-forester` Fabric App on the Rayfin SDK, the alternative publishing path |
 | `environments/` | The pinned library set published as a Fabric Environment                     |
 | `pipelines/`  | Fabric data pipeline definition that orchestrates the notebooks end to end     |
 | `powerbi/`    | Direct Lake semantic model and report build guide                              |
@@ -105,18 +139,23 @@ Planetary Computer (STAC)          Woodlands stand register
 
 ## Quick start for participants
 
-1. Read [docs/00-prerequisites.md](docs/00-prerequisites.md) and complete the
-   access checks before Session 1. This takes about 30 minutes and is the single
-   biggest cause of a slow start.
-2. Run the pre-flight notebook cell in
-   [notebooks/student/00_setup_lakehouse_and_config_STUDENT.ipynb](notebooks/student/00_setup_lakehouse_and_config_STUDENT.ipynb).
-   It prints a pass or fail line for every dependency.
-3. Work the `student/` notebooks during the sessions. The matching
-   `solutions/` notebook is the answer key, not the starting point.
-4. If you fall behind, open the solution for the block you missed, run it, and
-   rejoin. Nobody should be stuck waiting on a previous step.
+1. Complete [docs/00-prerequisites.md](docs/00-prerequisites.md), then follow
+   [docs/16-manual-upload-labs.md](docs/16-manual-upload-labs.md) in order.
+2. Upload all six student notebooks before manually creating your lakehouse.
+3. Attach `env_forestops` and your own default lakehouse to every notebook.
+4. Complete TODOs and run Labs 00-05 cell by cell. Use the separate solution
+   keys to understand a blocked exercise, not as your submitted work.
+5. Create the native Fabric Map from Lab 05's GeoJSON, then create and test
+   the Fabric Data Agent against the four Gold tables.
 
 ## Quick start for facilitators
+
+For the browser-only delivery, use the workspace preparation in
+[docs/16-manual-upload-labs.md](docs/16-manual-upload-labs.md) and
+[manual Environment setup](docs/12-spark-environment.md#manual-portal-setup).
+Do not globally regenerate the manual-release notebooks: that would replace
+release-specific corrections. The commands below belong to the separate
+authoring and three-workspace deployment workflow.
 
 ```powershell
 # From the repository root
@@ -164,7 +203,6 @@ worth rehearsing.
 | 03    | `03_gold_forest_classification`       | Session 2, Step 2 continued            |
 | 04    | `04_gold_ai_enrichment_foundry`       | Session 2, Step 3 (2:05)               |
 | 05    | `05_publish_and_validate`             | Session 2, Step 4 and Step 5 (2:50)    |
-| 06    | `06_publish_fabric_app_snapshot`      | Session 2, Step 4 alternative, optional |
 
 Each notebook exists twice. The `student/` copy has the scaffolding, the
 markdown, the imports and the assertions, with the interesting lines replaced by
@@ -174,18 +212,19 @@ numbered TODO instructions. The `solutions/` copy is complete and runnable.
 table from the verified run, so a participant can tell the difference between an
 output that is wrong and one that merely differs from their neighbour's.
 
-## Three ways to publish the same gold layer
+## Consume the Gold layer
 
 | Path | Serves | Where |
 |------|--------|-------|
 | SQL analytics endpoint | Analysts writing their own T-SQL | Built in, no work required |
+| Native Fabric Map | Spatial exploration of stand polygons | Lab 05 GeoJSON and the manual guide |
+| Fabric Data Agent | Natural-language questions over Gold data | Four Gold tables and the manual guide |
 | Direct Lake semantic model and Power BI report | Anyone who wants to explore | Notebook 05 and `powerbi/` |
-| Fabric App on the Rayfin SDK | One role with fixed questions | Notebook 06 and `apps/chief-forester/` |
 
-The Fabric App is the Chief Forester dashboard: five cards, a class breakdown,
-a review queue and a stand detail panel. Choose between the three using
-[docs/11-fabric-app-option.md](docs/11-fabric-app-option.md). A gold layer that
-can only feed one of the three is not really a gold layer.
+After the six notebooks, the manual workflow requires a native Map and a
+tested, published Data Agent. Use
+[the semantic model guide](powerbi/semantic-model-guide.md) for the optional
+Power BI extension. No custom application, Node.js or Docker setup is required.
 
 ## Data and licensing
 

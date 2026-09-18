@@ -514,6 +514,112 @@ run_summary = pd.DataFrame([{
 print(run_summary.T)
 
 # %% [markdown]
+# ## Export the native Fabric Map layer
+#
+# Run this supplied cell after completing the Gold exercises. It exports one
+# reporting period as WGS84 polygons and keeps stands without a classified
+# result visible. Those stands are not the same as the `unclassified` class.
+#
+# The file is a snapshot, not a live Delta table. After changing the data,
+# rerun this export and refresh the map. Create the Map and Data Agent manually
+# using docs/16-manual-upload-labs.md. No Power BI model is required for them.
+
+# %%
+import json
+from pathlib import Path
+
+from shapely import get_coordinates
+
+
+def build_map_features(register, facts, dim_class, period_end=None):
+    """Build a one-period GeoJSON snapshot without hiding missing stand results."""
+    if register.empty or len(register) > 100_000:
+        raise ValueError("The map requires 1 to 100,000 registered stands")
+    if register["stand_id"].isna().any() or not register["stand_id"].is_unique:
+        raise ValueError("Register stand_id must be non-null and unique")
+    if register.crs is None:
+        raise ValueError("Register geometry needs its actual CRS before export")
+    if (register.geometry.isna().any() or register.geometry.is_empty.any()
+            or not register.geometry.is_valid.all()
+            or not register.geometry.geom_type.isin(["Polygon", "MultiPolygon"]).all()):
+        raise ValueError("Every registered stand must have a valid, nonempty polygon")
+    if not np.isfinite(get_coordinates(register.geometry)).all():
+        raise ValueError("Stand coordinates must be finite")
+    if facts.empty or facts["stand_id"].isna().any():
+        raise ValueError("Complete the Gold facts before exporting a map")
+
+    periods = pd.to_datetime(facts["period_end"], errors="raise").dt.normalize()
+    if periods.isna().any():
+        raise ValueError("Every fact needs a reporting period")
+    chosen_period = periods.max() if period_end is None else pd.Timestamp(period_end).normalize()
+    selected = facts.loc[periods.eq(chosen_period)].copy()
+    if selected.empty:
+        raise ValueError("No facts exist for the selected reporting period")
+    if not selected["stand_id"].is_unique:
+        raise ValueError("Selected-period facts must have one row per stand")
+    if not selected["stand_id"].isin(register["stand_id"]).all():
+        raise ValueError("Selected-period facts contain an unknown stand_id")
+    if (dim_class["forest_class"].isna().any()
+            or not dim_class["forest_class"].is_unique
+            or not selected["forest_class"].isin(dim_class["forest_class"]).all()):
+        raise ValueError("Every retained forest class must resolve uniquely")
+
+    properties = [
+        "stand_id", "forest_class", "class_confidence", "is_trusted",
+        "valid_pixel_fraction", "requires_review", "change_type", "validation_status",
+    ]
+    spatial = register[["stand_id", "licence_block", "geometry"]].copy()
+    spatial["area_ha"] = register.to_crs(CRS_ANALYSIS).geometry.area / 10_000.0
+    spatial["stand_source"] = register["source"] if "source" in register else "unknown"
+    spatial = spatial.to_crs(CRS_WGS84)
+    coordinates = get_coordinates(spatial.geometry)
+    if (not np.isfinite(coordinates).all()
+            or (np.abs(coordinates[:, 0]) > 180).any()
+            or (np.abs(coordinates[:, 1]) > 90).any()):
+        raise ValueError("Reprojected coordinates must be finite WGS84 degrees")
+
+    spatial = spatial.merge(selected[properties], on="stand_id", how="left",
+                            validate="one_to_one", indicator=True)
+    retained = spatial.pop("_merge").eq("both")
+    spatial["period_end"] = chosen_period.date().isoformat()
+    spatial["coverage_status"] = np.where(retained, "retained", "no_classified_result")
+    spatial["map_class"] = spatial["forest_class"].where(retained, "no_classified_result")
+    for column in ("is_trusted", "requires_review"):
+        spatial[column] = pd.array(spatial[column], dtype="boolean")
+    colours = dim_class.set_index("forest_class")["colour_hex"]
+    spatial["colour_hex"] = spatial["forest_class"].map(colours).where(retained, "#61717D")
+    return json.loads(spatial.to_json(na="null", drop_id=True, to_wgs84=True, allow_nan=False))
+
+
+def export_stand_map(register, facts, dim_class, output_path, period_end=None):
+    """Validate, write and read back the GeoJSON file for the manual map lesson."""
+    payload = build_map_features(register, facts, dim_class, period_end)
+    output_path = Path(output_path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(payload, allow_nan=False) + "\n", encoding="utf-8")
+    if json.loads(output_path.read_text(encoding="utf-8")) != payload:
+        raise RuntimeError("Map export readback did not match the generated features")
+    features = payload["features"]
+    retained = sum(feature["properties"]["coverage_status"] == "retained" for feature in features)
+    return {
+        "path": str(output_path),
+        "period_end": features[0]["properties"]["period_end"],
+        "registered_stands": len(features),
+        "retained_stands": retained,
+        "stands_without_result": len(features) - retained,
+        "register_coverage": retained / len(features),
+        "readback": "PASS",
+    }
+
+
+# %%
+map_export = export_stand_map(
+    register, facts, dim_class,
+    Path("/lakehouse/default/Files/gold/maps/stand_classification.geojson"),
+)
+print(json.dumps(map_export, indent=2))
+
+# %% [markdown]
 # ## Step 14 · What breaks in production
 #
 # Rehearse these before they happen, because each one will.

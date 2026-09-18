@@ -2,7 +2,7 @@
 title: Facilitator guide
 description: Room setup, timing discipline, fallback tiers, rehearsed failure points and delivery notes for running the two-session forest classification workshop
 author: Workshop Delivery Team
-ms.date: 2026-09-02
+ms.date: 2026-09-17
 ms.topic: how-to
 keywords:
   - facilitation
@@ -15,6 +15,15 @@ estimated_reading_time: 11
 
 Written for the person running the room. Assumes two facilitators for up to
 twenty-four participants: one presenting, one floating.
+
+For the browser-only Contoso delivery, use
+[the manual walkthrough](16-manual-upload-labs.md) as the controlling checklist:
+`jdi-training-manual`, existing `rayfintestenv` F64, one lakehouse per learner,
+one published `env_forestops`, then native Maps and Data Agent. Its workspace
+preparation and [Environment setup](12-spark-environment.md#manual-portal-setup)
+replace the older topology and Foundry/report preparation below. Preserve the
+reference workspace, stagger Spark starts, and do not regenerate manual-release
+notebooks or weaken quality/network gates to unblock a lesson.
 
 ## Two weeks out
 
