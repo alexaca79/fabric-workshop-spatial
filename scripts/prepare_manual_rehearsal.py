@@ -74,7 +74,7 @@ def prepare_payload(lab: int) -> dict:
         if replacement != expected:
             edits.append({"cell_number": position, "expected_source": expected,
                           "source": replacement})
-    evidence = json.loads((ROOT / "docs/training-manual-evidence.json").read_text(encoding="utf-8"))
+    evidence = json.loads((ROOT / "scripts/verification/training-manual-evidence.json").read_text(encoding="utf-8"))
     if evidence["workspace"]["name"] != WORKSPACE or evidence["lakehouse"]["name"] != LAKEHOUSE:
         raise ValueError("The evidence does not identify the approved rehearsal workspace and lakehouse")
     target = next(item for item in evidence["notebooks"] if item["lab"] == f"{lab:02d}")

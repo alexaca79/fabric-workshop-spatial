@@ -1,6 +1,6 @@
 ---
-title: Homework between sessions
-description: Roughly 45 minutes of preparation between Session 1 and Session 2, defining your own area of interest and landing its stand register
+title: Practice with your own area of interest
+description: Optional practice after the core notebook exercises, choosing another area and checking its stand register and imagery.
 author: Workshop Delivery Team
 ms.date: 2026-09-02
 ms.topic: how-to
@@ -11,11 +11,13 @@ keywords:
 estimated_reading_time: 4
 ---
 
-## Homework between sessions
+## Optional Practice
 
-Budget 45 minutes. The point is to arrive at Session 2 with your own area of
-interest rather than the shared demo block, so that everything you build is
-about somewhere you actually manage.
+Finish the [core notebook exercises](16-manual-upload-labs.md) with the supplied
+area first. Then allow about 45 minutes to choose another New Brunswick area
+and check its data. Use a separate lakehouse to preserve your completed results.
+The supplied June 29 download is specific to the original area; use matching
+imagery or the automatic STAC alternative for your new area.
 
 ## Task 1: choose your area of interest (15 min)
 
@@ -36,14 +38,13 @@ or an area you have walked.
 
 ## Task 2: check imagery availability (15 min)
 
-Before Session 2 confirm there is usable imagery, because discovering there is
-not at 0:20 on the day costs you the whole first block.
+Confirm usable imagery exists before processing the new area.
 
 In the Planetary Computer Explorer:
 
 1. Select the Sentinel-2 Level 2A collection.
-2. Set the date range to the last full growing season, roughly June to
-   September.
+2. Keep June 1 through August 31, 2026, matching the supplied notebooks. A
+   different period requires updating both Lab 01's dates and Lab 03's composite.
 3. Set the cloud cover filter to 20 percent or less.
 4. Confirm at least three scenes cover your box.
 
@@ -69,12 +70,12 @@ The plausibility check is the real exercise. If your synthetic stands come out
 at 4,000 hectares each, something is wrong with the projection, and finding that
 now is much cheaper than finding it after you have built a classifier on top.
 
-## Bring to Session 2
+## Record Your Checks
 
 | Item                                        | Why                                                    |
 |---------------------------------------------|---------------------------------------------------------|
-| Your `AOI_NAME` and `AOI_BBOX`              | Every notebook in Session 2 is parameterised on them    |
-| The scene count and clearest date you found | Step 1 of Session 2 starts from this                    |
+| Your `AOI_NAME` and `AOI_BBOX`              | Keep area settings consistent across the notebooks     |
+| The scene count and clearest date you found | Confirm Lab 01 has suitable inputs                     |
 | Your `bronze_stand_register` row count      | The debrief opens with three people showing theirs      |
 | One question about your own data            | The last block is where this connects to your work      |
 
@@ -84,5 +85,5 @@ Post in the workshop Teams channel rather than arriving blocked. Most homework
 problems are a bounding box in the wrong order, west and south before east and
 north, and they take one message to resolve.
 
-If you cannot complete the homework at all, come anyway. The shared area of
-interest is pre-staged and you will not be behind.
+This practice is optional. The supplied area and imagery are sufficient for
+the core exercises.

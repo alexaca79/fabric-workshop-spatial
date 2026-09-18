@@ -1,8 +1,5 @@
-# Notebook 03: Gold - forest classification and change detection
-# Session 2, Step 2 continued. Budget 30 minutes.
-
 # %% [markdown]
-# # 03 · Classify the stands and detect what changed
+# # Lab 03 - Classify the stands and detect what changed
 #
 # **Session 2, Step 2 continued.** Turn silver observations into a forest class
 # per stand and a change record per stand, both traceable back to the logic that
@@ -61,20 +58,17 @@ FOREST_CLASSES = (
 RULE_VERSION = "rule_v1"
 
 # --- Medallion layer --------------------------------------------------------
-# Writes to gold. The silver table resolves through a OneLake shortcut in
-# lh_gold, created after notebook 02 has run. See docs/13-three-workspace-layout.md.
+# Writes Gold tables and reads Silver from the shared lab lakehouse.
 LAYER = "gold"
-WORKSPACE = "jdi-mock-training-gold"
-LAKEHOUSE = "lh_gold"
+WORKSPACE = "jdi-training"
+LAKEHOUSE = "lh_woodlands"
 
-TABLE_OBSERVATIONS = "silver_stand_observations"    # shortcut -> silver
+TABLE_OBSERVATIONS = "silver_stand_observations"
 TABLE_CLASSIFICATION = "gold_stand_classification"  # written here
 TABLE_CHANGE = "gold_stand_change"                  # written here
 
-
 def report(name, ok, detail=""):
     print(f"[{'PASS' if ok else 'FAIL'}] {name:<42} {detail}")
-
 
 observations = spark.table(TABLE_OBSERVATIONS).toPandas()
 print(f"{len(observations)} silver observations, {observations['stand_id'].nunique()} stands")
@@ -100,7 +94,7 @@ def composite_by_period(df, period_start, period_end):
     #@todo Add period_start and period_end columns
     #@hint Median rather than mean, for the same reason silver composited with a median
     #@stub return df
-    #@solution
+#@solution
     dates = pd.to_datetime(df["scene_date"])
     window = df[
         (dates >= pd.to_datetime(period_start))
@@ -126,8 +120,7 @@ def composite_by_period(df, period_start, period_end):
     composite["period_start"] = pd.to_datetime(period_start).date()
     composite["period_end"] = pd.to_datetime(period_end).date()
     return composite
-    #@end
-
+#@end
 
 current = composite_by_period(observations, "2026-06-01", "2026-08-31")
 print(f"{len(current)} stands with a trusted composite for the period")
@@ -168,7 +161,6 @@ def margin(distance, scale):
     with np.errstate(invalid="ignore"):
         return 0.5 + 0.5 * np.clip(np.abs(distance) / scale, 0.0, 1.0)
 
-
 def classify_rule_based(df, thresholds=THRESHOLDS):
     """Assign a forest class from spectral indices using explicit thresholds."""
     out = df.copy()
@@ -193,7 +185,7 @@ def classify_rule_based(df, thresholds=THRESHOLDS):
     #@hint Each gate must exclude the rows already claimed by earlier gates
     #@hint Use margin(distance_from_threshold, scale) for confidence, scale around 0.15 to 0.25
     #@stub pass
-    #@solution
+#@solution
     untrusted = valid < t["min_valid_pixel_fraction"]
 
     non_forest = (~untrusted) & (ndvi < t["non_forest_ndvi_max"])
@@ -224,14 +216,13 @@ def classify_rule_based(df, thresholds=THRESHOLDS):
 
     classes[untrusted] = None
     confidence[untrusted] = 0.0
-    #@end
+#@end
 
     out["forest_class"] = classes
     out["class_confidence"] = np.clip(np.nan_to_num(confidence, nan=0.0), 0.0, 1.0).round(3)
     out["class_method"] = RULE_VERSION
     out["is_trusted"] = ~untrusted
     return out
-
 
 classified = classify_rule_based(current)
 summary = (
@@ -349,11 +340,11 @@ def detect_change(current_df, baseline_df, thresholds=THRESHOLDS):
     #@todo Compute delta_ndvi and delta_ndmi as current minus baseline
     #@hint Sign conventions matter here. Loss should read as a positive delta_nbr.
     #@stub joined["delta_nbr"] = 0.0
-    #@solution
+#@solution
     joined["delta_nbr"] = joined["nbr_mean_base"] - joined["nbr_mean"]
     joined["delta_ndvi"] = joined["ndvi_p90"] - joined["ndvi_p90_base"]
     joined["delta_ndmi"] = joined["ndmi_mean"] - joined["ndmi_mean_base"]
-    #@end
+#@end
 
     change_type = np.full(len(joined), "none", dtype=object)
 
@@ -364,7 +355,7 @@ def detect_change(current_df, baseline_df, thresholds=THRESHOLDS):
     #@hint A planned regime plus canopy loss is almost certainly a harvest. Everything else is
     #@hint disturbance until a human confirms otherwise, which is the safer default.
     #@stub canopy_loss = pd.Series(False, index=joined.index)
-    #@solution
+#@solution
     canopy_loss = joined["delta_nbr"] >= thresholds["harvest_delta_nbr_min"]
     planned = joined.get("management_regime", pd.Series("unknown", index=joined.index)).isin(
         ["plantation", "thinned"]
@@ -381,7 +372,7 @@ def detect_change(current_df, baseline_df, thresholds=THRESHOLDS):
 
     regrowth = (~canopy_loss) & (joined["delta_ndvi"] >= 0.10)
     change_type[regrowth.to_numpy()] = "regrowth"
-    #@end
+#@end
 
     joined["change_type"] = change_type
 
@@ -393,18 +384,17 @@ def detect_change(current_df, baseline_df, thresholds=THRESHOLDS):
     #@todo Set requires_review True for disturbance, moisture_stress, and high-severity harvest
     #@hint A routine harvest on a plantation does not need a planner to look at it. A disturbance does.
     #@stub joined["requires_review"] = False
-    #@solution
+#@solution
     joined["requires_review"] = (
         joined["change_type"].isin(["disturbance", "moisture_stress"])
         | ((joined["change_type"] == "harvest") & (joined["severity"] == "high"))
     )
-    #@end
+#@end
 
     joined["detected_on"] = joined["period_end"]
     columns = ["stand_id", "detected_on", "change_type", "delta_nbr", "delta_ndvi",
                "delta_ndmi", "severity", "requires_review", "area_ha", "licence_block"]
     return joined[[c for c in columns if c in joined.columns]]
-
 
 change = detect_change(current, baseline)
 print(

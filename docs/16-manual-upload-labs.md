@@ -23,14 +23,13 @@ validation cells. The matching [solutions](../notebooks/solutions) are answer
 keys. Do not upload the Python authoring sources or solution files as your work.
 
 No local Python, Node.js, Docker, Power BI Desktop, Foundry endpoint or Azure
-OpenAI key is required. Power BI and scheduling remain optional extensions.
+OpenAI key is required. The notebooks contain only the required six-lab workflow.
+For imagery, choose [manual download/upload or automatic STAC](17-manual-imagery-download.md).
 
 > [!IMPORTANT]
-> Rehearsed September 18, 2026 on `rayfintestenv`, F64, West US 2.
-> All six labs, Gold SQL checks, the saved Map and the published Data Agent
-> passed. Screenshots show completed rehearsal copies; downloadable student
-> notebooks retain their TODO exercises. Your imagery-dependent counts can differ.
-> See [current evidence](training-manual-evidence.json).
+> Screenshots show completed example notebooks. Your student notebooks retain
+> their TODO exercises, and imagery-dependent counts can differ. Complete the
+> checks using your own results; do not copy the screenshot counts.
 
 ### Your Names
 
@@ -176,7 +175,8 @@ that default lakehouse.
 
 1. Confirm your default lakehouse and obtain the facilitator's Spark execution slot.
 2. Read the markdown before each code cell.
-3. Complete every numbered `TODO` in that cell. Keep the validation code intact.
+3. Complete each applicable numbered `TODO`. In Lab 01 manual mode, the online
+   catalogue/search TODOs are inactive; all shared exercises remain required.
 4. Select the cell's triangular **Run cell** control and wait for completion.
    Run its validation cell. Continue only after the expected checks pass.
 5. Stop at any exception or `[FAIL]`, even if Fabric allows later cells to run.
@@ -217,21 +217,26 @@ supplied geometry-derived area check, not a 500 ha maximum.
 
 ### Lab 01: Ingest Sentinel-2 Imagery
 
-Exercise cells: **9, 11, 17, 24, 26 and 30**. Allow about 45 minutes.
+Manual-route exercise cells: **17, 24, 26 and 30**. The automatic route also uses
+**9 and 11**. Allow about 45 minutes after the file download/upload completes.
 
 1. Confirm Lab 00 is complete and the same lakehouse is attached.
 2. Keep the supplied area and June 1 through August 31, 2026 window. The initial
    limit is six scenes, cloud cover below 20%, at 20 m resolution.
-3. Open the Planetary Computer catalogue and complete the STAC search.
-4. Complete the signed windowed raster load for B04, B08, B11, B12 and SCL.
-   Sign only for access; do not persist signed asset URLs.
+3. Follow [the imagery handout](17-manual-imagery-download.md) to download five
+   original TIFF bands and `item.json`, then upload them to your lakehouse.
+   Keep `INPUT_MODE="manual"` in Cell 6. Alternatively choose `"stac"` and
+   complete the online catalogue and search exercises.
+4. Complete the shared windowed load for B04, B08, B11, B12 and SCL. Manual
+   mode reads only uploaded files. Do not persist signed asset URLs.
 5. Write and inspect `bronze_scene_catalog`, then complete the Bronze file writes
-   and final cache-writing cell. Lab 02 needs that cache if the session recycles.
+   and final cache-writing cell. Lab 02 always reads that persisted dataset.
 6. Verify files under `Files/bronze/scenes/central-nb-block-a/` and the catalogue
-   validation. The reference contains six scenes; an empty search is a stop.
+   validation. The manual example contains one scene; the automatic reference
+   contains six. An empty selection is a stop.
 7. Capture `06-lab-01.png`. Avoid output that contains signed URLs.
 
-![Lab 01 validates six catalogue rows, unsigned source URLs and the native projection.](images/training/manual/19-lab01-bronze.png)
+![Automatic-route reference: six catalogue rows, unsigned source URLs and the native projection. Manual mode uses the one uploaded scene.](images/training/manual/19-lab01-bronze.png)
 
 ### Lab 02: Build Silver Observations
 
@@ -243,8 +248,9 @@ Exercise cells: **12, 14, 18, 20, 22, 27, 31 and 32**. Allow about 50 minutes.
 4. Calculate zonal statistics by stand with explicit valid-pixel accounting.
 5. Apply the 0.60 minimum valid-pixel fraction. Do not lower it to force a pass.
 6. Write `silver_stand_observations` and inspect its unique stand/date grain.
-7. Verify the physical index ranges and quality-gate output. The reference has
-   120 rows; 18 stands do not meet the downstream quality threshold.
+7. Verify physical index ranges, source scene IDs and the quality gate. The
+   manual-download rehearsal has 120 rows and 119 trusted stands. Your counts
+   can differ; do not use historical counts as a substitute for validation.
 8. Capture `07-lab-02.png` with the validation and coverage result.
 
 ![Lab 02 passes the Silver quality gate with 119 trusted stands out of 120 in this rehearsal.](images/training/manual/20-lab02-quality.png)
@@ -258,9 +264,9 @@ Exercise cells: **6, 8, 12, 17 and 22**. Allow about 45 minutes.
 3. Complete change detection and review flags. Keep untrusted observations
    excluded according to the supplied gate.
 4. Write `gold_stand_classification` and `gold_stand_change`.
-5. Inspect class counts and the review queue. The reference has 102 classified
-   stands: 97 softwood, 3 regenerating and 2 mixedwood. These are instructional
-   spectral classes, not field-validated species or harvesting decisions.
+5. Inspect class counts and the review queue. The manual-download rehearsal
+   retains 119 stands. These are instructional spectral classes, not
+   field-validated species or harvesting decisions.
 6. Capture `08-lab-03.png` with the final validation and a classification preview.
 
 ![Check the retained classifications and the demonstration review queue.](images/training/manual/21-lab03-classification.png)
@@ -287,9 +293,8 @@ Exercise cells: **9, 20, 26, 27 and 32**. Allow about 45 minutes.
 
 ![Verify 40 offline-stub narratives and zero failed rows.](images/training/manual/22-lab04-offline-narratives.png)
 
-Live Foundry requires a separately approved setup and validation. Do not paste
-keys into a notebook or screenshot, and do not describe stubbed text as an AI
-model result.
+This notebook has no live-model client or credential setup. Do not describe
+stubbed text as an AI model result. The native Fabric Data Agent comes later.
 
 ### Lab 05: Publish And Validate Gold Tables
 
@@ -303,8 +308,8 @@ Exercise cells: **6, 9 and 13**. Allow about 45 minutes for notebook work.
 4. Run key, null, relationship and range checks. Stop on any `[FAIL]`.
 5. Write and inspect `gold_stand_facts`, `gold_dim_stand`, `gold_dim_date` and
    `gold_dim_forest_class`. This rehearsal has 119, 120, 365 and 7 rows.
-6. Run **Publish the run summary**. Skip the optional semantic-model, report and
-   scheduling instructions, but run their model-table precheck code.
+6. Run **Publish the run summary**. Optional semantic-model, report and scheduling
+   sections have been removed from the learner notebooks.
 7. Run the supplied **Export the native Fabric Map layer** cell after completing
    the TODOs. It writes `Files/gold/maps/stand_classification.geojson`.
 8. Confirm `readback: PASS` and that registered stands equal retained stands
@@ -320,18 +325,9 @@ The export includes every registered polygon for one period. The
 `unclassified` class; missing quality/change attributes stay null. A new export
 replaces the file snapshot, so refresh the Map after exporting again.
 
-For the earlier 102/120 reference, register coverage is **85%**, even when
-every retained fact is trusted. Counts can vary with imagery. Use your actual
-current counts, keys and physical-range checks, not the historical count alone.
-
-The September 18 rehearsal uses period **2026-08-31**: **120 registered**,
-**119 retained**, **one missing result**, and **99.17% register coverage**.
-
-For an optional extension, follow the
-[Power BI semantic-model guide](../powerbi/semantic-model-guide.md), build the
-relationships and report, then verify actual storage/query behavior. Scheduling
-is a separate facilitator task. Neither a semantic model nor a schedule is
-needed for the required native Map and Data Agent steps below.
+For example, 119 retained stands out of 120 registered stands is **99.17% register
+coverage**, even when every retained fact is trusted. Report your own counts and
+period. A semantic model, Power BI report and schedule are not required.
 
 ## 6. Check The SQL Endpoint
 
@@ -669,20 +665,7 @@ permissions. Students start at Step 1 after this preparation.
 
 ![Select rayfintestenv in West US 2 and apply the workspace configuration.](images/training/manual/02-capacity-assignment.png)
 
-Use [DEPLOY.md](../DEPLOY.md) only for the separate production-style topology.
-Its three-workspace scripts are not part of the student workflow.
-
-## Evidence And References
-
-Historical `jdi-training` receipts remain in [live evidence](training-live-evidence.json),
-[release readback](training-release-state.json),
-[the setup rerun](training-setup-rerun.json) and
-[retired component removal](training-removal-evidence.json).
-They do not establish that this new workspace, Map or agent rehearsal passed.
-
-Current verification status and the 45-screen capture checklist are in
-[training-manual-evidence.json](training-manual-evidence.json). The annotated
-images above come from that rehearsal; raw originals are retained separately.
+## References
 
 * [Create a Fabric Map](https://learn.microsoft.com/fabric/real-time-intelligence/map/create-map)
 * [Add lakehouse layers](https://learn.microsoft.com/fabric/real-time-intelligence/map/add-lakehouse-layer)

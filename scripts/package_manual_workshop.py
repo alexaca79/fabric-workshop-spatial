@@ -8,6 +8,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import io
 import json
 import re
@@ -82,7 +83,7 @@ def verify_links(entries: dict[str, bytes]) -> None:
 
 def bundle_entries(*, draft: bool = False) -> dict[str, bytes]:
     """Assemble the focused distribution without modifying any source artifact."""
-    evidence_path = ROOT / "docs/training-manual-evidence.json"
+    evidence_path = ROOT / "scripts/verification/training-manual-evidence.json"
     evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
     if not draft and evidence["status"] != "ready_for_classroom":
         raise ValueError("Final bundle requires ready_for_classroom evidence; use --draft during rehearsal")
@@ -90,9 +91,11 @@ def bundle_entries(*, draft: bool = False) -> dict[str, bytes]:
     mapping = {
         (ROOT / "notebooks/student").resolve(): "student",
         (ROOT / "notebooks/solutions").resolve(): "solutions",
+        (ROOT / "docs/07-homework.md").resolve(): "handouts/homework.md",
         (ROOT / "docs/16-manual-upload-labs.md").resolve(): "handouts/student-guide.md",
         (ROOT / "docs/12-spark-environment.md").resolve(): "handouts/environment-setup.md",
-        evidence_path.resolve(): "handouts/training-manual-evidence.json",
+        (ROOT / "docs/17-manual-imagery-download.md").resolve(): "handouts/imagery-download.md",
+        (ROOT / "docs/download-imagery.html").resolve(): "handouts/download-imagery.html",
         (ROOT / "environments/environment.yml").resolve(): "handouts/environment.yml",
     }
     for variant in ("student", "solutions"):
@@ -116,38 +119,42 @@ def bundle_entries(*, draft: bool = False) -> dict[str, bytes]:
         name = f"handouts/images/training/manual/{capture['file']}"
         entries[name] = source.read_bytes()
         mapping[source.resolve()] = name
+    download_images = ROOT / "docs/images/training/manual-download"
+    download_captures = json.loads((ROOT / "scripts/verification/screenshots/manual-download/annotations.json").read_text(encoding="utf-8"))["captures"]
+    for capture in download_captures:
+        source = download_images / capture["file"]
+        name = f"handouts/images/training/manual-download/{capture['file']}"
+        entries[name] = source.read_bytes()
+        mapping[source.resolve()] = name
+    download_evidence_path = ROOT / "scripts/verification/training-manual-download-evidence.json"
+    if download_evidence_path.exists():
+        download_evidence = json.loads(download_evidence_path.read_text(encoding="utf-8"))
+        if not draft:
+            if download_evidence["status"] != "verified" or download_evidence["live_job"]["status"] != "Completed":
+                raise ValueError("Manual-download release needs a verified completed Fabric rehearsal")
+            for relative, expected_hash in download_evidence["artifact_sha256"].items():
+                if hashlib.sha256((ROOT / relative).read_bytes()).hexdigest() != expected_hash:
+                    raise ValueError(f"Manual-download verification is stale: {relative}")
+    elif not draft:
+        raise ValueError("Manual-download verification evidence is missing")
     guide_path = ROOT / "docs/16-manual-upload-labs.md"
-    guide, references = guide_path.read_text(encoding="utf-8").split("\n## Evidence And References\n", 1)
-    guide = guide.replace(
-        "Use [DEPLOY.md](../DEPLOY.md) only for the separate production-style topology.\n"
-        "Its three-workspace scripts are not part of the student workflow.\n", "",
-    ).rstrip()
-    guide = guide.replace(
-        "For an optional extension, follow the\n"
-        "[Power BI semantic-model guide](../powerbi/semantic-model-guide.md), build the\n"
-        "relationships and report, then verify actual storage/query behavior. Scheduling\n"
-        "is a separate facilitator task. Neither a semantic model nor a schedule is\n"
-        "needed for the required native Map and Data Agent steps below.\n\n", "",
-    )
-    official_links = "\n".join(line for line in references.splitlines() if line.startswith("* ["))
-    guide += ("\n\n## Evidence And References\n\n"
-              "Current rehearsal results are in [training-manual-evidence.json](training-manual-evidence.json).\n\n"
-              + official_links + "\n")
+    guide = guide_path.read_text(encoding="utf-8")
     environment_path = ROOT / "docs/12-spark-environment.md"
     environment = environment_path.read_text(encoding="utf-8")
-    frontmatter = "---" + environment.split("---", 2)[1] + "---\n\n"
-    manual = environment.split("## Manual Portal Setup\n", 1)[1].split("\n## Why not just use %pip install", 1)[0]
-    environment = frontmatter + "## Manual Portal Setup\n" + manual.rstrip() + "\n"
+    homework_path = ROOT / "docs/07-homework.md"
+    download_guide = ROOT / "docs/17-manual-imagery-download.md"
     for source, target, text in ((guide_path, "handouts/student-guide.md", guide),
-                                 (environment_path, "handouts/environment-setup.md", environment)):
+                                 (environment_path, "handouts/environment-setup.md", environment),
+                                 (homework_path, "handouts/homework.md", homework_path.read_text(encoding="utf-8")),
+                                 (download_guide, "handouts/imagery-download.md", download_guide.read_text(encoding="utf-8"))):
         entries[target] = rewrite_links(text, source, target, mapping).encode("utf-8")
+    entries["handouts/download-imagery.html"] = (ROOT / "docs/download-imagery.html").read_bytes()
     entries["handouts/environment.yml"] = (ROOT / "environments/environment.yml").read_bytes()
-    entries["handouts/training-manual-evidence.json"] = evidence_path.read_bytes()
-    deck_name = "woodlands-manual-workshop-draft.pptx" if draft else "woodlands-manual-workshop.pptx"
-    deck = (ROOT / "decks/out" / deck_name).read_bytes()
+    deck_name = "woodlands-manual-workshop.pptx"
+    deck = (ROOT / "decks" / deck_name).read_bytes()
     if not draft:
         presentation = Presentation(io.BytesIO(deck))
-        if len(presentation.slides) != len(evidence["screenshots"]) + 2:
+        if len(presentation.slides) != len(evidence["screenshots"]) + len(download_captures) + 2:
             raise ValueError("Final deck is stale or incomplete")
     entries[f"deck/{deck_name}"] = deck
     status = "DRAFT: live rehearsal is incomplete. Do not use for classroom delivery." if draft else "Verified classroom bundle."
@@ -157,7 +164,8 @@ def bundle_entries(*, draft: bool = False) -> dict[str, bytes]:
         "1. Open the [student guide](student-guide.md). Follow the steps in order.\n"
         "2. Upload the six [student notebooks](../student), then create your own lakehouse.\n"
         "3. Use the [solutions](../solutions) as answer keys, not as your submitted exercise files.\n"
-        f"4. Follow the [workshop deck](../deck/{deck_name}) alongside the guide.\n\n"
+        "4. Follow [imagery download and upload](imagery-download.md) before Lab 01. Manual is the default; automatic STAC remains available.\n"
+        f"5. Follow the [workshop deck](../deck/{deck_name}) alongside the guide.\n\n"
         "The facilitator completes [Environment setup](environment-setup.md) once.\n"
         "The bundle contains no deployment scripts, credentials or pre-attached notebook bindings.\n"
     ).encode("utf-8")

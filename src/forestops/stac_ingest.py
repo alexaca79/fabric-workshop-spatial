@@ -26,7 +26,7 @@ def open_catalog(url: str = STAC_URL) -> pystac_client.Client:
     time is deliberate: a signed href is a short-lived credential, so it must
     never be persisted to a table.
     """
-    return pystac_client.Client.open(url, modifier=pc.sign_inplace)
+    return pystac_client.Client.open(url, modifier=pc.sign_inplace, timeout=60)
 
 
 def search_scenes(
@@ -73,7 +73,7 @@ def scene_catalog_rows(
     for item in items:
         props = item.properties
         unsigned = {
-            band: _strip_signature(item.assets[band].href)
+            band: _strip_signature(item.assets[band].extra_fields.get("source_href", item.assets[band].href))
             for band in bands
             if band in item.assets
         }
@@ -88,6 +88,7 @@ def scene_catalog_rows(
                 "aoi_name": aoi.name,
                 "bbox_wgs84": json.dumps(list(aoi.bbox)),
                 "assets_json": json.dumps(unsigned),
+                "input_mode": props.get("input_mode", "stac"),
                 "ingested_at_utc": ingested_at,
                 "pipeline_run_id": pipeline_run_id,
             }

@@ -1,0 +1,72 @@
+[
+  {
+    "file": "18-manual-01-scene.png",
+    "raw_sha256": "4f0d351e9be597424e43341753fa6763efdf40073621eade5ffbc6af2baa22ac",
+    "annotated_sha256": "d11dfa890d4a88e571162ff2dd6547c86468860ad1b2e978f7bc1b33015e62e0",
+    "raw_size": [
+      1027,
+      634
+    ],
+    "annotated_size": [
+      1027,
+      718
+    ],
+    "callouts": 1
+  },
+  {
+    "file": "18-manual-02-bands.png",
+    "raw_sha256": "985ef3f1db944d72757552813b5925e88c3df50fa8e7562cc044cc73ce360787",
+    "annotated_sha256": "f134ff6785bcac141e1372d69e1aab6221e2e57029748f4bac82af6ff67521a5",
+    "raw_size": [
+      1027,
+      634
+    ],
+    "annotated_size": [
+      1027,
+      743
+    ],
+    "callouts": 2
+  },
+  {
+    "file": "18-manual-03-download.png",
+    "raw_sha256": "8b29f885439b4dd5da9b3b8b6a031a442b881be9ed9e2dfc9ca0a6d7508e17b2",
+    "annotated_sha256": "1e7a52aedb29091240adf96a3ed257a8ccf75381708b1aee688f7f83fafad778",
+    "raw_size": [
+      1280,
+      900
+    ],
+    "annotated_size": [
+      1280,
+      1034
+    ],
+    "callouts": 3
+  },
+  {
+    "file": "18-manual-04-upload-menu.png",
+    "raw_sha256": "49fc2c0fd41467011d1076e78081eb12b4f55d36bda353f9df6427216bdfc5fc",
+    "annotated_sha256": "b05d2bdf8085c8b140cbcb61d7af427703e53bd8a612140c349827d81b36088d",
+    "raw_size": [
+      1027,
+      634
+    ],
+    "annotated_size": [
+      1027,
+      743
+    ],
+    "callouts": 2
+  },
+  {
+    "file": "18-manual-05-uploaded.png",
+    "raw_sha256": "9f5440536af399d0c2fb6841235ade6d60c83b89588b003a227769ab7714c295",
+    "annotated_sha256": "ff44cd87b702b644baf91bee7716dfdea4e66a5d5babb5d86b0ea519f08cac42",
+    "raw_size": [
+      1027,
+      634
+    ],
+    "annotated_size": [
+      1027,
+      743
+    ],
+    "callouts": 2
+  }
+]

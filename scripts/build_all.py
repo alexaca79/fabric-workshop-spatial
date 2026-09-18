@@ -1,4 +1,4 @@
-"""Regenerate every build artefact: icons, doc images, decks and notebooks.
+"""Regenerate the current workshop notebooks, screenshots and single deck.
 
 Run from the repository root::
 
@@ -14,7 +14,6 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DECKS_DIR = REPO_ROOT / "decks"
 
 
 def run(label: str, command: list[str], cwd: Path) -> bool:
@@ -40,14 +39,12 @@ def main() -> int:
         print("\nall checks passed" if ok else "\ncheck failed", file=sys.stderr if not ok else sys.stdout)
         return 0 if ok else 1
 
-    ok &= run("icons", [python, "icons.py"], DECKS_DIR)
-    ok &= run("doc images", [python, "scripts/build_doc_images.py"], REPO_ROOT)
-
-    for deck in sorted(DECKS_DIR.glob("build_session*_deck.py")):
-        ok &= run(f"deck: {deck.stem}", [python, str(deck)], REPO_ROOT)
-
     ok &= run("notebooks", [python, "scripts/build_notebooks.py"], REPO_ROOT)
     ok &= run("notebook validation", [python, "scripts/validate_notebooks.py"], REPO_ROOT)
+    for name in ("manual", "manual-download"):
+        ok &= run(f"screenshots: {name}", [python, "scripts/annotate_manual_screenshots.py",
+                  "--plan", f"scripts/verification/screenshots/{name}/annotations.json"], REPO_ROOT)
+    ok &= run("workshop deck", [python, "scripts/deck/build_manual_deck.py"], REPO_ROOT)
 
     print("\nBuild complete." if ok else "\nBuild finished with failures.", file=sys.stdout if ok else sys.stderr)
     return 0 if ok else 1

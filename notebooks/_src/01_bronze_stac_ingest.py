@@ -1,45 +1,26 @@
-# Notebook 01: Bronze - Planetary Computer STAC ingestion
-# Session 2, Step 1 at 0:15. Budget 45 minutes.
-
 # %% [markdown]
-# # 01 · Get the imagery — Planetary Computer and STAC
+# # Lab 01 - Import Planetary Computer imagery
 #
-# **Session 2, Step 1.** Search a catalogue of the entire Sentinel-2 archive for
-# scenes covering your area of interest, read only the pixels you need, and land
-# them in bronze with enough metadata to explain any number you later publish.
+# Choose one route in Step 1. Both produce the same Bronze catalogue, native-CRS
+# imagery and saved dataset for Lab 02.
 #
-# ## What bronze promises
+# - `manual` (default): download one Sentinel-2 L2A scene's original `B04`, `B08`,
+#   `B11`, `B12` and `SCL` TIFFs plus its STAC Item JSON, then upload them to Files.
+# - `stac`: search and read Planetary Computer directly from this notebook.
 #
-# Fidelity. Nothing in this notebook reprojects, masks, renames a band or drops
-# a row. The only columns added describe how and when the data arrived. If
-# someone questions a number in November, you must be able to walk it back to
-# exactly what arrived in August without re-running anything.
+# A JPG, PNG, thumbnail or rendered RGB GeoTIFF cannot replace the five analysis
+# bands. Keep the original TIFF filenames and save the metadata as `item.json`.
+# See the imagery-download handout before using manual mode.
 #
-# ## STAC in four words
-#
-# ```
-# Catalog  ->  Collection  ->  Item  ->  Asset
-#  (all)      (sentinel-2)    (scene)   (band file)
-# ```
-#
-# A STAC search asks the catalogue for Items matching a geometry, a date range
-# and property filters, and returns hrefs to Cloud Optimized GeoTIFFs. Because
-# they are cloud optimized, you fetch the window you want rather than the scene.
-#
-# ## The signing rule
-#
-# Planetary Computer assets need a short-lived token appended to the URL. Sign at
-# the point of use, never persist a signed href. A signed href in a table is a
-# credential with an expiry date, and it fails three days later in a way that
-# looks like an outage.
+# Bronze preserves integer pixels and source provenance. It aligns bands to a
+# 20 m grid in their native CRS; masking, scaling and EPSG:2953 reprojection belong
+# in Lab 02. Signed download URLs are never written to the catalogue.
 
 # %% [markdown]
 # ## Step 0 · Confirm the Environment is attached
 #
-# Attach `env_forestops` and the `lh_bronze` lakehouse from the ribbon before
-# running anything. The STAC stack is not in the base runtime, and installing it
-# ad hoc breaks `planetary_computer` in a way that only shows up at the first
-# signed request. See docs/12-spark-environment.md.
+# Attach the published `env_forestops` Environment and set your own lakehouse as
+# default before running. The required packages are shared by both input routes.
 
 # %%
 def require_environment(packages):
@@ -59,7 +40,6 @@ def require_environment(packages):
             "Environment from the notebook ribbon, then restart the session."
         )
     print(f"environment OK ({len(packages)} packages available)")
-
 
 require_environment([
     "pystac_client", "planetary_computer", "odc.stac",
@@ -87,12 +67,17 @@ RESOLUTION_M = 20
 
 COLLECTION = "sentinel-2-l2a"
 BANDS = ("B04", "B08", "B11", "B12", "SCL")
+INPUT_MODE = "manual"
+MANUAL_SCENE_ROOT = f"/lakehouse/default/Files/bronze/manual/{AOI_NAME}"
+
+if INPUT_MODE not in {"manual", "stac"}:
+    raise ValueError('INPUT_MODE must be "manual" or "stac".')
 
 # --- Medallion layer --------------------------------------------------------
-# Writes to bronze. Attach lh_bronze as the default lakehouse.
+# Writes Bronze tables and files to the shared lab lakehouse.
 LAYER = "bronze"
-WORKSPACE = "jdi-mock-training-bronze"
-LAKEHOUSE = "lh_bronze"
+WORKSPACE = "jdi-training"
+LAKEHOUSE = "lh_woodlands"
 
 TABLE_SCENE_CATALOG = "bronze_scene_catalog"
 BRONZE_SCENE_ROOT = f"/lakehouse/default/Files/bronze/scenes/{AOI_NAME}"
@@ -116,32 +101,42 @@ print(f"pipeline_run_id = {PIPELINE_RUN_ID}")
 # than enough for a stable median.
 
 # %% [markdown]
-# ## Step 2 · Open the catalogue
+# ## Step 2 - Prepare the selected route
+#
+# In manual mode, each scene folder contains `item.json` and its five TIFFs.
+# This validation code is provided. Run the whole cell without changing it.
+# The catalogue-opening TODO applies only to `stac` mode.
 
 # %%
-import planetary_computer as pc
-import pystac_client
+#@include manual_imagery.py
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from forestops.manual_imagery import read_manual_items, validate_scene_selection
 
 STAC_URL = "https://planetarycomputer.microsoft.com/api/stac/v1"
 
-#@todo Open the STAC catalogue at STAC_URL with modifier=pc.sign_inplace
-#@hint The modifier signs assets as items are read, which is why you never store a signed href
-#@stub catalog = None
-#@solution
-catalog = pystac_client.Client.open(STAC_URL, modifier=pc.sign_inplace)
-#@end
+if INPUT_MODE == "stac":
+    import planetary_computer as pc
+    import pystac_client
 
-collection = catalog.get_collection(COLLECTION)
-print(f"{collection.id}: {collection.title}")
-print(f"temporal extent: {collection.extent.temporal.intervals}")
+    #@todo Open STAC_URL with modifier=pc.sign_inplace and timeout=60
+    #@hint Only the automatic route opens the remote catalogue.
+    #@stub catalog = None
+    #@solution
+    catalog = pystac_client.Client.open(STAC_URL, modifier=pc.sign_inplace, timeout=60)
+    #@end
+    if catalog is None:
+        raise RuntimeError("Complete the catalogue TODO for stac mode.")
+else:
+    print(f"Manual mode: reading uploaded files from {MANUAL_SCENE_ROOT}")
 
 # %% [markdown]
-# ## Step 3 · Search for scenes
+# ## Step 3 - Select and validate scenes
 #
-# Three filters: where, when, and how cloudy. The cloud filter is blunter than
-# it looks. `eo:cloud_cover` is scene-wide, so a scene can be 40 percent cloudy
-# overall and perfectly clear over your block. Set a generous threshold, then
-# rank by cloud cover and take the best few.
+# Manual mode validates the uploaded files without contacting Planetary Computer.
+# The search-function TODO is needed only for `stac` mode. Both routes check area,
+# dates, cloud cover and a common native CRS before any table is written.
 
 # %%
 def search_scenes(bbox, date_start, date_end, max_cloud, max_scenes):
@@ -153,7 +148,7 @@ def search_scenes(bbox, date_start, date_end, max_cloud, max_scenes):
     #@hint datetime takes a single string, "2026-06-01/2026-08-31"
     #@hint query={"eo:cloud_cover": {"lt": max_cloud}}
     #@stub return []
-    #@solution
+#@solution
     search = catalog.search(
         collections=[COLLECTION],
         bbox=list(bbox),
@@ -163,10 +158,13 @@ def search_scenes(bbox, date_start, date_end, max_cloud, max_scenes):
     items = list(search.items())
     items.sort(key=lambda it: it.properties.get("eo:cloud_cover", 100.0))
     return items[:max_scenes]
-    #@end
+#@end
 
-
-items = search_scenes(AOI_BBOX, DATE_START, DATE_END, MAX_CLOUD_COVER, MAX_SCENES)
+if INPUT_MODE == "manual":
+    items = read_manual_items(MANUAL_SCENE_ROOT)
+else:
+    items = search_scenes(AOI_BBOX, DATE_START, DATE_END, MAX_CLOUD_COVER, MAX_SCENES)
+validate_scene_selection(items, AOI_BBOX, DATE_START, DATE_END, MAX_CLOUD_COVER, MAX_SCENES)
 print(f"{len(items)} scenes selected\n")
 for item in items:
     print(f"  {item.id}")
@@ -184,7 +182,6 @@ for item in items:
 def report(name, ok, detail=""):
     print(f"[{'PASS' if ok else 'FAIL'}] {name:<40} {detail}")
 
-
 report("search returned scenes", len(items) > 0, f"{len(items)} items")
 if not items:
     print("\n  Troubleshooting, in order:")
@@ -198,7 +195,7 @@ else:
     report("scenes are sorted by cloud cover",
            [i.properties.get("eo:cloud_cover", 100) for i in items]
            == sorted(i.properties.get("eo:cloud_cover", 100) for i in items))
-    epsgs = {i.properties.get("proj:epsg") for i in items}
+    epsgs = {i.properties.get("proj:epsg", i.properties.get("proj:code")) for i in items}
     report("scene projections noted", True, f"native EPSG values: {epsgs}")
     if len(epsgs) > 1:
         print("      Scenes span more than one UTM zone. They must be reprojected")
@@ -217,7 +214,7 @@ print(f"collection  {sample.collection_id}")
 print(f"datetime    {sample.properties['datetime']}")
 print(f"platform    {sample.properties.get('platform')}")
 print(f"cloud       {sample.properties.get('eo:cloud_cover')}%")
-print(f"native crs  EPSG:{sample.properties.get('proj:epsg')}")
+print(f"native crs  {sample.properties.get('proj:code', sample.properties.get('proj:epsg'))}")
 print(f"\nassets available: {len(sample.assets)}")
 for band in BANDS:
     asset = sample.assets[band]
@@ -227,9 +224,9 @@ for band in BANDS:
 # %% [markdown]
 # ## Step 5 · Windowed read
 #
-# The whole point of Cloud Optimized GeoTIFF. Passing the bounding box into the
-# loader turns a multi-gigabyte scene into a few megabytes, because the client
-# fetches only the internal blocks that intersect your window.
+# The same loader reads uploaded TIFFs in manual mode or signed remote assets in
+# stac mode. Only the area of interest is loaded into the working dataset.
+# A manual download still transfers the full original TIFFs to your computer.
 #
 # Note what is deliberately absent: no `crs` argument. Bronze does not
 # reproject. That happens once, in silver.
@@ -260,12 +257,18 @@ print(raw)
 
 # %%
 report("dataset loaded", raw is not None)
+if raw is None:
+    raise RuntimeError("Complete the windowed-load TODO before continuing.")
 report("all requested bands present", set(BANDS).issubset(set(raw.data_vars)),
        f"{sorted(raw.data_vars)}")
 report("dataset has a CRS", raw.rio.crs is not None, f"{raw.rio.crs}")
 report("dataset has a time dimension", "time" in raw.dims, f"{raw.sizes.get('time', 0)} dates")
 approx_mb = (raw.sizes.get("x", 0) * raw.sizes.get("y", 0) * raw.sizes.get("time", 1) * len(BANDS) * 2) / 1e6
 report("window is a sensible size", approx_mb < 2000, f"about {approx_mb:.0f} MB uncompressed")
+if approx_mb >= 2000:
+    raise ValueError("Reduce the area or number of scenes before computing this dataset.")
+raw.attrs.update({"input_mode": INPUT_MODE, "pipeline_run_id": PIPELINE_RUN_ID,
+                  "scene_ids": [item.id for item in items], "aoi_bbox": list(AOI_BBOX)})
 
 # %% [markdown]
 # ## Step 6 · Look at it
@@ -326,25 +329,27 @@ def scene_epsg(props):
         return int(code.split(":", 1)[1])
     return 0
 
-
 def scene_catalog_rows(stac_items, aoi_name, aoi_bbox, run_id):
     """Flatten STAC items into bronze catalogue rows."""
     ingested_at = datetime.now(timezone.utc)
     rows = []
     for item in stac_items:
         props = item.properties
-        #@todo Build a dict of band -> unsigned href by splitting each href on "?"
+        #@todo Store each asset's source_href when present, otherwise its href, without a query string
         #@hint The part after ? is the SAS token. Storing it creates a credential in a table.
         #@stub unsigned = {}
-        #@solution
-        unsigned = {b: item.assets[b].href.split("?", 1)[0] for b in BANDS if b in item.assets}
-        #@end
+#@solution
+        unsigned = {
+            band: item.assets[band].extra_fields.get("source_href", item.assets[band].href).split("?", 1)[0]
+            for band in BANDS if band in item.assets
+        }
+#@end
 
         #@todo Append a row with scene_id, collection, datetime_utc, cloud_cover_pct, epsg,
         #@todo platform, aoi_name, bbox_wgs84 as JSON, assets_json, ingested_at_utc, pipeline_run_id
         #@hint datetime.fromisoformat(value.replace("Z", "+00:00")) parses the STAC timestamp
         #@stub rows.append({"scene_id": item.id})
-        #@solution
+#@solution
         rows.append({
             "scene_id": item.id,
             "collection": item.collection_id,
@@ -355,12 +360,12 @@ def scene_catalog_rows(stac_items, aoi_name, aoi_bbox, run_id):
             "aoi_name": aoi_name,
             "bbox_wgs84": json.dumps(list(aoi_bbox)),
             "assets_json": json.dumps(unsigned),
+            "input_mode": INPUT_MODE,
             "ingested_at_utc": ingested_at,
             "pipeline_run_id": run_id,
         })
-        #@end
+#@end
     return rows
-
 
 rows = scene_catalog_rows(items, AOI_NAME, AOI_BBOX, PIPELINE_RUN_ID)
 print(f"{len(rows)} catalogue rows prepared")
@@ -432,9 +437,8 @@ os.makedirs(BRONZE_SCENE_ROOT, exist_ok=True)
 #@todo Name each file "<scene_date>_<band>.tif"
 #@hint slice_ds[band].rio.to_raster(path, driver="COG", compress="DEFLATE")
 #@hint Call .compute() on the lazy array first, or the write will be slow and chatty
-#@stub written = []
-#@solution
 written = []
+#@solution
 slice_ds = raw.isel(time=0).compute()
 scene_date = str(raw.time.values[0])[:10]
 for band in BANDS:
@@ -466,7 +470,7 @@ report("files are non-empty", all(os.path.getsize(p) > 0 for p in written))
 # everything, and it turns a silent loss of spatial metadata into a fact.
 raw.attrs["crs_epsg"] = raw.rio.crs.to_epsg()
 
-raw.to_zarr(f"{BRONZE_SCENE_ROOT}/_session_cache.zarr", mode="w", consolidated=True)
+raw.to_zarr(f"{BRONZE_SCENE_ROOT}/_session_cache.zarr", mode="w", consolidated=True, zarr_version=2)
 print(f"Session cache written in EPSG:{raw.attrs['crs_epsg']}. Reload in notebook 02 with:")
 print(f'  raw = xarray.open_zarr("{BRONZE_SCENE_ROOT}/_session_cache.zarr")')
 print('  raw = raw.set_coords("spatial_ref")   # or the CRS is silently gone')
@@ -476,15 +480,15 @@ print('  raw = raw.set_coords("spatial_ref")   # or the CRS is silently gone')
 #
 # You are done when:
 #
-# - `bronze_scene_catalog` holds at least two scenes with no signed hrefs
-# - The raster files exist under `Files/bronze/scenes/`
+# - `bronze_scene_catalog` holds one to six scenes for this run, without signed URLs
+# - The raster files exist under `Files/bronze/scenes/<AOI_NAME>/`
+# - The Zarr dataset records the input route, source scene IDs, date and native CRS
 # - You looked at the imagery and know how cloudy it is
 #
 # ## What bronze deliberately does not do
 #
-# No reprojection, no masking, no index computation, no filtering. Every one of
-# those is a decision, and bronze does not make decisions. It records what
-# arrived.
+# No cloud masking, reflectance scaling, index calculation or reprojection into
+# the analysis CRS. Those decisions remain in Silver.
 #
 # **Next:** `02_silver_reproject_and_indices` masks the cloud, fixes the
 # projection and turns pixels into one row per stand.

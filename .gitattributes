@@ -1,0 +1,5 @@
+notebooks/student/*.ipynb -text
+notebooks/solutions/*.ipynb -text
+docs/download-imagery.html -text
+environments/environment.yml -text
+handouts/woodlands-manual-download-*/** -text

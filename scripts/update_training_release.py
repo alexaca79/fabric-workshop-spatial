@@ -25,7 +25,7 @@ WORKSPACE = "60a018e6-4688-4a64-84af-0574e0bc8d3a"
 TENANT = "711a9076-1115-4c36-b7b4-82b4f3a05f6f"
 API = "https://api.fabric.microsoft.com"
 RECOVERY = Path.home() / "JDI-training-retired-app-20260917-125920/notebook-before-validation-fix"
-STATE_PATH = ROOT / "docs/training-release-state.json"
+STATE_PATH = ROOT / "scripts/verification/training-release-state.json"
 TARGETS = {
     "00_setup_lakehouse_and_config": "bea0df2d-1f46-43b7-842b-7bec94e71272",
     "00_setup_lakehouse_and_config_STUDENT": "e44cad16-4a4b-4ba3-96e3-9be3ccf8000d",

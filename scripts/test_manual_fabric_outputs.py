@@ -242,7 +242,7 @@ def test_given_complete_export_cell_when_executed_then_it_writes_and_reports_cou
 
 
 @pytest.mark.parametrize("relative_path", [
-    "README.md", "docs/00-prerequisites.md", "docs/04-facilitator-guide.md",
+    "README.md", "docs/07-homework.md", "docs/17-manual-imagery-download.md",
     "docs/12-spark-environment.md", "docs/16-manual-upload-labs.md",
 ])
 def test_given_manual_documentation_when_parsed_then_metadata_and_local_links_resolve(relative_path):
@@ -289,7 +289,7 @@ def test_given_environment_definition_when_imported_then_keys_and_constraints_ar
 def test_given_capture_manifest_when_release_is_complete_then_every_screenshot_exists():
     root = SRC_DIR.parents[1]
     docs = root / "docs"
-    manifest = json.loads((docs / "training-manual-evidence.json").read_text(encoding="utf-8"))
+    manifest = json.loads((root / "scripts/verification/training-manual-evidence.json").read_text(encoding="utf-8"))
     guide_text = (docs / "16-manual-upload-labs.md").read_text(encoding="utf-8")
     environment_text = (docs / "12-spark-environment.md").read_text(encoding="utf-8")
     screenshots = manifest["screenshots"]

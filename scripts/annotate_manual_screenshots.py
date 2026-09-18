@@ -18,7 +18,7 @@ from PIL import Image, ImageDraw, ImageFont
 from PIL.PngImagePlugin import PngInfo
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_PLAN = ROOT / "docs/images/training/manual/annotations.json"
+DEFAULT_PLAN = ROOT / "scripts/verification/screenshots/manual/annotations.json"
 INK = "#17352E"
 ACCENT = "#CB3A24"
 WHITE = "#FFFFFF"
@@ -158,8 +158,8 @@ def main() -> int:
             filename = capture["file"]
             if Path(filename).name != filename or Path(filename).suffix != ".png":
                 raise ValueError(f"Expected a PNG filename without directories: {filename}")
-            receipts.append(annotate(arguments.plan.parent / "raw" / filename,
-                                     arguments.plan.parent / filename, capture))
+            output = ROOT / "docs/images/training" / arguments.plan.parent.name / filename
+            receipts.append(annotate(arguments.plan.parent / "raw" / filename, output, capture))
             LOGGER.info("Annotated %s", filename)
         receipt_name = "annotation-receipts.json" if not arguments.only else "annotation-preview.json"
         (arguments.plan.parent / receipt_name).write_text(

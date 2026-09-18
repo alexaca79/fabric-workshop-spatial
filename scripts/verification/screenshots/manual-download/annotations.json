@@ -1,0 +1,47 @@
+{
+  "captures": [
+    {
+      "file": "18-manual-01-scene.png",
+      "title": "Select the supplied Sentinel-2 scene in Planetary Computer",
+      "deck_crop": [0, 450, 1027, 634],
+      "focus": [
+        {"box": [14, 583, 191, 28], "badge": [475, 605], "text": "Use the supplied scene ID and June 29 acquisition date. The analysis period still ends August 31."}
+      ]
+    },
+    {
+      "file": "18-manual-02-bands.png",
+      "title": "Use original scientific bands, not the RGB preview",
+      "focus": [
+        {"box": [68, 406, 42, 27], "badge": [281, 408], "text": "B04 is an original red-band GeoTIFF. The other required keys are B08, B11, B12 and SCL."},
+        {"box": [504, 220, 296, 91], "badge": [892, 318], "text": "The displayed natural-colour image is for inspection only; it cannot replace the five bands."}
+      ]
+    },
+    {
+      "file": "18-manual-03-download.png",
+      "title": "Download metadata and all five original TIFFs",
+      "deck_crop": [152, 217, 1200, 733],
+      "focus": [
+        {"box": [979, 245, 118, 45], "badge": [1157, 266], "text": "Download item.json first. It identifies the scene and original grids."},
+        {"box": [979, 318, 118, 45], "badge": [1157, 340], "text": "Download B04, B08, B11 and B12. Keep the original filenames."},
+        {"box": [979, 610, 118, 45], "badge": [1157, 632], "text": "Download SCL too. Wait for all six transfers in the browser's Downloads list."}
+      ]
+    },
+    {
+      "file": "18-manual-04-upload-menu.png",
+      "title": "Upload the original files into your scene folder",
+      "deck_crop": [205, 183, 735, 530],
+      "focus": [
+        {"box": [324, 258, 66, 27], "badge": [244, 306], "text": "Open the scene folder's More options menu, then Upload."},
+        {"box": [466, 263, 108, 28], "badge": [644, 328], "text": "Choose Upload files. Do not choose Load to Tables."}
+      ]
+    },
+    {
+      "file": "18-manual-05-uploaded.png",
+      "title": "Verify all six inputs before starting Lab 01",
+      "focus": [
+        {"box": [660, 226, 118, 28], "badge": [852, 215], "text": "The folder must show six completed files: five TIFFs and one JSON."},
+        {"box": [413, 561, 76, 27], "badge": [682, 577], "text": "item.json belongs beside the TIFFs, not in a different folder."}
+      ]
+    }
+  ]
+}

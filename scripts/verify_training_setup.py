@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 from update_training_release import API, ROOT, WORKSPACE, isolated_session, request
 
 ITEM_ID = "bea0df2d-1f46-43b7-842b-7bec94e71272"
-RECEIPT = ROOT / "docs/training-setup-rerun.json"
+RECEIPT = ROOT / "scripts/verification/training-setup-rerun.json"
 
 
 def main() -> int:

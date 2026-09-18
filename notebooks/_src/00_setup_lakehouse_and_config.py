@@ -1,11 +1,5 @@
-# Notebook 00: Setup, configuration and the Woodlands stand register
-# Session 1, hands-on block at 2:50. Budget 50 minutes.
-#
-# Authored in percent format. Run scripts/build_notebooks.py to produce the
-# solution and student .ipynb files.
-
 # %% [markdown]
-# # 00 · Land a Woodlands dataset, reproject it, write a Delta table
+# # Lab 00 - Land a Woodlands dataset, reproject it, write a Delta table
 #
 # **Session 1, hands-on block.** By the end of this notebook you will have a
 # Lakehouse containing a forest stand register, reprojected to the New Brunswick
@@ -37,7 +31,7 @@
 # | Attach | Value | Why |
 # |---|---|---|
 # | Environment | `env_forestops` | Brings the geospatial stack, which the base runtime lacks |
-# | Default lakehouse | `lh_bronze` in `jdi-mock-training-bronze` | Where this notebook writes |
+# | Default lakehouse | `lh_woodlands` in `jdi-training` | Shared lab lakehouse |
 #
 # If either is missing, the next cell stops you rather than letting you find out
 # forty minutes later.
@@ -73,7 +67,6 @@ def require_environment(packages):
         )
     print(f"environment OK ({len(packages)} packages available)")
 
-
 require_environment(["geopandas", "shapely", "pyproj"])
 
 # %% [markdown]
@@ -105,11 +98,11 @@ SYNTHETIC_STAND_COUNT = 120
 RANDOM_SEED = 20260902
 
 # --- Medallion layer --------------------------------------------------------
-# Bronze, silver and gold each get their own workspace, so a mistake in one
-# layer cannot quietly overwrite another. This notebook writes to bronze.
+# The manual lab uses one workspace and one lakehouse. Table prefixes preserve
+# the medallion layers while keeping participant setup short.
 LAYER = "bronze"
-WORKSPACE = "jdi-mock-training-bronze"
-LAKEHOUSE = "lh_bronze"
+WORKSPACE = "jdi-training"
+LAKEHOUSE = "lh_woodlands"
 TABLE_STAND_REGISTER = "bronze_stand_register"
 
 print(json.dumps({
@@ -140,8 +133,7 @@ def validate_bbox(bbox):
     #@todo Raise a ValueError if latitudes fall outside -90 to 90
     #@todo Return the bbox unchanged so the function can be used inline
     #@hint New Brunswick longitudes are around -66, not 66. A missing minus sign puts you in Mongolia.
-    #@stub return bbox
-    #@solution
+#@solution
     west, south, east, north = bbox
     if west >= east:
         raise ValueError(f"west {west} must be less than east {east}; the bbox order is W, S, E, N")
@@ -151,9 +143,8 @@ def validate_bbox(bbox):
         raise ValueError(f"longitude out of range in {bbox}; New Brunswick is near -66, not 66")
     if not (-90 <= south <= 90 and -90 <= north <= 90):
         raise ValueError(f"latitude out of range in {bbox}")
+#@end
     return bbox
-    #@end
-
 
 validate_bbox(AOI_BBOX)
 
@@ -205,7 +196,6 @@ import numpy as np
 import pandas as pd
 from shapely.geometry import Polygon, box
 
-
 def hex_grid(bounds, spacing_m):
     """Hexagonal tessellation covering the bounds, in a projected CRS."""
     minx, miny, maxx, maxy = bounds
@@ -224,7 +214,6 @@ def hex_grid(bounds, spacing_m):
         row += 1
     return cells
 
-
 # %% [markdown]
 # ### Your turn: build the register
 #
@@ -240,9 +229,9 @@ def build_stand_register(aoi_bbox, n_stands=SYNTHETIC_STAND_COUNT, seed=RANDOM_S
     #@todo Reproject that frame to CRS_ANALYSIS so the hexagon generator can work in metres
     #@hint gpd.GeoDataFrame(geometry=[box(*aoi_bbox)], crs=CRS_WGS84).to_crs(CRS_ANALYSIS)
     #@stub frame = None
-    #@solution
+#@solution
     frame = gpd.GeoDataFrame(geometry=[box(*aoi_bbox)], crs=CRS_WGS84).to_crs(CRS_ANALYSIS)
-    #@end
+#@end
 
     minx, miny, maxx, maxy = frame.total_bounds
     area_m2 = (maxx - minx) * (maxy - miny)
@@ -252,10 +241,10 @@ def build_stand_register(aoi_bbox, n_stands=SYNTHETIC_STAND_COUNT, seed=RANDOM_S
     #@todo Keep only the cells that intersect the area of interest polygon
     #@hint frame.geometry.iloc[0] is the area of interest polygon
     #@stub grid = None
-    #@solution
+#@solution
     grid = gpd.GeoDataFrame(geometry=hex_grid((minx, miny, maxx, maxy), spacing), crs=CRS_ANALYSIS)
     grid = grid[grid.intersects(frame.geometry.iloc[0])].reset_index(drop=True)
-    #@end
+#@end
 
     # Jitter the vertices so the stands look surveyed rather than tessellated.
     jitter = spacing * 0.06
@@ -280,26 +269,24 @@ def build_stand_register(aoi_bbox, n_stands=SYNTHETIC_STAND_COUNT, seed=RANDOM_S
     #@todo Add planted_year as a nullable integer, null wherever natural is True
     #@todo Add management_regime: "natural" where natural is True, otherwise plantation or thinned
     #@hint pd.array(np.where(natural, None, years), dtype="Int64") gives you a nullable integer column
-    #@stub grid["stand_id"] = [f"{AOI_NAME[:3].upper()}-{i:05d}" for i in range(1, n + 1)]
-    #@solution
     grid["stand_id"] = [f"{AOI_NAME[:3].upper()}-{i:05d}" for i in range(1, n + 1)]
+#@solution
     grid["licence_block"] = rng.choice([f"LB-{c}" for c in "ABCDEF"], size=n)
     grid["species_group"] = rng.choice(["softwood", "hardwood", "mixedwood"], size=n, p=[0.52, 0.28, 0.20])
     planted = rng.integers(1968, 2023, size=n)
     grid["planted_year"] = pd.array(np.where(natural, None, planted), dtype="Int64")
     grid["management_regime"] = np.where(natural, "natural", rng.choice(["plantation", "thinned"], size=n))
-    #@end
+#@end
 
     #@todo Add area_ha, computed from the geometry
     #@hint The frame is already in EPSG:2953, so .area is in square metres. One hectare is 10,000 of them.
     #@stub grid["area_ha"] = None
-    #@solution
+#@solution
     grid["area_ha"] = grid.geometry.area / 10_000.0
-    #@end
+#@end
 
     grid["source"] = "synthetic"
     return grid
-
 
 stands = build_stand_register(AOI_BBOX)
 print(f"{len(stands)} stands, CRS {stands.crs}")
@@ -308,14 +295,13 @@ stands.head()
 # %% [markdown]
 # ### Validation
 #
-# The area check is the one that matters. Stands between 5 and 500 hectares are
-# plausible for managed forest. Numbers near zero mean you computed area in
-# degrees; numbers in the tens of thousands mean you reprojected twice.
+# The synthetic polygons are sampling cells, not managed-stand boundaries.
+# Their size follows the area of interest and requested count. Check against
+# that geometry-derived scale; reserve the 5-500 hectare rule for real stands.
 
 # %%
 def report(name, ok, detail=""):
     print(f"[{'PASS' if ok else 'FAIL'}] {name:<38} {detail}")
-
 
 report("register is not empty", len(stands) > 0, f"{len(stands)} stands")
 report("CRS is the analysis projection", stands.crs is not None and stands.crs.to_epsg() == CRS_ANALYSIS,
@@ -324,8 +310,17 @@ report("stand_id is unique", stands["stand_id"].is_unique)
 report("all expected columns present",
        {"stand_id", "licence_block", "species_group", "planted_year", "management_regime", "area_ha"}
        .issubset(stands.columns))
-report("areas are plausible",
-       bool(stands["area_ha"].between(5, 500).all()),
+if USE_SYNTHETIC_STANDS:
+    expected_area_ha = (
+        gpd.GeoDataFrame(geometry=[box(*AOI_BBOX)], crs=CRS_WGS84)
+        .to_crs(CRS_ANALYSIS).envelope.area.iloc[0]
+        / max(SYNTHETIC_STAND_COUNT * 1.6, 1) / 10_000.0
+    )
+    area_min_ha, area_max_ha = expected_area_ha * 0.5, expected_area_ha * 1.5
+else:
+    area_min_ha, area_max_ha = 5.0, 500.0
+report("areas match expected scale",
+       bool(stands["area_ha"].between(area_min_ha, area_max_ha).all()),
        f"{stands['area_ha'].min():.1f} to {stands['area_ha'].max():.1f} ha")
 report("natural stands have no planting year",
        bool(stands.loc[stands.management_regime == "natural", "planted_year"].isna().all()))
@@ -364,7 +359,6 @@ from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.getOrCreate()
 
-
 def geodataframe_to_spark(gdf, spark_session):
     """Convert a GeoDataFrame to a Spark DataFrame with WKB geometry."""
     #@todo Raise a ValueError if gdf.crs is None, rather than writing geometry nobody can interpret
@@ -375,7 +369,7 @@ def geodataframe_to_spark(gdf, spark_session):
     #@todo Return spark_session.createDataFrame(frame)
     #@hint Pandas Int64 columns fail the Arrow conversion. planted_year is one of them.
     #@stub return None
-    #@solution
+#@solution
     if gdf.crs is None:
         raise ValueError("GeoDataFrame has no CRS; declare it before writing to Delta")
 
@@ -389,8 +383,7 @@ def geodataframe_to_spark(gdf, spark_session):
             frame[column] = frame[column].astype("object").where(frame[column].notna(), None)
 
     return spark_session.createDataFrame(frame)
-    #@end
-
+#@end
 
 sdf = geodataframe_to_spark(stands, spark)
 sdf.printSchema()
@@ -421,7 +414,6 @@ print(f"Wrote {spark.table(TABLE_STAND_REGISTER).count()} rows to {TABLE_STAND_R
 # %%
 from shapely import wkb
 
-
 def spark_to_geodataframe(sdf_in, wkb_col="geometry_wkb", srid_col="srid"):
     """Rebuild a GeoDataFrame from a Delta table, restoring the CRS."""
     #@todo Convert the Spark DataFrame to pandas
@@ -430,15 +422,14 @@ def spark_to_geodataframe(sdf_in, wkb_col="geometry_wkb", srid_col="srid"):
     #@todo Return a GeoDataFrame with the wkb column dropped and crs set from the srid
     #@hint A table mixing two CRS values puts geometry in two different places with no error.
     #@stub return None
-    #@solution
+#@solution
     pdf = sdf_in.toPandas()
     srids = pdf[srid_col].dropna().unique()
     if len(srids) > 1:
         raise ValueError(f"table mixes spatial reference systems {sorted(srids)}; reproject before reading")
     geometry = [wkb.loads(bytes(v)) if v is not None else None for v in pdf[wkb_col]]
     return gpd.GeoDataFrame(pdf.drop(columns=[wkb_col]), geometry=geometry, crs=int(srids[0]))
-    #@end
-
+#@end
 
 round_trip = spark_to_geodataframe(spark.table(TABLE_STAND_REGISTER))
 print(f"{len(round_trip)} stands read back, CRS {round_trip.crs}")
