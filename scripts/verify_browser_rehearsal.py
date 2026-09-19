@@ -45,7 +45,8 @@ def verify_notebook(saved: dict, solution: dict, target: dict,
     for (number, actual), (_, expected) in zip(actual_cells, expected_cells, strict=True):
         actual_source = actual["source"]
         expected_source = retarget_labels(expected["source"], target["workspace_name"], target["lakehouse_name"])
-        if ast.dump(ast.parse(actual_source)) != ast.dump(ast.parse(expected_source)):
+        actual_ast = ast.dump(ast.parse(actual_source))
+        if actual_ast != ast.dump(ast.parse(expected_source)):
             raise ValueError(f"Cell {number} code differs from the answer key")
         if not isinstance(actual.get("execution_count"), int) or actual["execution_count"] < 1:
             raise ValueError(f"Cell {number} has no saved execution")
@@ -60,6 +61,7 @@ def verify_notebook(saved: dict, solution: dict, target: dict,
         cells.append({"number": number, "status": "passed", "execution_count": actual["execution_count"],
                       "checks_passed": text.count("[PASS]"),
                       "source_sha256": hashlib.sha256(actual_source.encode("utf-8")).hexdigest(),
+                      "answer_key_ast_sha256": hashlib.sha256(actual_ast.encode("utf-8")).hexdigest(),
                       "answer_key_ast": "matched"})
     if not cells or not sum(cell["checks_passed"] for cell in cells):
         raise ValueError("Saved notebook contains no passing validation output")

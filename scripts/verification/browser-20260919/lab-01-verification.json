@@ -9,6 +9,7 @@
       "execution_count": 1,
       "checks_passed": 0,
       "source_sha256": "f8ee9512c4e6ccd2bf9dda246c69a0e8864cd26d98548aede20acddfceace22b",
+      "answer_key_ast_sha256": "6b6b0b013142a017d9a4da2d798f8f238d99b991a846a8c201cda0650c673b6f",
       "answer_key_ast": "matched"
     },
     {
@@ -17,6 +18,7 @@
       "execution_count": 2,
       "checks_passed": 0,
       "source_sha256": "256ca20ca15a5559364ad7ee60ae3e1652c6bff9c8f8fc10baa5bbcad25dcf7c",
+      "answer_key_ast_sha256": "b6763ada45a00d98eb4a55c975b19fe825d3baa067d015e05e7bc4bff71fe75b",
       "answer_key_ast": "matched"
     },
     {
@@ -25,6 +27,7 @@
       "execution_count": 3,
       "checks_passed": 0,
       "source_sha256": "ad7c57388e180d6ee93bd7ae12c5287c205c1041e3e4546fac41cb11ff9b5e7f",
+      "answer_key_ast_sha256": "c3a1c51a011e08979426d6eae636d3d8f6ad529a784daefbd2886f04f506aecd",
       "answer_key_ast": "matched"
     },
     {
@@ -33,6 +36,7 @@
       "execution_count": 4,
       "checks_passed": 0,
       "source_sha256": "84455c30f5e0ca483645fe795da746498c878c8a0e5271aff78de263c6afc8ce",
+      "answer_key_ast_sha256": "15a133feaec4a9b71886b63a6d69dfc7f0f5301427e049846b5e1627d2130f46",
       "answer_key_ast": "matched"
     },
     {
@@ -41,6 +45,7 @@
       "execution_count": 5,
       "checks_passed": 4,
       "source_sha256": "07f5b2e30c5791814fb51bb865a4ac80b637fa8bf954ca14458b6153bfa03522",
+      "answer_key_ast_sha256": "728f1286f24dc5eede90d87b03d709c2489b96b0af31c7d78d5a00f34133693c",
       "answer_key_ast": "matched"
     },
     {
@@ -49,6 +54,7 @@
       "execution_count": 6,
       "checks_passed": 0,
       "source_sha256": "58023c9dab336946877c6cbe0c212ded967b968df80c77d5c030f6ae16843f6e",
+      "answer_key_ast_sha256": "96984a6dc6d1945a2ff9340c2b35eac1325ac76dd221bca1742f5ab34020c6b0",
       "answer_key_ast": "matched"
     },
     {
@@ -57,6 +63,7 @@
       "execution_count": 7,
       "checks_passed": 0,
       "source_sha256": "c65dc55e0474dcce3984dc5763ea30434433a143c7b349dc80e1fb78fd039d73",
+      "answer_key_ast_sha256": "f6113b24e6ff9aa158fe1380fa2b6376e24b200dba998889b0bc888f209e7310",
       "answer_key_ast": "matched"
     },
     {
@@ -65,6 +72,7 @@
       "execution_count": 8,
       "checks_passed": 5,
       "source_sha256": "8c3039a8cd899edc3acdba9f38a1f53bded5d700f08d162b25301a3b58b4ab65",
+      "answer_key_ast_sha256": "13fc8c602b7941c0c2e1917f8df43f407eb4ba034015ee78cfcdff61a4f4ac7b",
       "answer_key_ast": "matched"
     },
     {
@@ -73,6 +81,7 @@
       "execution_count": 9,
       "checks_passed": 0,
       "source_sha256": "a6d5a7227b6066d20a5a25b203d9e24af3dea56010bddc890c2543755e27fde5",
+      "answer_key_ast_sha256": "3d1e9aa95a6c3dc52c1125a9f930eeb5dd9bab451d4b7a609d793b0380b1a214",
       "answer_key_ast": "matched"
     },
     {
@@ -81,6 +90,7 @@
       "execution_count": 10,
       "checks_passed": 0,
       "source_sha256": "fb60c148bc4ea3de0c49c5df0aaf4dcf9abe9ad50ee26ac802fabbf0ec5f70fa",
+      "answer_key_ast_sha256": "b08ed933f07a57ac4926acbf3d206e60c32b23ee0c925cda22a846eddb28f335",
       "answer_key_ast": "matched"
     },
     {
@@ -89,6 +99,7 @@
       "execution_count": 11,
       "checks_passed": 0,
       "source_sha256": "cd1587d9f33009ab37d4c9ccdd7d25fa5c39a2765c94c44082862f698d6670f4",
+      "answer_key_ast_sha256": "d2c334d62b2b83ec1cbb12ddead59a4e36da1811ea3c49a4055df37d09b06294",
       "answer_key_ast": "matched"
     },
     {
@@ -97,6 +108,7 @@
       "execution_count": 12,
       "checks_passed": 6,
       "source_sha256": "349cecfba9998f4f9dc6c341f0d349b9331d0d1c9c86d6c8a1e7df21e0bbfe73",
+      "answer_key_ast_sha256": "d2457b876be9bf3d3743a422f33e54e9c5b671895ccc222697bc391430e6802c",
       "answer_key_ast": "matched"
     },
     {
@@ -105,6 +117,7 @@
       "execution_count": 13,
       "checks_passed": 2,
       "source_sha256": "052e4641c71a0b64e63eb868991b997f747cfa3f2cef9fd6f4b3e0359b638429",
+      "answer_key_ast_sha256": "6bdae86c71ecf65914b788d80311898b7ae0f618b6bb2782632c44b10d661ce3",
       "answer_key_ast": "matched"
     },
     {
@@ -113,6 +126,7 @@
       "execution_count": 14,
       "checks_passed": 0,
       "source_sha256": "42505f34d1596afded1d6d5fa826df425fcb43a2edaeae762b16feaa6348b71e",
+      "answer_key_ast_sha256": "ad31847f37a88d266622eea7e2f579fbe85dcecf02768bbd61c87a406c135ff7",
       "answer_key_ast": "matched"
     }
   ],
@@ -139,5 +153,6 @@
   "lab": "01",
   "notebook_id": "4f9cc75c-22d2-46c4-8007-f2364178547d",
   "input_mode": "stac",
-  "session_stopped": true
+  "session_stopped": true,
+  "receipt": "scripts/verification/browser-20260919/lab-01-verification.json"
 }

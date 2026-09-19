@@ -59,7 +59,7 @@ class LabVerification:
                 yield
             if "[FAIL]" in captured.getvalue():
                 raise AssertionError(f"Workshop validation reported [FAIL] in cell {number}")
-        except Exception as error:
+        except BaseException as error:
             outcome["status"] = "failed"
             outcome["error"] = {
                 "type": type(error).__name__,
@@ -78,7 +78,9 @@ class LabVerification:
     def finish(self, tables: dict[str, int], *, map_export: dict | None = None) -> dict:
         """Mark success only after every expected cell and positive table count."""
         complete = [cell["number"] for cell in self.record["cells"]] == self.record["source"]["code_cells"]
-        if self.record["status"] != "running" or not complete or not tables or any(count <= 0 for count in tables.values()):
+        passed = all(cell["status"] == "passed" for cell in self.record["cells"])
+        if (self.record["status"] != "running" or not complete or not passed
+            or not tables or any(count <= 0 for count in tables.values())):
             self.record["status"] = "failed"
             self._save()
             raise AssertionError("Incomplete cell sequence or missing durable table output")

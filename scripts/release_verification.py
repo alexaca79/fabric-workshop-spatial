@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+import ast
 import hashlib
 import json
 from pathlib import Path
+
+from prepare_independent_rehearsal import retarget_labels
 
 EVIDENCE_FILE = "scripts/verification/training-browser-evidence.json"
 MAP_CHECKS = ("polygons_visible", "tooltip_verified", "filter_verified", "layer_toggle_verified",
@@ -16,6 +19,14 @@ BROWSER_LAB_CHECKS = {
     "03": (11, {6: 3, 10: 6, 19: 4}),
     "04": (17, {22: 3, 34: 5}),
     "05": (11, {6: 3, 9: 2, 15: 4}),
+}
+BROWSER_CODE_CELLS = {
+    "00": [4, 6, 8, 10, 12, 14, 16, 18, 20, 21, 23, 25, 27, 29],
+    "01": [4, 6, 9, 11, 13, 15, 17, 19, 21, 24, 26, 28, 30, 32],
+    "02": [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 27, 29, 31, 32, 34],
+    "03": [4, 6, 8, 10, 12, 14, 16, 17, 19, 22, 24],
+    "04": [3, 5, 7, 9, 11, 14, 16, 18, 20, 22, 24, 26, 27, 30, 32, 34, 36],
+    "05": [3, 6, 9, 11, 13, 15, 17, 19, 21, 23, 25],
 }
 AGENT_CHECKS = ("selected_four_tables", "instructions_saved", "examples_validated",
                 "answers_match_sql", "published", "reopened", "published_coverage_verified")
@@ -47,13 +58,17 @@ def validate_browser_rehearsal(evidence: dict) -> None:
                 or len({cell.get("number") for cell in cells}) != expected_count
                 or lab.get("checks_passed") != sum(expected_checks.values())):
             raise ValueError(f"Browser Lab {lab['lab']} execution evidence is incomplete")
-        if not set(expected_checks).issubset({cell.get("number") for cell in cells}):
-            raise ValueError(f"Browser Lab {lab['lab']} is missing checked cells")
+        if [cell.get("number") for cell in cells] != BROWSER_CODE_CELLS[lab["lab"]]:
+            raise ValueError(f"Browser Lab {lab['lab']} code-cell sequence differs from the contract")
         for cell in cells:
             if (cell.get("status") != "passed" or cell.get("answer_key_ast") != "matched"
                     or type(cell.get("execution_count")) is not int or cell["execution_count"] < 1
                     or cell.get("checks_passed") != expected_checks.get(cell.get("number"), 0)):
                 raise ValueError(f"Browser Lab {lab['lab']} has unverified cell output")
+            for field in ("source_sha256", "answer_key_ast_sha256"):
+                digest = cell.get(field, "")
+                if len(digest) != 64 or any(character not in "0123456789abcdef" for character in digest):
+                    raise ValueError(f"Browser Lab {lab['lab']} has no cell source hash")
         for field in ("solution_sha256", "saved_sha256"):
             digest = lab.get(field, "")
             if len(digest) != 64 or any(character not in "0123456789abcdef" for character in digest):
@@ -113,11 +128,36 @@ def load_release_evidence(root: Path, *, verify_hashes: bool = True) -> dict:
         raise ValueError("Fabric-first verification evidence is missing; use a draft during rehearsal")
     evidence = json.loads(path.read_text(encoding="utf-8"))
     validate_live_release(evidence)
+    supporting = evidence.get("evidence_sha256", {})
+    if evidence.get("execution_method") == "interactive_ui" and not supporting:
+        raise ValueError("Browser release supporting evidence hashes are missing")
+    for relative, expected_hash in supporting.items():
+        receipt = (root / relative).resolve()
+        if not receipt.is_relative_to(root.resolve()) or not receipt.is_file():
+            raise ValueError(f"Invalid supporting evidence path: {relative}")
+        if hashlib.sha256(receipt.read_bytes()).hexdigest() != expected_hash:
+            raise ValueError(f"Supporting evidence is stale: {relative}")
     if evidence.get("execution_method") == "interactive_ui":
         for lab in evidence["labs"]:
             solutions = list((root / "notebooks" / "solutions").glob(f"{lab['lab']}_*.ipynb"))
             if len(solutions) != 1 or artifact_digest(solutions[0]) != lab["solution_sha256"]:
                 raise ValueError(f"Browser Lab {lab['lab']} answer-key evidence is stale")
+            relative = lab.get("receipt")
+            if relative not in supporting:
+                raise ValueError(f"Browser Lab {lab['lab']} has no bound supporting receipt")
+            if json.loads((root / relative).read_text(encoding="utf-8")) != lab:
+                raise ValueError(f"Browser Lab {lab['lab']} differs from its supporting receipt")
+            solution = json.loads(solutions[0].read_text(encoding="utf-8"))
+            code_cells = [(number, cell) for number, cell in enumerate(solution["cells"], 1)
+                          if cell["cell_type"] == "code"]
+            if [number for number, _ in code_cells] != BROWSER_CODE_CELLS[lab["lab"]]:
+                raise ValueError(f"Browser Lab {lab['lab']} answer-key cell sequence changed")
+            target = evidence["target"]
+            for recorded, (_, cell) in zip(lab["cells"], code_cells, strict=True):
+                source = retarget_labels("".join(cell["source"]), target["workspace_name"], target["lakehouse_name"])
+                digest = hashlib.sha256(ast.dump(ast.parse(source)).encode("utf-8")).hexdigest()
+                if recorded["answer_key_ast_sha256"] != digest:
+                    raise ValueError(f"Browser Lab {lab['lab']} cell AST evidence is stale")
     if not verify_hashes:
         return evidence
     expected = evidence.get("artifact_sha256", {})

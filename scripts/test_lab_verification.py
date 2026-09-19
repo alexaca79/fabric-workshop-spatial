@@ -75,3 +75,28 @@ def test_given_wrong_cell_order_when_started_then_rejects_execution(tmp_path):
     with pytest.raises(ValueError, match="Unexpected"):
         with recorder.cell(6):
             pytest.fail("Out-of-order cell body executed")
+
+
+@pytest.mark.parametrize("interruption", [KeyboardInterrupt, SystemExit])
+def test_given_interrupted_cell_when_finalized_then_never_records_success(tmp_path, interruption):
+    recorder = LabVerification(tmp_path / "lab.json", {"code_cells": [4]}, {})
+
+    with pytest.raises(interruption):
+        with recorder.cell(4):
+            raise interruption("interrupted")
+    with pytest.raises(AssertionError, match="Incomplete"):
+        recorder.finish({"output": 1})
+
+    saved = json.loads((tmp_path / "lab.json").read_text())
+    assert saved["status"] == saved["cells"][0]["status"] == "failed"
+    assert saved["cells"][0]["error"]["type"] == interruption.__name__
+
+
+def test_given_running_cell_when_finalized_then_rejects_unfinished_body(tmp_path):
+    recorder = LabVerification(tmp_path / "lab.json", {"code_cells": [4]}, {})
+
+    with pytest.raises(AssertionError, match="Incomplete"):
+        with recorder.cell(4):
+            recorder.finish({"output": 1})
+
+    assert json.loads((tmp_path / "lab.json").read_text())["status"] == "failed"
