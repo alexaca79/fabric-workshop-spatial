@@ -1,0 +1,131 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-09-18T19:30:00.024526+00:00",
+  "source": {
+    "notebook": "03_gold_forest_classification.ipynb",
+    "notebook_id": "fa26cf9c-b747-4030-8e85-665266f4782d",
+    "sha256": "f4ebd23d2deda2166520e3318dabc76d2408b3c6aac229ca573b033b76a5563f",
+    "input_mode": "stac",
+    "code_cells": [
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      17,
+      19,
+      22,
+      24
+    ]
+  },
+  "runtime": {
+    "currentWorkspaceId": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42",
+    "currentNotebookId": "fa26cf9c-b747-4030-8e85-665266f4782d",
+    "defaultLakehouseId": "36a1ae9c-e18d-41da-a649-4997a01747ca",
+    "environmentId": "ab60e237-3f68-4b20-968e-dd7156563a2b",
+    "activityId": "4556072f-863a-4a73-8f65-1dbe99473033",
+    "application_id": "application_1789759625392_0001",
+    "spark_version": "3.5.5.5.4.20260807.1",
+    "python_version": "3.11.8",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "2.1.4",
+      "affine": "2.4.0",
+      "geopandas": "1.1.4",
+      "rasterio": "1.4.4",
+      "xarray": "2026.7.0",
+      "rioxarray": "0.19.0",
+      "pystac-client": "0.9.0",
+      "planetary-computer": "1.0.0",
+      "odc-stac": "0.5.3",
+      "zarr": "3.1.5"
+    }
+  },
+  "cells": [
+    {
+      "number": 4,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:30:00.944316+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:30:11.603160+00:00"
+    },
+    {
+      "number": 6,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:30:13.553791+00:00",
+      "checks_passed": 3,
+      "finished_at_utc": "2026-09-18T19:30:13.565903+00:00"
+    },
+    {
+      "number": 8,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:30:14.258576+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:30:14.269196+00:00"
+    },
+    {
+      "number": 10,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:30:14.508699+00:00",
+      "checks_passed": 6,
+      "finished_at_utc": "2026-09-18T19:30:14.510817+00:00"
+    },
+    {
+      "number": 12,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:30:14.760610+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:30:14.764471+00:00"
+    },
+    {
+      "number": 14,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:30:15.392744+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:30:15.460913+00:00"
+    },
+    {
+      "number": 16,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:30:16.015429+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:30:16.031112+00:00"
+    },
+    {
+      "number": 17,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:30:16.651426+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:30:16.666455+00:00"
+    },
+    {
+      "number": 19,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:30:17.316678+00:00",
+      "checks_passed": 4,
+      "finished_at_utc": "2026-09-18T19:30:17.318161+00:00"
+    },
+    {
+      "number": 22,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:30:17.562414+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:30:32.734948+00:00"
+    },
+    {
+      "number": 24,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:30:34.449502+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:30:34.451624+00:00"
+    }
+  ],
+  "finished_at_utc": "2026-09-18T19:30:37.242127+00:00",
+  "tables": {
+    "gold_stand_classification": 119,
+    "gold_stand_change": 119
+  },
+  "checks_passed": 13
+}

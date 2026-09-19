@@ -1,11 +1,13 @@
 """Check the focused learner archive rather than the full authoring repository."""
 
-from types import SimpleNamespace
+import hashlib
+import json
 from zipfile import ZipFile
 
 import pytest
 
-from package_manual_workshop import bundle_entries, package, verify_links
+from package_manual_workshop import package, verify_links
+from release_verification import EVIDENCE_FILE, MAP_CHECKS, load_release_evidence
 
 
 def test_given_manual_bundle_when_packaged_then_only_four_learner_folders_exist(tmp_path):
@@ -41,9 +43,25 @@ def test_given_missing_handout_target_when_validated_then_packaging_fails():
         verify_links({"handouts/start.md": b"[Missing](missing.md)"})
 
 
-def test_given_changed_notebook_hash_when_final_bundle_requested_then_release_is_rejected(monkeypatch):
-    monkeypatch.setattr("package_manual_workshop.hashlib.sha256",
-                        lambda content: SimpleNamespace(hexdigest=lambda: "0" * 64))
+def test_given_changed_notebook_hash_when_final_bundle_requested_then_release_is_rejected(tmp_path):
+    artifacts = ["notebooks/student/01_STUDENT.ipynb", "notebooks/solutions/01.ipynb",
+                 "environments/environment.yml", "docs/download-imagery.html", "README.md",
+                 "decks/woodlands-manual-workshop.pptx", "docs/07-homework.md", "docs/12-spark-environment.md",
+                 "docs/16-manual-upload-labs.md", "docs/17-manual-imagery-download.md"]
+    for relative in artifacts:
+        artifact = tmp_path / relative
+        artifact.parent.mkdir(parents=True, exist_ok=True)
+        artifact.write_bytes(b"verified content")
+    evidence = {"status": "verified", "input_mode": "stac",
+                "jobs": [{"lab": f"{number:02d}", "status": "Completed", "verified": True,
+                          "input_mode": "stac", "application_id": f"application-{number}"} for number in range(6)],
+                "map_verification": {"status": "passed", **dict.fromkeys(MAP_CHECKS, True)},
+                "artifact_sha256": {relative: hashlib.sha256(b"verified content").hexdigest() for relative in artifacts}}
+    receipt = tmp_path / EVIDENCE_FILE
+    receipt.parent.mkdir(parents=True)
+    receipt.write_text(json.dumps(evidence), encoding="utf-8")
+    load_release_evidence(tmp_path)
+    (tmp_path / artifacts[0]).write_bytes(b"unverified edit")
 
     with pytest.raises(ValueError, match="verification is stale"):
-        bundle_entries(draft=False)
+        load_release_evidence(tmp_path)

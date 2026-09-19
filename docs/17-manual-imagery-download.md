@@ -1,6 +1,6 @@
 ---
-title: Download Sentinel-2 imagery and upload it to Fabric
-description: Download five original Planetary Computer bands and their metadata, upload them to your lakehouse, then run the manual Lab 01 route.
+title: Get Planetary Computer imagery in Fabric
+description: Download Sentinel-2 imagery directly in Fabric first, with manual browser download and upload as the fallback.
 author: Workshop Delivery Team
 ms.date: 2026-09-18
 ms.topic: tutorial
@@ -14,13 +14,59 @@ the [student guide](16-manual-upload-labs.md) first. Complete Lab 00 before Lab 
 
 | Route | Lab 01 setting | What you need |
 |---|---|---|
-| Manual download and upload, the default | `INPUT_MODE = "manual"` | Six downloaded files in your lakehouse Files area |
-| Automatic catalogue search | `INPUT_MODE = "stac"` | Outbound access from Fabric to Planetary Computer and its imagery storage |
+| Direct download in Fabric (default) | `INPUT_MODE = "stac"` | Approved outbound access from Fabric to Planetary Computer and its imagery storage |
+| Manual download and upload (fallback) | `INPUT_MODE = "manual"` | Six original files downloaded in your browser and uploaded to your lakehouse |
 
 Both routes use the same Silver, Gold, Map and Data Agent steps. Choose one
 route per run. Lab 02 never silently switches to an online download.
 
-## 1. Download The Six Files
+## 1. Download Directly In Fabric
+
+Use this route first. You do not need imagery files on your computer, a separate
+download app or an API key. The published Environment supplies the Python
+libraries; your default lakehouse receives the outputs.
+
+1. Open Lab 01 after completing Lab 00. Confirm `env_forestops` and your own
+   **default** lakehouse are attached.
+2. In **Cell 6**, keep `INPUT_MODE = "stac"`. Keep the supplied New Brunswick
+   area, June 1 through August 31, 2026 dates, cloud limit 20%, maximum six scenes
+   and 20 m working resolution. Do not change `MANUAL_SCENE_ROOT` for this route.
+3. Complete **Cell 9** to open `STAC_URL` with `modifier=pc.sign_inplace` and
+   `timeout=60`. This is the public Planetary Computer catalogue.
+4. Complete **Cell 11** to search Sentinel-2 L2A by area, dates and cloud cover,
+   sort the results by cloud cover, and retain at most six scenes. Run Cell 13
+   and inspect the selected scene IDs, acquisition dates and native projection.
+5. Complete the windowed load in **Cell 17** for B04, B08, B11, B12 and SCL.
+   Keep `chunks={}`, `groupby="solar_day"` and the supplied bounding box. Do not
+   pass a new CRS: Lab 02 performs the analysis reprojection.
+6. Run the size/band/CRS validations and imagery preview. Lazy loading means the
+   later preview and file writes also perform downloads; loading metadata alone
+   is not a completed ingestion.
+7. Complete **Cells 24, 26 and 30** to preserve unsigned source URLs, write the
+   Bronze catalogue and save the output TIFFs. Run every cell in order through
+   the final Zarr cache write.
+8. Confirm the current run has catalogue rows, five output TIFFs and
+   `Files/bronze/scenes/central-nb-block-a/_session_cache.zarr`.
+9. Continue to Lab 02. It must print **Input route: stac**, the selected scene IDs
+   and passing validation. It uses the saved Bronze data, not a new search.
+
+Fabric needs approved HTTPS access to `planetarycomputer.microsoft.com` and the
+imagery hosts returned in the selected assets, such as
+`sentinel2l2a01.blob.core.windows.net`. Signed URLs are temporary and must not be
+copied into tables, screenshots or handouts.
+
+If the catalogue or imagery read fails, stop and inspect the error. Check
+attachments, the area/date settings and approved outbound access. Use the
+fallback below only when appropriate; do not disable network protection or
+lower quality thresholds to force a pass.
+
+## 2. Manual Download And Upload (Fallback)
+
+Use this when a facilitator directs you to use local originals, or when direct
+Fabric access is unavailable and browser download/upload is permitted. Skip
+this section after a successful direct Fabric download.
+
+### Download The Six Files
 
 1. Extract the workshop ZIP. Open **handouts/download-imagery.html** in Edge or
    Chrome, or open the repository's [download handout](download-imagery.html).
@@ -78,7 +124,7 @@ download handout for the original files.
 
 ![Explorer lists the B04 red band as a GeoTIFF asset, separate from the displayed RGB preview.](images/training/manual-download/18-manual-02-bands.png)
 
-## 2. Upload Into Your Lakehouse
+### Upload Into Your Lakehouse
 
 1. Open your own lakehouse in Fabric, for example `lh_woodlands_demo`.
 2. Under **Files**, create and open these nested folders:
@@ -114,10 +160,10 @@ Files/
           T19TFM_20260629T152621_SCL_20m.tif
 ```
 
-## 3. Run Lab 01 In Manual Mode
+### Run Lab 01 In Manual Mode
 
 1. Open Lab 01. Confirm `env_forestops` and your own **default** lakehouse.
-2. In **Cell 6**, leave these settings unchanged:
+2. In **Cell 6**, change the route from `stac` to `manual` and keep the supplied path:
 
    ```python
    INPUT_MODE = "manual"
@@ -141,22 +187,25 @@ The reporting period ends August 31 even though this route uses one June scene.
 One scene is sufficient for the teaching exercise, not a representative seasonal
 inventory. Change flags still use the explicitly simulated previous-year baseline.
 
-## Automatic Alternative
+## 3. Continue With One Selected Route
 
-Leave the manual files untouched. Set only `INPUT_MODE = "stac"` in Lab 01
-Cell 6, complete the catalogue and search TODOs in Cells 9 and 11, then complete
-the shared exercises. The same six-scene limit, area, dates and cloud threshold
-apply. Finish the final cache write before running Silver.
+Both routes feed the same Silver, Gold and Map steps. Finish the final Bronze
+cache write before running Silver. Switching routes replaces the working cache
+for that area but does not delete the original manual-upload files. After
+changing the route in Cell 6, rerun Lab 01 from top to bottom through the final
+cache write, then rerun Labs 02-05 so the tables and Map export use the new inputs.
 
-Selecting the automatic route replaces the working imagery cache for that area;
-it does not delete the original manual-upload files. Never run the two routes
-concurrently against the same lakehouse. Create separate learner lakehouses for
-side-by-side comparisons.
+Never run both routes concurrently against one lakehouse. For side-by-side
+comparison, use separate lakehouses. To return to the default, set
+`INPUT_MODE = "stac"` and follow Section 1. Cells 9 and 11 reopen the catalogue
+and select the remote scenes; the previous manual selection is not reused.
 
 ## Troubleshooting
 
 | Message or symptom | Action |
 |---|---|
+| Fabric catalogue or imagery connection fails | Check approved outbound access and the exact error. If appropriate, use the manual fallback; do not bypass network protection. |
+| STAC mode stops at a TODO | Complete Cells 9 and 11 as well as the shared exercises. They are required for the default route. |
 | Download page cannot connect | Select **Retry connection**. Confirm public Planetary Computer access is allowed. |
 | Download page is blocked by browser policy | Use the signing-link fallback below, or ask the facilitator to distribute the verified original files through an approved channel. |
 | Missing `item.json` or a band | Check the exact Files path and filenames, including `.json` rather than `.json.txt`. |

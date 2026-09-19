@@ -1,0 +1,149 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-09-18T19:34:56.257687+00:00",
+  "source": {
+    "notebook": "05_publish_and_validate.ipynb",
+    "notebook_id": "e3029e5e-66d3-44b3-b79e-435588a249b5",
+    "sha256": "084faa103267b289f0eba43f378b598faaf2ac49a18882716d105f48a2c3916d",
+    "input_mode": "stac",
+    "code_cells": [
+      3,
+      6,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25
+    ]
+  },
+  "runtime": {
+    "currentWorkspaceId": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42",
+    "currentNotebookId": "e3029e5e-66d3-44b3-b79e-435588a249b5",
+    "defaultLakehouseId": "36a1ae9c-e18d-41da-a649-4997a01747ca",
+    "environmentId": "ab60e237-3f68-4b20-968e-dd7156563a2b",
+    "activityId": "2b9f7cce-1d82-4d1f-975e-4da2b29f4002",
+    "application_id": "application_1789759919295_0001",
+    "spark_version": "3.5.5.5.4.20260807.1",
+    "python_version": "3.11.8",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "2.1.4",
+      "affine": "2.4.0",
+      "geopandas": "1.1.4",
+      "rasterio": "1.4.4",
+      "xarray": "2026.7.0",
+      "rioxarray": "0.19.0",
+      "pystac-client": "0.9.0",
+      "planetary-computer": "1.0.0",
+      "odc-stac": "0.5.3",
+      "zarr": "3.1.5"
+    }
+  },
+  "cells": [
+    {
+      "number": 3,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:34:57.074400+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:34:57.078631+00:00"
+    },
+    {
+      "number": 6,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:34:57.744589+00:00",
+      "checks_passed": 3,
+      "finished_at_utc": "2026-09-18T19:35:11.720842+00:00"
+    },
+    {
+      "number": 9,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:35:12.367164+00:00",
+      "checks_passed": 2,
+      "finished_at_utc": "2026-09-18T19:35:16.419568+00:00"
+    },
+    {
+      "number": 11,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:35:17.711318+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:35:17.715784+00:00"
+    },
+    {
+      "number": 13,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:35:18.356093+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:35:25.735399+00:00"
+    },
+    {
+      "number": 15,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:35:26.974424+00:00",
+      "checks_passed": 4,
+      "finished_at_utc": "2026-09-18T19:35:26.977648+00:00"
+    },
+    {
+      "number": 17,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:35:27.243727+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:35:56.515365+00:00"
+    },
+    {
+      "number": 19,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:35:58.356786+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:36:02.603545+00:00"
+    },
+    {
+      "number": 21,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:36:03.744397+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:36:06.618350+00:00"
+    },
+    {
+      "number": 23,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:36:07.744050+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:36:11.192780+00:00"
+    },
+    {
+      "number": 25,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:36:11.733803+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:36:11.955012+00:00"
+    }
+  ],
+  "finished_at_utc": "2026-09-18T19:36:24.099552+00:00",
+  "tables": {
+    "bronze_stand_register": 120,
+    "bronze_scene_catalog": 6,
+    "silver_stand_observations": 120,
+    "gold_stand_classification": 119,
+    "gold_stand_change": 119,
+    "gold_stand_narrative": 40,
+    "gold_stand_facts": 119,
+    "gold_dim_stand": 120,
+    "gold_dim_date": 365,
+    "gold_dim_forest_class": 7,
+    "gold_pipeline_run_summary": 1
+  },
+  "checks_passed": 9,
+  "map_export": {
+    "path": "/lakehouse/default/Files/gold/maps/stand_classification.geojson",
+    "period_end": "2026-08-31",
+    "registered_stands": 120,
+    "retained_stands": 119,
+    "stands_without_result": 1,
+    "register_coverage": 0.9916666666666667,
+    "readback": "PASS"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "date": "2026-09-19",
+  "map_id": "03ad8cc7-6771-4259-8149-24de7212c28d",
+  "map_name": "map_woodlands_browser",
+  "workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42",
+  "lakehouse_id": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c",
+  "url": "https://app.fabric.microsoft.com/groups/fbcfa942-bfb7-4be3-8c74-d2efc213fd42/maps/03ad8cc7-6771-4259-8149-24de7212c28d",
+  "relative_path": "Files/gold/maps/stand_classification.geojson",
+  "polygons_visible": true,
+  "tooltip_verified": true,
+  "filter_verified": true,
+  "layer_toggle_verified": true,
+  "saved": true,
+  "reopened": true,
+  "bound_to_target_lakehouse": true,
+  "binding_evidence": "Reopened Map Explorer data-fui-tree-item-value and child data-testid matched the new lakehouse GUID; layer settings showed the exact GeoJSON path.",
+  "save_evidence": "Native Save, return to learner folder, reopen Map in Viewing mode, then inspect saved styling and all ten tooltip selections.",
+  "style": {
+    "color_by": "map_class",
+    "style_by": "Category",
+    "fill_opacity": 0.65,
+    "extrusion": false,
+    "colors": {
+      "mixedwood": "#7A9E3F",
+      "no_classified_result": "#61717D",
+      "regenerating": "#9DD08A",
+      "softwood": "#1B7F4B"
+    }
+  },
+  "initial_view": {
+    "settings_latitude": 46.2516205,
+    "settings_longitude": -66.6487377,
+    "settings_zoom": 9.2,
+    "reopened_web_map_zoom": 10.2,
+    "pitch": 0,
+    "compass": 0,
+    "all_stands_fit": true
+  },
+  "tooltip_fields": [
+    "stand_id", "licence_block", "period_end", "map_class", "area_ha",
+    "coverage_status", "is_trusted", "valid_pixel_fraction", "requires_review", "stand_source"
+  ],
+  "retained_tooltip": {
+    "stand_id": "CEN-00047", "licence_block": "LB-D", "period_end": "2026-08-31",
+    "map_class": "softwood", "area_ha": 591.34, "coverage_status": "retained",
+    "is_trusted": true, "valid_pixel_fraction": 0.74, "requires_review": false,
+    "stand_source": "synthetic"
+  },
+  "missing_tooltip": {
+    "stand_id": "CEN-00059", "licence_block": "LB-A", "period_end": "2026-08-31",
+    "map_class": "no_classified_result", "area_ha": 699.27,
+    "coverage_status": "no_classified_result", "is_trusted": null,
+    "valid_pixel_fraction": null, "requires_review": null, "stand_source": "synthetic"
+  },
+  "filter": {
+    "field": "coverage_status", "value": "no_classified_result",
+    "observed_stand_id": "CEN-00059", "removed_before_save": true,
+    "categories_after_remove": ["mixedwood", "no_classified_result", "regenerating", "softwood"]
+  },
+  "pixel_validation": {
+    "receipt": "scripts/verification/browser-20260919/map-pixel-validation.json",
+    "hidden_changed_fraction": 0.46635654885654887,
+    "restored_changed_fraction": 0.0
+  },
+  "limitations": [
+    "The built-in basemap is context, not the notebook's processed imagery.",
+    "This rehearsal used a desktop browser viewport; it does not certify Fabric portal mobile usability."
+  ]
+}

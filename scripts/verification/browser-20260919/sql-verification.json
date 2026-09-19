@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "date": "2026-09-19",
+  "method": "Playwright: executed the three student-guide queries and an 11-table count query in the native SQL analytics endpoint",
+  "workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42",
+  "lakehouse_id": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c",
+  "sql_endpoint_id": "b9061093-4b53-4747-9468-2176e0ccb95d",
+  "guide": "docs/16-manual-upload-labs.md",
+  "coverage": {
+    "period_end": "2026-08-31",
+    "registered_stands": 120,
+    "retained_stands": 119,
+    "stands_without_result": 1,
+    "register_coverage_percent": 99.17
+  },
+  "classes": [
+    {"forest_class": "mixedwood", "retained_stands": 3, "total_ha": 1900.0},
+    {"forest_class": "regenerating", "retained_stands": 3, "total_ha": 2042.1},
+    {"forest_class": "softwood", "retained_stands": 113, "total_ha": 75630.3}
+  ],
+  "review_stands": [
+    "CEN-00034", "CEN-00053", "CEN-00090", "CEN-00104", "CEN-00055",
+    "CEN-00101", "CEN-00012", "CEN-00013", "CEN-00058", "CEN-00046",
+    "CEN-00074", "CEN-00070", "CEN-00006"
+  ],
+  "review_change_type": "disturbance",
+  "review_severity": "moderate",
+  "review_validation_status": "stubbed",
+  "tables": {
+    "bronze_stand_register": 120,
+    "bronze_scene_catalog": 6,
+    "silver_stand_observations": 120,
+    "gold_stand_classification": 119,
+    "gold_stand_change": 119,
+    "gold_stand_narrative": 40,
+    "gold_stand_facts": 119,
+    "gold_dim_stand": 120,
+    "gold_dim_date": 365,
+    "gold_dim_forest_class": 7,
+    "gold_pipeline_run_summary": 1
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-09-18T19:32:07.519348+00:00",
+  "source": {
+    "notebook": "04_gold_ai_enrichment_foundry.ipynb",
+    "notebook_id": "edbecdd2-4464-4aea-bbb8-6608c188a3d3",
+    "sha256": "63cbd42635e8c5d3c186ae47b9c3052a4a95fad84dc66596de503805287bf976",
+    "input_mode": "stac",
+    "code_cells": [
+      3,
+      5,
+      7,
+      9,
+      11,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      27,
+      30,
+      32,
+      34,
+      36
+    ]
+  },
+  "runtime": {
+    "currentWorkspaceId": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42",
+    "currentNotebookId": "edbecdd2-4464-4aea-bbb8-6608c188a3d3",
+    "defaultLakehouseId": "36a1ae9c-e18d-41da-a649-4997a01747ca",
+    "environmentId": "ab60e237-3f68-4b20-968e-dd7156563a2b",
+    "activityId": "8c771f30-831c-4ade-893f-b5f97ce10763",
+    "application_id": "application_1789759802386_0001",
+    "spark_version": "3.5.5.5.4.20260807.1",
+    "python_version": "3.11.8",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "2.1.4",
+      "affine": "2.4.0",
+      "geopandas": "1.1.4",
+      "rasterio": "1.4.4",
+      "xarray": "2026.7.0",
+      "rioxarray": "0.19.0",
+      "pystac-client": "0.9.0",
+      "planetary-computer": "1.0.0",
+      "odc-stac": "0.5.3",
+      "zarr": "3.1.5"
+    }
+  },
+  "cells": [
+    {
+      "number": 3,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:08.152248+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:32:08.152864+00:00"
+    },
+    {
+      "number": 5,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:08.461227+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:32:08.464975+00:00"
+    },
+    {
+      "number": 7,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:09.123815+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:32:28.083618+00:00"
+    },
+    {
+      "number": 9,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:30.018112+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:32:30.019230+00:00"
+    },
+    {
+      "number": 11,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:30.275201+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:32:30.275825+00:00"
+    },
+    {
+      "number": 14,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:30.541786+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:32:30.542516+00:00"
+    },
+    {
+      "number": 16,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:31.184266+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:32:31.185379+00:00"
+    },
+    {
+      "number": 18,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:31.805864+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:32:31.806645+00:00"
+    },
+    {
+      "number": 20,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:32.753549+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:32:32.754132+00:00"
+    },
+    {
+      "number": 22,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:33.399941+00:00",
+      "checks_passed": 3,
+      "finished_at_utc": "2026-09-18T19:32:33.400822+00:00"
+    },
+    {
+      "number": 24,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:34.047890+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:32:34.048636+00:00"
+    },
+    {
+      "number": 26,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:34.331314+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:32:34.331812+00:00"
+    },
+    {
+      "number": 27,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:34.958911+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:32:34.967568+00:00"
+    },
+    {
+      "number": 30,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:35.619587+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:32:35.624115+00:00"
+    },
+    {
+      "number": 32,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:36.243085+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:32:44.273231+00:00"
+    },
+    {
+      "number": 34,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:45.096525+00:00",
+      "checks_passed": 5,
+      "finished_at_utc": "2026-09-18T19:32:47.692155+00:00"
+    },
+    {
+      "number": 36,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:32:48.545236+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:32:48.546000+00:00"
+    }
+  ],
+  "finished_at_utc": "2026-09-18T19:32:49.887575+00:00",
+  "tables": {
+    "gold_stand_narrative": 40
+  },
+  "checks_passed": 8
+}

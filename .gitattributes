@@ -3,3 +3,6 @@ notebooks/solutions/*.ipynb -text
 docs/download-imagery.html -text
 environments/environment.yml -text
 handouts/woodlands-manual-download-*/** -text
+handouts/woodlands-fabric-first-*/** -text
+scripts/verification/fabric-first/* -text
+scripts/verification/browser-20260919/** -text

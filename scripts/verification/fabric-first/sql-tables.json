@@ -1,0 +1,122 @@
+[
+  {
+    "schema": "dbo",
+    "table": "bronze_scene_catalog",
+    "type": "BASE TABLE"
+  },
+  {
+    "schema": "dbo",
+    "table": "bronze_stand_register",
+    "type": "BASE TABLE"
+  },
+  {
+    "schema": "dbo",
+    "table": "gold_dim_date",
+    "type": "BASE TABLE"
+  },
+  {
+    "schema": "dbo",
+    "table": "gold_dim_forest_class",
+    "type": "BASE TABLE"
+  },
+  {
+    "schema": "dbo",
+    "table": "gold_dim_stand",
+    "type": "BASE TABLE"
+  },
+  {
+    "schema": "dbo",
+    "table": "gold_pipeline_run_summary",
+    "type": "BASE TABLE"
+  },
+  {
+    "schema": "dbo",
+    "table": "gold_stand_change",
+    "type": "BASE TABLE"
+  },
+  {
+    "schema": "dbo",
+    "table": "gold_stand_classification",
+    "type": "BASE TABLE"
+  },
+  {
+    "schema": "dbo",
+    "table": "gold_stand_facts",
+    "type": "BASE TABLE"
+  },
+  {
+    "schema": "dbo",
+    "table": "gold_stand_narrative",
+    "type": "BASE TABLE"
+  },
+  {
+    "schema": "dbo",
+    "table": "silver_stand_observations",
+    "type": "BASE TABLE"
+  },
+  {
+    "schema": "queryinsights",
+    "table": "exec_requests_history",
+    "type": "VIEW"
+  },
+  {
+    "schema": "queryinsights",
+    "table": "exec_sessions_history",
+    "type": "VIEW"
+  },
+  {
+    "schema": "queryinsights",
+    "table": "external_api_call_stats",
+    "type": "VIEW"
+  },
+  {
+    "schema": "queryinsights",
+    "table": "frequently_run_queries",
+    "type": "VIEW"
+  },
+  {
+    "schema": "queryinsights",
+    "table": "long_running_queries",
+    "type": "VIEW"
+  },
+  {
+    "schema": "queryinsights",
+    "table": "sql_pool_insights",
+    "type": "VIEW"
+  },
+  {
+    "schema": "sys",
+    "table": "dm_db_external_tables_log_status",
+    "type": "VIEW"
+  },
+  {
+    "schema": "sys",
+    "table": "external_delta_tables",
+    "type": "VIEW"
+  },
+  {
+    "schema": "sys",
+    "table": "managed_delta_table_checkpoints",
+    "type": "VIEW"
+  },
+  {
+    "schema": "sys",
+    "table": "managed_delta_table_forks",
+    "type": "VIEW"
+  },
+  {
+    "schema": "sys",
+    "table": "managed_delta_table_log_files",
+    "type": "VIEW"
+  },
+  {
+    "schema": "sys",
+    "table": "managed_delta_tables",
+    "type": "VIEW"
+  },
+  {
+    "schema": "sys",
+    "table": "sys_dw_schemas",
+    "type": "VIEW"
+  }
+]

@@ -8,7 +8,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import hashlib
 import io
 import json
 import re
@@ -20,6 +19,8 @@ from zipfile import ZIP_DEFLATED, ZipFile
 import nbformat
 from markdown_it import MarkdownIt
 from pptx import Presentation
+
+from release_verification import load_release_evidence
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -126,17 +127,8 @@ def bundle_entries(*, draft: bool = False) -> dict[str, bytes]:
         name = f"handouts/images/training/manual-download/{capture['file']}"
         entries[name] = source.read_bytes()
         mapping[source.resolve()] = name
-    download_evidence_path = ROOT / "scripts/verification/training-manual-download-evidence.json"
-    if download_evidence_path.exists():
-        download_evidence = json.loads(download_evidence_path.read_text(encoding="utf-8"))
-        if not draft:
-            if download_evidence["status"] != "verified" or download_evidence["live_job"]["status"] != "Completed":
-                raise ValueError("Manual-download release needs a verified completed Fabric rehearsal")
-            for relative, expected_hash in download_evidence["artifact_sha256"].items():
-                if hashlib.sha256((ROOT / relative).read_bytes()).hexdigest() != expected_hash:
-                    raise ValueError(f"Manual-download verification is stale: {relative}")
-    elif not draft:
-        raise ValueError("Manual-download verification evidence is missing")
+    if not draft:
+        load_release_evidence(ROOT)
     guide_path = ROOT / "docs/16-manual-upload-labs.md"
     guide = guide_path.read_text(encoding="utf-8")
     environment_path = ROOT / "docs/12-spark-environment.md"
@@ -159,13 +151,15 @@ def bundle_entries(*, draft: bool = False) -> dict[str, bytes]:
     entries[f"deck/{deck_name}"] = deck
     status = "DRAFT: live rehearsal is incomplete. Do not use for classroom delivery." if draft else "Verified classroom bundle."
     entries["handouts/START-HERE.md"] = (
-        "---\ntitle: Woodlands in Fabric\ndescription: Start the manual student workshop.\n---\n\n"
+        "---\ntitle: Woodlands in Fabric\ndescription: Start the six Fabric notebook exercises.\n---\n\n"
         "## Start Here\n\n" + status + "\n\n"
         "1. Open the [student guide](student-guide.md). Follow the steps in order.\n"
         "2. Upload the six [student notebooks](../student), then create your own lakehouse.\n"
-        "3. Use the [solutions](../solutions) as answer keys, not as your submitted exercise files.\n"
-        "4. Follow [imagery download and upload](imagery-download.md) before Lab 01. Manual is the default; automatic STAC remains available.\n"
-        f"5. Follow the [workshop deck](../deck/{deck_name}) alongside the guide.\n\n"
+        "3. Attach your default lakehouse and the published `env_forestops` Environment in every notebook.\n"
+        "4. Follow [Planetary Computer downloads in Fabric](imagery-download.md) for Lab 01. STAC is the default; manual download/upload is the fallback.\n"
+        "5. Complete each TODO, select **Run cell**, and inspect its validation. Stop at any exception or `[FAIL]`. Use the [solutions](../solutions) as answer keys.\n"
+        "6. Verify Gold SQL, save and reopen your native Map, then test and publish your Data Agent.\n"
+        f"7. Follow the [workshop deck](../deck/{deck_name}) alongside the guide.\n\n"
         "The facilitator completes [Environment setup](environment-setup.md) once.\n"
         "The bundle contains no deployment scripts, credentials or pre-attached notebook bindings.\n"
     ).encode("utf-8")

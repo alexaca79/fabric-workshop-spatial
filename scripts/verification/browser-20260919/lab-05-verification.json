@@ -1,0 +1,131 @@
+{
+  "status": "passed",
+  "code_cells": 11,
+  "checks_passed": 9,
+  "cells": [
+    {
+      "number": 3,
+      "status": "passed",
+      "execution_count": 1,
+      "checks_passed": 0,
+      "source_sha256": "6cd16026c0b28c41ad40715e49cb653e6316686652873e9ec20448f4113ddaf6",
+      "answer_key_ast_sha256": "cf31846ff7f093404276f3ef1b83b5c40c2408b8e9e47a8ccfe9aac1259515df",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 6,
+      "status": "passed",
+      "execution_count": 2,
+      "checks_passed": 3,
+      "source_sha256": "7c47ee5944f5e877ec75b68d2b818743bda0856216d5275a01e30235df7b2340",
+      "answer_key_ast_sha256": "30171cd026568438411a6fa64fb547261cdea5b7f74eb17e3a7ba9981c3c6033",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 9,
+      "status": "passed",
+      "execution_count": 3,
+      "checks_passed": 2,
+      "source_sha256": "e8e076a915702c59600daa8fe08186741a7ffc3403d9a46bf0196a887f6a2072",
+      "answer_key_ast_sha256": "63dbdeb32f9ca2afe873bce78fcd05d083261bfa909594e6e3ea92019d235f6f",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 11,
+      "status": "passed",
+      "execution_count": 4,
+      "checks_passed": 0,
+      "source_sha256": "6faac9edaf10536857b2c481ab774f0a60c34127a01c9a914922a56eb3f5f123",
+      "answer_key_ast_sha256": "583b09c91f8144ee27f71e9a8a68c9e06e9b1930bd033aba5dc0d6f4997351fa",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 13,
+      "status": "passed",
+      "execution_count": 5,
+      "checks_passed": 0,
+      "source_sha256": "6244c75ae8ceba4ec90e1d70106c08ee7d59b3102928307b7ce8007640fe4320",
+      "answer_key_ast_sha256": "9f787f860bc9c56296cdd6c30578e0574cf010f9761467e41584336fa07597f6",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 15,
+      "status": "passed",
+      "execution_count": 6,
+      "checks_passed": 4,
+      "source_sha256": "477eaf482975e883168fb6ad432c75f9d0a6b7661d359bfb694bbf75ea80aee7",
+      "answer_key_ast_sha256": "dc6e740057ae4cff1f1eb1f70bd0ac6c954b31ebdf37f8a884364a3c3a7a229b",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 17,
+      "status": "passed",
+      "execution_count": 7,
+      "checks_passed": 0,
+      "source_sha256": "e3a3f4cc9f81db7c5c17a4c2764cb92e0dcf7b1458c639e907e3facf169735b2",
+      "answer_key_ast_sha256": "01041136cb8a46cefc9afc702afc13b33fa2637f0a9aa9923afe22e877868a91",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 19,
+      "status": "passed",
+      "execution_count": 8,
+      "checks_passed": 0,
+      "source_sha256": "8d16ad63b7fd66ba5733b9b612f7f1d92aea05b6a9e01a7d86f5fcf1b9c9afd9",
+      "answer_key_ast_sha256": "4baf3387fb6fdd81382fde6309ff9dc3a4e145e577d93397037d2a1367a38007",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 21,
+      "status": "passed",
+      "execution_count": 9,
+      "checks_passed": 0,
+      "source_sha256": "14786db34fdefe966601e0abf7f97cac7699edd0542f6cf0504f3779166241da",
+      "answer_key_ast_sha256": "962b4daa7d68562cbac49d6bbdb6583eef40a07fc7a958eece2296b140421cc4",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 23,
+      "status": "passed",
+      "execution_count": 10,
+      "checks_passed": 0,
+      "source_sha256": "d9dcc8d895fe5b188f74cbacdeba989fbb9e433d0314b717be983509ce673515",
+      "answer_key_ast_sha256": "4f2f384b2627dabcba348a70a0c31a6a4b252776dac6f328d64be97b1f678bfb",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 25,
+      "status": "passed",
+      "execution_count": 11,
+      "checks_passed": 0,
+      "source_sha256": "ec6f47434ee77962ee5e6766f9fd01486c35e824de97405e3bbfa313877961ac",
+      "answer_key_ast_sha256": "114b0d3715311fee7ed92a7571bcba499b07829530b6b28d620627696a1a4d60",
+      "answer_key_ast": "matched"
+    }
+  ],
+  "validation_counts_verified": true,
+  "bindings": {
+    "lakehouse": {
+      "default_lakehouse": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c",
+      "default_lakehouse_name": "lh_woodlands_browser",
+      "default_lakehouse_workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42",
+      "known_lakehouses": [
+        {
+          "id": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c"
+        }
+      ]
+    },
+    "environment": {
+      "environmentId": "ab60e237-3f68-4b20-968e-dd7156563a2b",
+      "workspaceId": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42"
+    }
+  },
+  "method": "Saved UI execution outputs plus answer-key AST comparison",
+  "saved_sha256": "f46923d3a9d1e11840a86338ed03e63ee9da608a56958df2d77bee14cdda285c",
+  "solution_sha256": "084faa103267b289f0eba43f378b598faaf2ac49a18882716d105f48a2c3916d",
+  "lab": "05",
+  "notebook_id": "ad3174df-e191-47a9-9dea-43b6440363a8",
+  "input_mode": "stac",
+  "session_stopped": true,
+  "receipt": "scripts/verification/browser-20260919/lab-05-verification.json"
+}
