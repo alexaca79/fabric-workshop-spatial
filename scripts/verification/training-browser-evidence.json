@@ -1,0 +1,1364 @@
+{
+  "status": "verified",
+  "input_mode": "stac",
+  "execution_method": "interactive_ui",
+  "verified_at_utc": "2026-09-19T16:39:52.666510+00:00",
+  "target": {
+    "workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42",
+    "workspace_name": "jdi-training-map-e2e-20260918",
+    "lakehouse_id": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c",
+    "lakehouse_name": "lh_woodlands_browser",
+    "environment_id": "ab60e237-3f68-4b20-968e-dd7156563a2b"
+  },
+  "labs": [
+    {
+      "status": "passed",
+      "code_cells": 14,
+      "checks_passed": 14,
+      "cells": [
+        {
+          "number": 4,
+          "status": "passed",
+          "execution_count": 1,
+          "checks_passed": 0,
+          "source_sha256": "5934709643dfcd5a81231d406abf19d7c10fad42575c1eb8e3da4cd3602130cf",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 6,
+          "status": "passed",
+          "execution_count": 2,
+          "checks_passed": 0,
+          "source_sha256": "9ac391f6d22506105031f2e0dc3298257f75571c91967994fa39288edc3b7465",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 8,
+          "status": "passed",
+          "execution_count": 8,
+          "checks_passed": 0,
+          "source_sha256": "4e006f88a3efe0b3417126d1fe84e3464ad3ebe0375420269690770e712cae8c",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 10,
+          "status": "passed",
+          "execution_count": 9,
+          "checks_passed": 3,
+          "source_sha256": "711653ada1b5b2febdbe78dc6bb8e39293e69643772981b516c646dd9e20a0fc",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 12,
+          "status": "passed",
+          "execution_count": 10,
+          "checks_passed": 0,
+          "source_sha256": "40980f6e5415e827783df821f9cf926f418cedc28c2c2a9cd2c995a31c124216",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 14,
+          "status": "passed",
+          "execution_count": 11,
+          "checks_passed": 0,
+          "source_sha256": "83d43bcaf8df14a1f97270bab1b410ca6b3e68602a6199b9de8b25f7f2a78751",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 16,
+          "status": "passed",
+          "execution_count": 12,
+          "checks_passed": 6,
+          "source_sha256": "6279f0f1bca92c6805579a269f5cc6b9d50bc650956ede419941109ec9d527c1",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 18,
+          "status": "passed",
+          "execution_count": 13,
+          "checks_passed": 0,
+          "source_sha256": "3dcf34463ff232cc1636d210c37262c11fd9d4fdc21fabe5109448b22bb3228f",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 20,
+          "status": "passed",
+          "execution_count": 14,
+          "checks_passed": 0,
+          "source_sha256": "458fff80301d0fdfc34470fae21f2103d1258deb9bb2c5e0499eff289c182726",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 21,
+          "status": "passed",
+          "execution_count": 15,
+          "checks_passed": 0,
+          "source_sha256": "228adba110a1682e8587a639b548ee36fd18e1f02316c446ca7cfb7bb99dc0d7",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 23,
+          "status": "passed",
+          "execution_count": 16,
+          "checks_passed": 0,
+          "source_sha256": "5060dced7a55bd8cc244163abb745d963fc7ab39545e08df2ffeedd363533e3b",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 25,
+          "status": "passed",
+          "execution_count": 17,
+          "checks_passed": 4,
+          "source_sha256": "fb2e5fdbf9c768f302e48ee5c10d591822543ef2a514a736b3d38666a2a123f1",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 27,
+          "status": "passed",
+          "execution_count": 18,
+          "checks_passed": 1,
+          "source_sha256": "83d9a8f222ed5b4d02f3b609372986229047734fc5e84096208a6bed4ea65e42",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 29,
+          "status": "passed",
+          "execution_count": 19,
+          "checks_passed": 0,
+          "source_sha256": "3c2a1e0930fd74b7ec511225e90867e7e53c1100d36c14683329d7ff895adacd",
+          "answer_key_ast": "matched"
+        }
+      ],
+      "validation_counts_verified": true,
+      "bindings": {
+        "lakehouse": {
+          "default_lakehouse": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c",
+          "default_lakehouse_name": "lh_woodlands_browser",
+          "default_lakehouse_workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42",
+          "known_lakehouses": [
+            {
+              "id": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c"
+            }
+          ]
+        },
+        "environment": {
+          "environmentId": "ab60e237-3f68-4b20-968e-dd7156563a2b",
+          "workspaceId": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42"
+        }
+      },
+      "method": "Saved UI execution outputs plus answer-key AST comparison",
+      "saved_sha256": "980c12d37da52075e66ec0677fc92e47244f33951c879595f8a23f57fd298a5e",
+      "solution_sha256": "a8193565fad8347c3fbb52484031ae0a15ce667cfdc66a9062eba5ec05f65b7a",
+      "lab": "00",
+      "notebook_id": "1298cdb9-4a18-411e-9f59-4237bdaf2bdb",
+      "input_mode": "stac",
+      "session_stopped": true
+    },
+    {
+      "status": "passed",
+      "code_cells": 14,
+      "checks_passed": 17,
+      "cells": [
+        {
+          "number": 4,
+          "status": "passed",
+          "execution_count": 1,
+          "checks_passed": 0,
+          "source_sha256": "f8ee9512c4e6ccd2bf9dda246c69a0e8864cd26d98548aede20acddfceace22b",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 6,
+          "status": "passed",
+          "execution_count": 2,
+          "checks_passed": 0,
+          "source_sha256": "256ca20ca15a5559364ad7ee60ae3e1652c6bff9c8f8fc10baa5bbcad25dcf7c",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 9,
+          "status": "passed",
+          "execution_count": 3,
+          "checks_passed": 0,
+          "source_sha256": "ad7c57388e180d6ee93bd7ae12c5287c205c1041e3e4546fac41cb11ff9b5e7f",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 11,
+          "status": "passed",
+          "execution_count": 4,
+          "checks_passed": 0,
+          "source_sha256": "84455c30f5e0ca483645fe795da746498c878c8a0e5271aff78de263c6afc8ce",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 13,
+          "status": "passed",
+          "execution_count": 5,
+          "checks_passed": 4,
+          "source_sha256": "07f5b2e30c5791814fb51bb865a4ac80b637fa8bf954ca14458b6153bfa03522",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 15,
+          "status": "passed",
+          "execution_count": 6,
+          "checks_passed": 0,
+          "source_sha256": "58023c9dab336946877c6cbe0c212ded967b968df80c77d5c030f6ae16843f6e",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 17,
+          "status": "passed",
+          "execution_count": 7,
+          "checks_passed": 0,
+          "source_sha256": "c65dc55e0474dcce3984dc5763ea30434433a143c7b349dc80e1fb78fd039d73",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 19,
+          "status": "passed",
+          "execution_count": 8,
+          "checks_passed": 5,
+          "source_sha256": "8c3039a8cd899edc3acdba9f38a1f53bded5d700f08d162b25301a3b58b4ab65",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 21,
+          "status": "passed",
+          "execution_count": 9,
+          "checks_passed": 0,
+          "source_sha256": "a6d5a7227b6066d20a5a25b203d9e24af3dea56010bddc890c2543755e27fde5",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 24,
+          "status": "passed",
+          "execution_count": 10,
+          "checks_passed": 0,
+          "source_sha256": "fb60c148bc4ea3de0c49c5df0aaf4dcf9abe9ad50ee26ac802fabbf0ec5f70fa",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 26,
+          "status": "passed",
+          "execution_count": 11,
+          "checks_passed": 0,
+          "source_sha256": "cd1587d9f33009ab37d4c9ccdd7d25fa5c39a2765c94c44082862f698d6670f4",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 28,
+          "status": "passed",
+          "execution_count": 12,
+          "checks_passed": 6,
+          "source_sha256": "349cecfba9998f4f9dc6c341f0d349b9331d0d1c9c86d6c8a1e7df21e0bbfe73",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 30,
+          "status": "passed",
+          "execution_count": 13,
+          "checks_passed": 2,
+          "source_sha256": "052e4641c71a0b64e63eb868991b997f747cfa3f2cef9fd6f4b3e0359b638429",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 32,
+          "status": "passed",
+          "execution_count": 14,
+          "checks_passed": 0,
+          "source_sha256": "42505f34d1596afded1d6d5fa826df425fcb43a2edaeae762b16feaa6348b71e",
+          "answer_key_ast": "matched"
+        }
+      ],
+      "validation_counts_verified": true,
+      "bindings": {
+        "environment": {
+          "environmentId": "ab60e237-3f68-4b20-968e-dd7156563a2b",
+          "workspaceId": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42"
+        },
+        "lakehouse": {
+          "known_lakehouses": [
+            {
+              "id": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c"
+            }
+          ],
+          "default_lakehouse": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c",
+          "default_lakehouse_name": "lh_woodlands_browser",
+          "default_lakehouse_workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42"
+        }
+      },
+      "method": "Saved UI execution outputs plus answer-key AST comparison",
+      "saved_sha256": "4327d38cec1ebdce2098cde38d961696e717c2b99aa8cea0b86adcf9c23aea09",
+      "solution_sha256": "33d82086ccf16808ee4216448fb95847f8010f772ba688415a3889f6bed3cafe",
+      "lab": "01",
+      "notebook_id": "4f9cc75c-22d2-46c4-8007-f2364178547d",
+      "input_mode": "stac",
+      "session_stopped": true
+    },
+    {
+      "status": "passed",
+      "code_cells": 16,
+      "checks_passed": 17,
+      "cells": [
+        {
+          "number": 4,
+          "status": "passed",
+          "execution_count": 1,
+          "checks_passed": 0,
+          "source_sha256": "d0a674390e8bfc3086b64d83aac000aaea26b3009f923431cc6e712cdbc74227",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 6,
+          "status": "passed",
+          "execution_count": 2,
+          "checks_passed": 0,
+          "source_sha256": "7016cb29fe77f73928987e38c70c436cb04eb83b3894dd216c7095df03e2f89d",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 8,
+          "status": "passed",
+          "execution_count": 3,
+          "checks_passed": 2,
+          "source_sha256": "e7b50e5e7467d02401e8349e11d09a53f99d519c3ad95bd248278db29ec741c8",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 10,
+          "status": "passed",
+          "execution_count": 4,
+          "checks_passed": 0,
+          "source_sha256": "eead19da6b0e7bb81e2b94436f3f0c5013a5d6c60093c6f599bfa4d4576f9b9d",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 12,
+          "status": "passed",
+          "execution_count": 5,
+          "checks_passed": 3,
+          "source_sha256": "42343a1a4665dbe0f953a0030808c72ed9bdcf51fa9926e10546b6beecaac69b",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 14,
+          "status": "passed",
+          "execution_count": 6,
+          "checks_passed": 1,
+          "source_sha256": "6e2ff054bbccfafa2be78eb6377e657bff9a09262bf0d810a1a60a23667ff962",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 16,
+          "status": "passed",
+          "execution_count": 7,
+          "checks_passed": 0,
+          "source_sha256": "ef09befdbc384fd5e7ca40817d7ede1b2e46a2fa0a884c0484d728c6a121211c",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 18,
+          "status": "passed",
+          "execution_count": 8,
+          "checks_passed": 2,
+          "source_sha256": "48c6c2a8ec7ef980112d801bf4a60315916e21e61be56075913f0da504ee73f2",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 20,
+          "status": "passed",
+          "execution_count": 9,
+          "checks_passed": 2,
+          "source_sha256": "c0517da8d0296599e5c4dc038739e021daf00610a97a04fdd6c4e710f1196727",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 22,
+          "status": "passed",
+          "execution_count": 10,
+          "checks_passed": 2,
+          "source_sha256": "6a001dfcbae4371a86459817b5668af11c0c55e385ab9f1fdcb7793da796a7ff",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 24,
+          "status": "passed",
+          "execution_count": 11,
+          "checks_passed": 0,
+          "source_sha256": "cb2f67418b1ddfcd7c9f56bfd6fcc0829797cdb4f03e9bbd378dc3cad8c5070f",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 27,
+          "status": "passed",
+          "execution_count": 12,
+          "checks_passed": 0,
+          "source_sha256": "4f476aa78acbbb5921d63209647c4fbabaa87dce74b4bc4f4b75a8cb843789c8",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 29,
+          "status": "passed",
+          "execution_count": 13,
+          "checks_passed": 0,
+          "source_sha256": "7874389f3a583c721b6633046f57faf1c1b47c0ff6109e6468b6a4aea78e410a",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 31,
+          "status": "passed",
+          "execution_count": 14,
+          "checks_passed": 0,
+          "source_sha256": "77abafc8b694d9f23d3767ef5a75bd53340297904a8600530221f177f1f4cba7",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 32,
+          "status": "passed",
+          "execution_count": 15,
+          "checks_passed": 0,
+          "source_sha256": "2ae75f1d723685f9a3d54fa30b2211780906bd226de6378f5194dab473ba6e77",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 34,
+          "status": "passed",
+          "execution_count": 16,
+          "checks_passed": 5,
+          "source_sha256": "ed81771c1d3badf068905b719ac830c685a8b9e0256dbb28e5369fe9d26bc51b",
+          "answer_key_ast": "matched"
+        }
+      ],
+      "validation_counts_verified": true,
+      "bindings": {
+        "environment": {
+          "environmentId": "ab60e237-3f68-4b20-968e-dd7156563a2b",
+          "workspaceId": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42"
+        },
+        "lakehouse": {
+          "known_lakehouses": [
+            {
+              "id": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c"
+            }
+          ],
+          "default_lakehouse": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c",
+          "default_lakehouse_name": "lh_woodlands_browser",
+          "default_lakehouse_workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42"
+        }
+      },
+      "method": "Saved UI execution outputs plus answer-key AST comparison",
+      "saved_sha256": "d70957465134552b17ef8155a2d1308e8f5d568d40397fe7c1a52bea194ab32b",
+      "solution_sha256": "68d701a5c600ab9dd6ba825f2c7619d1caea03ba462dd1dbd5ab80ec8e476d5a",
+      "lab": "02",
+      "notebook_id": "cffa483c-cf10-4659-86a6-a826581ad189",
+      "input_mode": "stac",
+      "session_stopped": true
+    },
+    {
+      "status": "passed",
+      "code_cells": 11,
+      "checks_passed": 13,
+      "cells": [
+        {
+          "number": 4,
+          "status": "passed",
+          "execution_count": 1,
+          "checks_passed": 0,
+          "source_sha256": "1577c292b09aa520ff70deea719cfad3969a7f4f57d8be422db235c8613318b2",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 6,
+          "status": "passed",
+          "execution_count": 2,
+          "checks_passed": 3,
+          "source_sha256": "4f9c1e93116921dac0b105ba9c564d625f94d21054d4f40c2de950face4b8c21",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 8,
+          "status": "passed",
+          "execution_count": 3,
+          "checks_passed": 0,
+          "source_sha256": "8ac681b55bae2112838217de9b635287380ead060d930338748810f347698350",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 10,
+          "status": "passed",
+          "execution_count": 4,
+          "checks_passed": 6,
+          "source_sha256": "cfac5a5cbdcfaf16ea7aaa09b851fe1b45d9b169647fa3edfb1262638892fc2e",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 12,
+          "status": "passed",
+          "execution_count": 5,
+          "checks_passed": 0,
+          "source_sha256": "ae2ba8eeac47a68b505d567ea7a871a7fbc1f299156d982cda70270ea8b7c745",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 14,
+          "status": "passed",
+          "execution_count": 6,
+          "checks_passed": 0,
+          "source_sha256": "320591c1ce528c627e2f45b2b5d3913d5dbaaba693d4667d9e5b84d9eb828fc0",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 16,
+          "status": "passed",
+          "execution_count": 7,
+          "checks_passed": 0,
+          "source_sha256": "51d12d72eed0b59f897ee1c07723cb4baccd5225dfc3a52332dc2af29f127f19",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 17,
+          "status": "passed",
+          "execution_count": 8,
+          "checks_passed": 0,
+          "source_sha256": "91ac22f27136f0f3104bbc27cd1fe452507f50581066b3837484c960c81b52ac",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 19,
+          "status": "passed",
+          "execution_count": 9,
+          "checks_passed": 4,
+          "source_sha256": "e85a958b05a430b8f1c00e480bdbb4879e99909ce4ba6ecbfc1a9b277f263b8c",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 22,
+          "status": "passed",
+          "execution_count": 10,
+          "checks_passed": 0,
+          "source_sha256": "6202753b6feadaa64cab6c9dc990610ecb94f4d2e1ede6b35ced7d64d69cafa9",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 24,
+          "status": "passed",
+          "execution_count": 11,
+          "checks_passed": 0,
+          "source_sha256": "8ba36ffe041aabbfe449edbb1d04bc0070e48166db11c2656710ee4ce97cb1eb",
+          "answer_key_ast": "matched"
+        }
+      ],
+      "validation_counts_verified": true,
+      "bindings": {
+        "environment": {
+          "environmentId": "ab60e237-3f68-4b20-968e-dd7156563a2b",
+          "workspaceId": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42"
+        },
+        "lakehouse": {
+          "known_lakehouses": [
+            {
+              "id": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c"
+            }
+          ],
+          "default_lakehouse": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c",
+          "default_lakehouse_name": "lh_woodlands_browser",
+          "default_lakehouse_workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42"
+        }
+      },
+      "method": "Saved UI execution outputs plus answer-key AST comparison",
+      "saved_sha256": "ec841e592d98b29a11b12b4bbc0e713677b17d82562ad5679ab7fbbb87e61edd",
+      "solution_sha256": "a62af73160025aa23e6a8653118a467d25fb2fca3ce12fa670fe9e3a69cabb52",
+      "lab": "03",
+      "notebook_id": "658afaa8-fa41-4d0f-aa82-10076e7a8cfb",
+      "input_mode": "stac",
+      "session_stopped": true
+    },
+    {
+      "status": "passed",
+      "code_cells": 17,
+      "checks_passed": 8,
+      "cells": [
+        {
+          "number": 3,
+          "status": "passed",
+          "execution_count": 1,
+          "checks_passed": 0,
+          "source_sha256": "8723ed8430beb04bb4ec98a819372d866efef6cb0f55da192eeabdb005fa95a4",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 5,
+          "status": "passed",
+          "execution_count": 2,
+          "checks_passed": 0,
+          "source_sha256": "fa7aec5baacc9662b79b7334072183c4dc09e3f2578e49737eac8daaca304b20",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 7,
+          "status": "passed",
+          "execution_count": 3,
+          "checks_passed": 0,
+          "source_sha256": "68c7cb8495ba1aff6b38884d1d7455f3aed862924da7dfabc993e90d35bed426",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 9,
+          "status": "passed",
+          "execution_count": 4,
+          "checks_passed": 0,
+          "source_sha256": "04ed1606183745f931f2b6b42f90a4ea6344dd6b923616a45a166b92b0ee863d",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 11,
+          "status": "passed",
+          "execution_count": 5,
+          "checks_passed": 0,
+          "source_sha256": "4cf91973ccb43f453189345886efa813178db54f1b3e5214bbf2ded11d6d3c06",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 14,
+          "status": "passed",
+          "execution_count": 6,
+          "checks_passed": 0,
+          "source_sha256": "a20d92077a3aa446729b55227b8d5abffbbab517b87850bd6e982f8a297aa189",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 16,
+          "status": "passed",
+          "execution_count": 7,
+          "checks_passed": 0,
+          "source_sha256": "619854ec0e720723361a138ef7bdcc4b392fa298fe5a95327edcb56f638a04a4",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 18,
+          "status": "passed",
+          "execution_count": 8,
+          "checks_passed": 0,
+          "source_sha256": "b95c9eeb2709ac5607da60087843d481a0e0213a84fb60ac540e25cf7853d276",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 20,
+          "status": "passed",
+          "execution_count": 9,
+          "checks_passed": 0,
+          "source_sha256": "bc601b9d5197d92fd9b3a127dbadeaf1f52adf0e34ba23a3d87ce2e3bc554798",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 22,
+          "status": "passed",
+          "execution_count": 10,
+          "checks_passed": 3,
+          "source_sha256": "44decb77dfb092e7380fa49eef89846871e23cba8cc939b46686d364dfb99387",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 24,
+          "status": "passed",
+          "execution_count": 11,
+          "checks_passed": 0,
+          "source_sha256": "f6c9a8addb3d649b967df52fc5041033a6bf00ac38aeb9234ea1afc1e625dfa3",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 26,
+          "status": "passed",
+          "execution_count": 12,
+          "checks_passed": 0,
+          "source_sha256": "08107cc03bf87282fb16ee55617615aa0ceb77cd47cfe94feb02498f1a175708",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 27,
+          "status": "passed",
+          "execution_count": 13,
+          "checks_passed": 0,
+          "source_sha256": "ca80801ba68e25e54757597269b7c6ad8a7007305cbec08ada5991cd65fd37e0",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 30,
+          "status": "passed",
+          "execution_count": 14,
+          "checks_passed": 0,
+          "source_sha256": "9287d286c08ca8941c1208a5536b0bfc9fe3f247453a82a34086edadcdfc46ca",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 32,
+          "status": "passed",
+          "execution_count": 15,
+          "checks_passed": 0,
+          "source_sha256": "5cf72e03f667954b8d999709e9cd3f898eb7230e8633919dee1064c9e9dfef30",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 34,
+          "status": "passed",
+          "execution_count": 16,
+          "checks_passed": 5,
+          "source_sha256": "1e0352dc108b292c5554ec5ff0408885a9d96e71f7c48671bc30d912cdc905da",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 36,
+          "status": "passed",
+          "execution_count": 17,
+          "checks_passed": 0,
+          "source_sha256": "66e23d1cde030e92e949518123eba0d9b21f111894abb8f5c27ee716a845833f",
+          "answer_key_ast": "matched"
+        }
+      ],
+      "validation_counts_verified": true,
+      "bindings": {
+        "environment": {
+          "environmentId": "ab60e237-3f68-4b20-968e-dd7156563a2b",
+          "workspaceId": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42"
+        },
+        "lakehouse": {
+          "known_lakehouses": [
+            {
+              "id": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c"
+            }
+          ],
+          "default_lakehouse": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c",
+          "default_lakehouse_name": "lh_woodlands_browser",
+          "default_lakehouse_workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42"
+        }
+      },
+      "method": "Saved UI execution outputs plus answer-key AST comparison",
+      "saved_sha256": "ad0a25f86125f41eb7fd56517e726c30a0d88651e68eb35e8d00a7a96263b4b7",
+      "solution_sha256": "63cbd42635e8c5d3c186ae47b9c3052a4a95fad84dc66596de503805287bf976",
+      "lab": "04",
+      "notebook_id": "dcfafddf-a4d4-45f3-88a7-a5de8c386090",
+      "input_mode": "stac",
+      "session_stopped": true
+    },
+    {
+      "status": "passed",
+      "code_cells": 11,
+      "checks_passed": 9,
+      "cells": [
+        {
+          "number": 3,
+          "status": "passed",
+          "execution_count": 1,
+          "checks_passed": 0,
+          "source_sha256": "6cd16026c0b28c41ad40715e49cb653e6316686652873e9ec20448f4113ddaf6",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 6,
+          "status": "passed",
+          "execution_count": 2,
+          "checks_passed": 3,
+          "source_sha256": "7c47ee5944f5e877ec75b68d2b818743bda0856216d5275a01e30235df7b2340",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 9,
+          "status": "passed",
+          "execution_count": 3,
+          "checks_passed": 2,
+          "source_sha256": "e8e076a915702c59600daa8fe08186741a7ffc3403d9a46bf0196a887f6a2072",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 11,
+          "status": "passed",
+          "execution_count": 4,
+          "checks_passed": 0,
+          "source_sha256": "6faac9edaf10536857b2c481ab774f0a60c34127a01c9a914922a56eb3f5f123",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 13,
+          "status": "passed",
+          "execution_count": 5,
+          "checks_passed": 0,
+          "source_sha256": "6244c75ae8ceba4ec90e1d70106c08ee7d59b3102928307b7ce8007640fe4320",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 15,
+          "status": "passed",
+          "execution_count": 6,
+          "checks_passed": 4,
+          "source_sha256": "477eaf482975e883168fb6ad432c75f9d0a6b7661d359bfb694bbf75ea80aee7",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 17,
+          "status": "passed",
+          "execution_count": 7,
+          "checks_passed": 0,
+          "source_sha256": "e3a3f4cc9f81db7c5c17a4c2764cb92e0dcf7b1458c639e907e3facf169735b2",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 19,
+          "status": "passed",
+          "execution_count": 8,
+          "checks_passed": 0,
+          "source_sha256": "8d16ad63b7fd66ba5733b9b612f7f1d92aea05b6a9e01a7d86f5fcf1b9c9afd9",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 21,
+          "status": "passed",
+          "execution_count": 9,
+          "checks_passed": 0,
+          "source_sha256": "14786db34fdefe966601e0abf7f97cac7699edd0542f6cf0504f3779166241da",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 23,
+          "status": "passed",
+          "execution_count": 10,
+          "checks_passed": 0,
+          "source_sha256": "d9dcc8d895fe5b188f74cbacdeba989fbb9e433d0314b717be983509ce673515",
+          "answer_key_ast": "matched"
+        },
+        {
+          "number": 25,
+          "status": "passed",
+          "execution_count": 11,
+          "checks_passed": 0,
+          "source_sha256": "ec6f47434ee77962ee5e6766f9fd01486c35e824de97405e3bbfa313877961ac",
+          "answer_key_ast": "matched"
+        }
+      ],
+      "validation_counts_verified": true,
+      "bindings": {
+        "lakehouse": {
+          "default_lakehouse": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c",
+          "default_lakehouse_name": "lh_woodlands_browser",
+          "default_lakehouse_workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42",
+          "known_lakehouses": [
+            {
+              "id": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c"
+            }
+          ]
+        },
+        "environment": {
+          "environmentId": "ab60e237-3f68-4b20-968e-dd7156563a2b",
+          "workspaceId": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42"
+        }
+      },
+      "method": "Saved UI execution outputs plus answer-key AST comparison",
+      "saved_sha256": "f46923d3a9d1e11840a86338ed03e63ee9da608a56958df2d77bee14cdda285c",
+      "solution_sha256": "084faa103267b289f0eba43f378b598faaf2ac49a18882716d105f48a2c3916d",
+      "lab": "05",
+      "notebook_id": "ad3174df-e191-47a9-9dea-43b6440363a8",
+      "input_mode": "stac",
+      "session_stopped": true
+    }
+  ],
+  "base_commit": "265c5679aec092c965a3a932d28c351a03be6148",
+  "source_snapshot": "Current artifact hashes, including uncommitted rehearsal corrections",
+  "execution": {
+    "original_code_cells": 83,
+    "passed_checks": 78,
+    "method": "Playwright native Fabric UI; original student notebooks completed cell by cell with the supplied answer keys",
+    "scheduler_job_status_claimed": false
+  },
+  "browser_observations": {
+    "date": "2026-09-19",
+    "method": "Playwright native Fabric UI; original student notebooks completed cell by cell with the supplied answer keys",
+    "folder": "student-browser-20260919",
+    "lakehouse_created_after_all_six_imports": true,
+    "lakehouse_was_empty_before_lab_00": true,
+    "api_run_notebook_used": false,
+    "read_only_definition_exports_used": true,
+    "sessions_stopped": [
+      "00",
+      "01",
+      "02",
+      "03",
+      "04",
+      "05"
+    ],
+    "notebook_items": {
+      "00": "1298cdb9-4a18-411e-9f59-4237bdaf2bdb",
+      "01": "4f9cc75c-22d2-46c4-8007-f2364178547d",
+      "02": "cffa483c-cf10-4659-86a6-a826581ad189",
+      "03": "658afaa8-fa41-4d0f-aa82-10076e7a8cfb",
+      "04": "dcfafddf-a4d4-45f3-88a7-a5de8c386090",
+      "05": "ad3174df-e191-47a9-9dea-43b6440363a8"
+    },
+    "environment": {
+      "id": "ab60e237-3f68-4b20-968e-dd7156563a2b",
+      "runtime": "1.3",
+      "libraries_with_success_status": 14,
+      "full_mode_yaml_matches_repository": true,
+      "reused_published_environment": true,
+      "republished": false
+    },
+    "capacity": {
+      "name": "rayfintestenv",
+      "sku": "F64",
+      "initial_state": "Paused",
+      "resumed": true,
+      "last_observed_state": "Active",
+      "new_capacity_created": false,
+      "resized": false,
+      "note": "The first import returned CapacityNotActive. After asking about resumption, the tool returned an autonomous-continuation response because the user was unavailable. The existing capacity was resumed once; the shared capacity was not paused afterward."
+    },
+    "recovered_attempts": [
+      {
+        "lab": "00",
+        "issue": "Multiline browser typing added unwanted indentation in Cells 8 and 14; dependent Cells 10 and 16 then failed.",
+        "recovery": "Replaced exact editor contents and reran dependencies through final validation. Final saved outputs contain no errors."
+      },
+      {
+        "lab": "01",
+        "issue": "The original tab stopped responding after Cell 24.",
+        "recovery": "Reopened the same notebook, reconciled saved execution counts, and continued Cells 26-32 in the existing session without repeating downloads."
+      },
+      {
+        "lab": "02",
+        "issue": "The saved-code verifier rejected placeholder workspace/lakehouse labels despite the correct actual lakehouse attachment and passing outputs.",
+        "recovery": "Corrected labels and remaining shared-lakehouse wording; reran all 16 cells through the UI and verified the final saved export."
+      },
+      {
+        "lab": "Data Agent",
+        "issue": "The initial class answer mislabeled retained class counts as full-register counts.",
+        "recovery": "Clarified the guide's agent instructions and passed a fresh-chat retest before publication."
+      }
+    ],
+    "limitations": [
+      "Original code cells and checks are counted once; retries are retained above rather than reported as additional coverage.",
+      "Student exercises were completed using the provided answer keys, not independently generated learner solutions.",
+      "The manual fallback browser download was repeated, but its full processing route was not rerun.",
+      "No production data, external sharing or tenant policy changes were used."
+    ]
+  },
+  "sql_verification": {
+    "status": "passed",
+    "date": "2026-09-19",
+    "method": "Playwright: executed the three student-guide queries and an 11-table count query in the native SQL analytics endpoint",
+    "workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42",
+    "lakehouse_id": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c",
+    "sql_endpoint_id": "b9061093-4b53-4747-9468-2176e0ccb95d",
+    "guide": "docs/16-manual-upload-labs.md",
+    "coverage": {
+      "period_end": "2026-08-31",
+      "registered_stands": 120,
+      "retained_stands": 119,
+      "stands_without_result": 1,
+      "register_coverage_percent": 99.17
+    },
+    "classes": [
+      {
+        "forest_class": "mixedwood",
+        "retained_stands": 3,
+        "total_ha": 1900.0
+      },
+      {
+        "forest_class": "regenerating",
+        "retained_stands": 3,
+        "total_ha": 2042.1
+      },
+      {
+        "forest_class": "softwood",
+        "retained_stands": 113,
+        "total_ha": 75630.3
+      }
+    ],
+    "review_stands": [
+      "CEN-00034",
+      "CEN-00053",
+      "CEN-00090",
+      "CEN-00104",
+      "CEN-00055",
+      "CEN-00101",
+      "CEN-00012",
+      "CEN-00013",
+      "CEN-00058",
+      "CEN-00046",
+      "CEN-00074",
+      "CEN-00070",
+      "CEN-00006"
+    ],
+    "review_change_type": "disturbance",
+    "review_severity": "moderate",
+    "review_validation_status": "stubbed",
+    "tables": {
+      "bronze_stand_register": 120,
+      "bronze_scene_catalog": 6,
+      "silver_stand_observations": 120,
+      "gold_stand_classification": 119,
+      "gold_stand_change": 119,
+      "gold_stand_narrative": 40,
+      "gold_stand_facts": 119,
+      "gold_dim_stand": 120,
+      "gold_dim_date": 365,
+      "gold_dim_forest_class": 7,
+      "gold_pipeline_run_summary": 1
+    }
+  },
+  "geojson_validation": {
+    "status": "passed",
+    "features": 120,
+    "unique_stands": 120,
+    "valid_polygons": 120,
+    "period_end": "2026-08-31",
+    "categories": {
+      "softwood": 113,
+      "regenerating": 3,
+      "no_classified_result": 1,
+      "mixedwood": 3
+    },
+    "missing_stand": "CEN-00059",
+    "missing_quality_fields_are_null": true,
+    "coordinate_system": "WGS84 longitude/latitude",
+    "sha256": "58e986388e1ad3af28e78214c3d97924b5a1dc0c79f3802113a1d20735d5f609"
+  },
+  "map_verification": {
+    "status": "passed",
+    "date": "2026-09-19",
+    "map_id": "03ad8cc7-6771-4259-8149-24de7212c28d",
+    "map_name": "map_woodlands_browser",
+    "workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42",
+    "lakehouse_id": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c",
+    "url": "https://app.fabric.microsoft.com/groups/fbcfa942-bfb7-4be3-8c74-d2efc213fd42/maps/03ad8cc7-6771-4259-8149-24de7212c28d",
+    "relative_path": "Files/gold/maps/stand_classification.geojson",
+    "polygons_visible": true,
+    "tooltip_verified": true,
+    "filter_verified": true,
+    "layer_toggle_verified": true,
+    "saved": true,
+    "reopened": true,
+    "bound_to_target_lakehouse": true,
+    "binding_evidence": "Reopened Map Explorer data-fui-tree-item-value and child data-testid matched the new lakehouse GUID; layer settings showed the exact GeoJSON path.",
+    "save_evidence": "Native Save, return to learner folder, reopen Map in Viewing mode, then inspect saved styling and all ten tooltip selections.",
+    "style": {
+      "color_by": "map_class",
+      "style_by": "Category",
+      "fill_opacity": 0.65,
+      "extrusion": false,
+      "colors": {
+        "mixedwood": "#7A9E3F",
+        "no_classified_result": "#61717D",
+        "regenerating": "#9DD08A",
+        "softwood": "#1B7F4B"
+      }
+    },
+    "initial_view": {
+      "settings_latitude": 46.2516205,
+      "settings_longitude": -66.6487377,
+      "settings_zoom": 9.2,
+      "reopened_web_map_zoom": 10.2,
+      "pitch": 0,
+      "compass": 0,
+      "all_stands_fit": true
+    },
+    "tooltip_fields": [
+      "stand_id",
+      "licence_block",
+      "period_end",
+      "map_class",
+      "area_ha",
+      "coverage_status",
+      "is_trusted",
+      "valid_pixel_fraction",
+      "requires_review",
+      "stand_source"
+    ],
+    "retained_tooltip": {
+      "stand_id": "CEN-00047",
+      "licence_block": "LB-D",
+      "period_end": "2026-08-31",
+      "map_class": "softwood",
+      "area_ha": 591.34,
+      "coverage_status": "retained",
+      "is_trusted": true,
+      "valid_pixel_fraction": 0.74,
+      "requires_review": false,
+      "stand_source": "synthetic"
+    },
+    "missing_tooltip": {
+      "stand_id": "CEN-00059",
+      "licence_block": "LB-A",
+      "period_end": "2026-08-31",
+      "map_class": "no_classified_result",
+      "area_ha": 699.27,
+      "coverage_status": "no_classified_result",
+      "is_trusted": null,
+      "valid_pixel_fraction": null,
+      "requires_review": null,
+      "stand_source": "synthetic"
+    },
+    "filter": {
+      "field": "coverage_status",
+      "value": "no_classified_result",
+      "observed_stand_id": "CEN-00059",
+      "removed_before_save": true,
+      "categories_after_remove": [
+        "mixedwood",
+        "no_classified_result",
+        "regenerating",
+        "softwood"
+      ]
+    },
+    "pixel_validation": {
+      "receipt": "scripts/verification/browser-20260919/map-pixel-validation.json",
+      "hidden_changed_fraction": 0.46635654885654887,
+      "restored_changed_fraction": 0.0
+    },
+    "limitations": [
+      "The built-in basemap is context, not the notebook's processed imagery.",
+      "This rehearsal used a desktop browser viewport; it does not certify Fabric portal mobile usability."
+    ]
+  },
+  "data_agent_verification": {
+    "status": "passed",
+    "date": "2026-09-19",
+    "method": "Native Fabric Data Agent configured, tested, published and reopened through Playwright",
+    "agent_id": "a39f1ed0-f044-4610-bf18-c14b5bedb63f",
+    "agent_name": "agent_woodlands_browser",
+    "workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42",
+    "lakehouse_id": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c",
+    "url": "https://app.fabric.microsoft.com/groups/fbcfa942-bfb7-4be3-8c74-d2efc213fd42/aiskills/a39f1ed0-f044-4610-bf18-c14b5bedb63f",
+    "selected_four_tables": true,
+    "selected_tables": [
+      "gold_dim_date",
+      "gold_dim_forest_class",
+      "gold_dim_stand",
+      "gold_stand_facts"
+    ],
+    "instructions_saved": true,
+    "examples_validated": true,
+    "answers_match_sql": true,
+    "published": true,
+    "reopened": true,
+    "published_coverage_verified": true,
+    "published_instructions_verified": true,
+    "published_table_selection_verified": true,
+    "m365_copilot_published": false,
+    "external_access_granted": false,
+    "instruction_source": "docs/16-manual-upload-labs.md",
+    "example_readback": "All three saved question/SQL pairs matched the guide after a full page reload; automatic SQL validation completed without an error.",
+    "checks": [
+      {
+        "question": "How many stands are registered?",
+        "status": "passed",
+        "registered_stands": 120,
+        "executed_sql": "SELECT COUNT(DISTINCT stand_id) AS registered_stands FROM dbo.gold_dim_stand;"
+      },
+      {
+        "question": "Show latest-period stand counts and hectares by forest class.",
+        "status": "passed",
+        "period_end": "2026-08-31",
+        "scope": "retained facts only",
+        "classes": [
+          {
+            "class": "softwood",
+            "stands": 113,
+            "hectares": 75630.3
+          },
+          {
+            "class": "mixedwood",
+            "stands": 3,
+            "hectares": 1900.0
+          },
+          {
+            "class": "regenerating",
+            "stands": 3,
+            "hectares": 2042.1
+          }
+        ]
+      },
+      {
+        "question": "How many stands lack a result in the latest period, and what is register coverage? State the reporting period as a date.",
+        "status": "passed",
+        "period_end": "2026-08-31",
+        "registered_stands": 120,
+        "retained_stands": 119,
+        "stands_without_result": 1,
+        "register_coverage_percent": 99.17,
+        "executed_sql": "Matched the student guide coverage query"
+      },
+      {
+        "question": "Which stands need review in the latest period?",
+        "status": "passed",
+        "period_end": "2026-08-31",
+        "review_stands": [
+          "CEN-00034",
+          "CEN-00053",
+          "CEN-00090",
+          "CEN-00104",
+          "CEN-00055",
+          "CEN-00101",
+          "CEN-00012",
+          "CEN-00013",
+          "CEN-00058",
+          "CEN-00046",
+          "CEN-00074",
+          "CEN-00070",
+          "CEN-00006"
+        ],
+        "executed_sql": "Matched the student guide review query and all 13 independent SQL rows"
+      },
+      {
+        "question": "Are narratives live model results and changes observed events?",
+        "status": "passed",
+        "answer_summary": "Narratives are offline stubbed examples; changes and severities are teaching outputs, not confirmed events or causes.",
+        "source": "Saved agent instructions; no SQL query was needed for these declared training limitations"
+      }
+    ],
+    "published_coverage": {
+      "period_end": "2026-08-31",
+      "registered_stands": 120,
+      "retained_stands": 119,
+      "stands_without_result": 1,
+      "register_coverage_percent": 99.17
+    },
+    "correction_and_retest": {
+      "initial_issue": "The first class answer mislabeled counts from fact-joined dimension rows as full-register class counts.",
+      "correction": "Added instructions that class breakdowns describe retained facts only and joins cannot recover excluded stands.",
+      "retest": "A fresh chat returned the correct class counts and hectares, explicitly excluded full-register class-count claims, and reported the missing stand separately.",
+      "retest_status": "passed"
+    },
+    "limitations": [
+      "These are point-in-time functional checks, not a guarantee of every future model answer.",
+      "No external sharing, Microsoft 365 Copilot publication or tenant policy change was performed."
+    ]
+  },
+  "manual_fallback": {
+    "fresh_browser_download": true,
+    "fresh_full_processing_run": false,
+    "receipt": "scripts/verification/browser-20260919/manual-download-verification.json",
+    "historical_full_run": "scripts/verification/training-manual-download-evidence.json"
+  },
+  "artifact_hash_normalization": "Markdown CRLF becomes LF; other artifact bytes are unchanged.",
+  "artifact_sha256": {
+    "notebooks/student/00_setup_lakehouse_and_config_STUDENT.ipynb": "257426604905d40ee514f0a23d7f4f1227622456c47b473640776f382a22b624",
+    "notebooks/student/01_bronze_stac_ingest_STUDENT.ipynb": "996f7557ba7e209c6d3d39aed0751dc9ca5f86092b16e9bc150b899b2a705a9c",
+    "notebooks/student/02_silver_reproject_and_indices_STUDENT.ipynb": "44ec41109b602caf347a5f2fdbb8c2bfc1627e7dc666e4a9ec05a8e8a6a92aca",
+    "notebooks/student/03_gold_forest_classification_STUDENT.ipynb": "fe796d3bf79b0ebcb49e10c3ca0cd9a3debdf563d01cceb8d125690d16ad4b5e",
+    "notebooks/student/04_gold_ai_enrichment_foundry_STUDENT.ipynb": "98eec4bb2c611963046cd00b89783dcf753814075ae71eda9d3589ef2540af78",
+    "notebooks/student/05_publish_and_validate_STUDENT.ipynb": "65fdaa4cf5be5d69cf17ab31841106d3326ad08cfb9bfd15121c781d7dd5b64d",
+    "notebooks/solutions/00_setup_lakehouse_and_config.ipynb": "a8193565fad8347c3fbb52484031ae0a15ce667cfdc66a9062eba5ec05f65b7a",
+    "notebooks/solutions/01_bronze_stac_ingest.ipynb": "33d82086ccf16808ee4216448fb95847f8010f772ba688415a3889f6bed3cafe",
+    "notebooks/solutions/02_silver_reproject_and_indices.ipynb": "68d701a5c600ab9dd6ba825f2c7619d1caea03ba462dd1dbd5ab80ec8e476d5a",
+    "notebooks/solutions/03_gold_forest_classification.ipynb": "a62af73160025aa23e6a8653118a467d25fb2fca3ce12fa670fe9e3a69cabb52",
+    "notebooks/solutions/04_gold_ai_enrichment_foundry.ipynb": "63cbd42635e8c5d3c186ae47b9c3052a4a95fad84dc66596de503805287bf976",
+    "notebooks/solutions/05_publish_and_validate.ipynb": "084faa103267b289f0eba43f378b598faaf2ac49a18882716d105f48a2c3916d",
+    "docs/images/training/manual/01-workspace-create.png": "cf7e13f3a62091c14488172de32c3112046815ea688c645e59ac80372c951a3a",
+    "docs/images/training/manual/02-capacity-assignment.png": "1132744068d303d0f03f659dfc36ca0a0f36643b5d8c8b2d41f7400c91697a32",
+    "docs/images/training/manual/03-learner-folder.png": "8ba18881fed639a010c3d55ca6a2fe2d03fc4196b4f382ff466163ec9ca7162f",
+    "docs/images/training/manual/04-import-menu.png": "24714d85dce1ad24ce969e664f4fd8de660ca182ab041964de0c66e207e744fe",
+    "docs/images/training/manual/05-upload-dialog.png": "c85bf5c0a3afd589329eaa6e6eb4ce750038bf7193ecd5625707966cc644cd43",
+    "docs/images/training/manual/06-import-success.png": "aecc3fd5d809c7956ed08a875ed4138ad56f96abefa70bd5595fd32c6b89a81a",
+    "docs/images/training/manual/07-six-notebooks.png": "5907fc674501e28fdad166b9c8366c37386f1c223ae94b27fa305b9c7eb6440b",
+    "docs/images/training/manual/08-lakehouse-create.png": "8b89441085dcf9918e15704792bb3bab887d8874cfabe8b18b5e07d303165c0d",
+    "docs/images/training/manual/09-empty-lakehouse.png": "4b7d0ce59530fc47dbb57bcf41827d4369c7acd7fdad01ed704f74553c8d1a1b",
+    "docs/images/training/manual/10-environment-runtime.png": "e6804a66200b8d3c3877592dfd7b0429c6767d2569b22e1c3ecfc10acec85177",
+    "docs/images/training/manual/11-environment-libraries.png": "437338292eacf64b9024e1a49695106d97805d39e93d882bf78d1b31a5f73bea",
+    "docs/images/training/manual/12-environment-published.png": "ef737c9e2f874a09dcfcc0871c837d9a3f031676f1350cc74975e978d1a09daf",
+    "docs/images/training/manual/13-environment-picker.png": "f8dda1ac0a4cba834a6653105e022233a14bc6f36122b4c83896463d77dadcb4",
+    "docs/images/training/manual/14-lakehouse-picker.png": "703d516a8537d15ff03d4fb873bf649235cf3e4796453a0fd77529e1f62f347a",
+    "docs/images/training/manual/15-default-lakehouse.png": "b95ff07056d58212b917e96ca6bbb7e32782c00c618a519524747321b1f65193",
+    "docs/images/training/manual/15-notebook-attachments.png": "e6a4801e69377a3fae969c8de8547ee2bbce775755e65f7663a89ef656777b5a",
+    "docs/images/training/manual/16-run-cell-and-todo.png": "b3631f8ba83d8581dc28714980d95da1f086ec28ab4e2d77c71dc310ac874999",
+    "docs/images/training/manual/17-lab00-configuration.png": "a587d4b0334e4c7d1fb1e81753a3adc9c077667c07ee938b50bd461a17e71e9b",
+    "docs/images/training/manual/18-lab00-checkpoint.png": "96696d16265260da286e0d0beefa625610c3eaa3c9e5aff52b352bd7d5d5ba2e",
+    "docs/images/training/manual/19-lab01-bronze.png": "46e7eaf2e0f6133881dfaebc82d07242c0b1194f8a8f3ab4c21b3b226cf6fb1c",
+    "docs/images/training/manual/20-lab02-quality.png": "6c35b3e52aa8e7809fac3bd079e4a21381d898a731690e92698118bfcbaef04d",
+    "docs/images/training/manual/21-lab03-classification.png": "e412b620f484cd2cf12178dcae0bfedda0175a2f400d93abd1a263ae9f45946b",
+    "docs/images/training/manual/22-lab04-offline-narratives.png": "170099aa89202792e9670a17bc116880664529ef6bbb9fb9d3b921a78fcb76d6",
+    "docs/images/training/manual/23-lab05-gold.png": "fbc6571bce1e96e0faecbb921bca3e640371dff6fc49173811b0e2b3c97e1723",
+    "docs/images/training/manual/24-geojson-export.png": "7db30f142681f206070093de666bb05c8c43e7d7311161a9e12d273bc2870ba0",
+    "docs/images/training/manual/25-sql-endpoint-period.png": "ad02c79ec71f33345c9ac35eb157c9454b9b507492cb661993bd4ce0cb051434",
+    "docs/images/training/manual/26-map-create.png": "e9bea169ee9382d3befad9090809dbf1e686606cf8279ce2a9f90e05b5f22d3c",
+    "docs/images/training/manual/27-map-lakehouse.png": "75ee733605c69a013f022057f0f10db18b72dc0f69ce01856bbe290d3c3248f3",
+    "docs/images/training/manual/28-map-show-geojson.png": "a073b663418a811611bdc54943b2bc2f29caf0508008bc6483fff205a0135783",
+    "docs/images/training/manual/29-map-category-style.png": "993c9343cc9eca753dc92b152ef59a928381c46963f8286157301a7d7448a485",
+    "docs/images/training/manual/30-map-tooltip.png": "a463fff3c9b161bc1d02583bf030b741d484e61969b711d5ace7fac4a376707a",
+    "docs/images/training/manual/31-map-coverage-filter.png": "b3e7fa239694ebd849f6a7dd659b5efedf495f0fecd3a3cbf13750520ca11ad3",
+    "docs/images/training/manual/32-map-initial-view.png": "7b01edf93cc5f4bb96045cdd36b6de42bb42de0172acbcec639309ab892ccdc5",
+    "docs/images/training/manual/32-map-saved-reopened.png": "650890320f3f30b4a5aaf909820bd3b9687a43d6ad22fec92ee71b15bda42466",
+    "docs/images/training/manual/33-agent-create.png": "73ab6fd33360884c9f57fcf7dceed19d4b11160e7447fca9f889d28393ad4a79",
+    "docs/images/training/manual/34-agent-lakehouse.png": "0bb504e9309434c42ebcff08f469b07f6903ef01768100f9c10205f0fd3ad74a",
+    "docs/images/training/manual/35-agent-four-tables.png": "71d7e6ba9c3b02d26444131611db2eba55c376643710b93c44d1857182cdbef1",
+    "docs/images/training/manual/36-agent-instructions.png": "e73022192ab64a556404808c1b77d86321a4cb20f2a8408e205539548eec352b",
+    "docs/images/training/manual/37-agent-example-validation.png": "370afefc53b276d20034756a8b1602905ae0e2d1d9f5d50c67610d8e46365f29",
+    "docs/images/training/manual/38-agent-count-answer.png": "989a8ae54a1cbb4e1f570cff3868f3405fec964b228706f73b7a9beca1d85c1c",
+    "docs/images/training/manual/39-agent-coverage-answer.png": "e94d8f33c4b6406fb5c22e409b31089f7ad9a5172ba74c8a49a8ef64d050f0a3",
+    "docs/images/training/manual/40-agent-review-answer.png": "4e69d72419b29fcd791b9837b4eebc96a0d6a85c0196b6b418c7cb3687c7c62a",
+    "docs/images/training/manual/41-agent-publish-dialog.png": "4d50e220bbefcdd051a80bf4a1c8cba8f2ddb3eb2b2998ab1cfc4c156b49caec",
+    "docs/images/training/manual/41-agent-published.png": "46d0c2f5dd0d960e006b226a8c26fe49fdf2e2c5585a06dca93b28adc17c41e9",
+    "docs/images/training/manual/42-final-workspace.png": "e2acf094324672198531f31f64eba966ca6ed1937f02df221bb1381b591b970e",
+    "docs/images/training/manual-download/18-manual-01-scene.png": "11701adb41b3ad9d9adeb7e413174f49aa6ed8899a48d71ff3519479ca813e0c",
+    "docs/images/training/manual-download/18-manual-02-bands.png": "7eea6174df951e0720f1f40f95989947a400ac058c1cc16f39b991ca8421d5c7",
+    "docs/images/training/manual-download/18-manual-03-download.png": "6d1bf80ef1647bf5ac7f0bd1be46a7ed73d446aca3852728a545e8e9d9566dc9",
+    "docs/images/training/manual-download/18-manual-04-upload-menu.png": "9bfd4a9c19bfc29b712087449029a800eb6fe12f9fb6a276de0ecc6c74dd4e9a",
+    "docs/images/training/manual-download/18-manual-05-uploaded.png": "2512d5ff9c8bf68dc4afab86d810cf561b8a86e205ae65e821e0602194096a6c",
+    "docs/07-homework.md": "33733ecc669933d7b58139d13970160a24663eb3b3444658bd5908efcb7277c9",
+    "docs/12-spark-environment.md": "5ab022010a44bd28d3820a9ab96bbb308d027ea52009edfcccdfe89bb274e7b8",
+    "docs/16-manual-upload-labs.md": "4998c522ef73f827ceee9cb12c9e99f1e9b054987eb5da4b75558f5aa9c97031",
+    "docs/17-manual-imagery-download.md": "6d48bba2142b85cac39f8e1f88a4809caf13ca32d8fe9f79ea623cea939d37cd",
+    "README.md": "b7b7980482911d3151aa42bb930202d46b678801f8344f41a8ca46fd9b848396",
+    "docs/download-imagery.html": "a95f562e97e753def507974a8ebe0f4cb96fc5ab63a572b47a9aa9d276f1a417",
+    "environments/environment.yml": "95a2bdaa275b5652f550f80cd46af0cbe29fcd8c9323c4bdb37c75b7040c8f26",
+    "decks/woodlands-manual-workshop.pptx": "636a039164cbc6e1aea34ab2b125702c28246983d2172b08bb1066c5b3e931dc"
+  },
+  "evidence_sha256": {
+    "scripts/verification/browser-20260919/browser-run.json": "79af799568768e15d1ed9a6ce2229f7a586e28d1d77ff77a7894c1ac249177fb",
+    "scripts/verification/browser-20260919/bundle-verification.json": "467a0d5437f2237f752e821a55e39fc032900372389de669e30e84e9e7d609d7",
+    "scripts/verification/browser-20260919/data-agent-verification.json": "0741893b6afab513edab3aacee23ce5fa0010d611ef1b1980b0e85e0a6293c44",
+    "scripts/verification/browser-20260919/deck-verification.json": "dbdd7bbc7bff6b4cc8d1829afdfdab10a8516273276c22233602e06fd00558b0",
+    "scripts/verification/browser-20260919/geojson-validation.json": "beddc5dfc05c947e05bfc107bb75974fb47c7ee50cdf0ff9bb7a39621827492a",
+    "scripts/verification/browser-20260919/lab-00-verification.json": "5219162e5c700d5bd440725407455599b892a6cf59b00e5b95f8771dab21b666",
+    "scripts/verification/browser-20260919/lab-01-verification.json": "bbe73af1fc5d3d62a0ec529bd9317fb6bfc755072d02791aa454dff62d49a7dd",
+    "scripts/verification/browser-20260919/lab-02-verification.json": "61d00b9b285755b808dc74a0c3c7b87fc7aa5c9632e031544fdc08d3cf194ed3",
+    "scripts/verification/browser-20260919/lab-03-verification.json": "d76f1e44858404cbcf7ab0de6765a1a923fcc7abd0b987885cba619e4f8436c8",
+    "scripts/verification/browser-20260919/lab-04-verification.json": "24f065bc24c058dbcf72966122897137d11d80f1311ea9edcadf17ec1847ed45",
+    "scripts/verification/browser-20260919/lab-05-verification.json": "5e622c495b6898bd8020d2264fcdbed720b10b9330e9dd56681c077e2aa58f85",
+    "scripts/verification/browser-20260919/local-tests.xml": "df14cad0b9029241c1ec7bb2f7b1b9c289020322f0bdbbb3a7fc495858de31d8",
+    "scripts/verification/browser-20260919/local-verification.json": "5e0516ac9e198657806f20d468d752361eada8a9a721bb5b4097be2aa5756887",
+    "scripts/verification/browser-20260919/manual-download-tests.xml": "c056c942bb7967a6780cb7784f2cdce2db5fc2050fa8180b77296722c2a1feda",
+    "scripts/verification/browser-20260919/manual-download-verification.json": "e8a390f95489763e8b0dd74b9350bcebaba8b74e4120cf8db76da1ea34003080",
+    "scripts/verification/browser-20260919/map-pixel-validation.json": "5ae13d60c633013d56ed3399b5035fb6174ecbe1bdeb72268a37c159c63c0e57",
+    "scripts/verification/browser-20260919/map-verification.json": "dda7d20fc2812ea70135d078c10f8e0f886ae64c5d9978a3d6a56ec17c177aec",
+    "scripts/verification/browser-20260919/screenshots/01-six-student-notebooks.png": "d5f26021550521c1eb6af7c208c43c8f8cdbcee29df4ea6f8dcaa514b5e1ccdf",
+    "scripts/verification/browser-20260919/screenshots/02-empty-lakehouse.png": "1c1636e06159e43b0597377b74073d100a22fc19ad022fe0d7d58c04f798b93f",
+    "scripts/verification/browser-20260919/screenshots/05-lab-00.png": "a2a9a5e8472f15f02e40a64dd982b1a2e1b721002181f435aceb2f64ac9231ce",
+    "scripts/verification/browser-20260919/screenshots/06-lab-01.png": "061f73f627c80a63b6bedfaec338dff6c741dac92d3539d6c3bbad5ed67dd159",
+    "scripts/verification/browser-20260919/screenshots/07-lab-02-corrected.png": "48c8745d966edc5184490ed3261c6d4c2bbbe955eda6e64a3cf3e13df150e507",
+    "scripts/verification/browser-20260919/screenshots/08-lab-03.png": "d3063ac8ed19839eb322295195356967a70fed403054c30cad971331c4efe906",
+    "scripts/verification/browser-20260919/screenshots/09-lab-04.png": "45c2c445baf449d2045f288827f52bbe19ba770d2c4433b28f8a056dca36c9d1",
+    "scripts/verification/browser-20260919/screenshots/10-lab-05.png": "57158a3bc014c517b379cc48fca5c1923abaa059739b1ed479d067f6ba9f2d64",
+    "scripts/verification/browser-20260919/screenshots/11-sql-coverage.png": "32e0b7df3af854610085193be536c734b0be0ce34e2f5bf1821f0c877f462d4f",
+    "scripts/verification/browser-20260919/screenshots/12-sql-classes.png": "5e738e066653600cc7d1498e343997cb48532e7f3aeaa935bb0088137d9aeadd",
+    "scripts/verification/browser-20260919/screenshots/13-sql-review.png": "d098695f5a11cfa10401888c4e68c2fa497fd46d7fb05d3b62c5fe9b779cf7ad",
+    "scripts/verification/browser-20260919/screenshots/14-sql-tables.png": "444fc766be12cbcec7234272cc917eef106a92815116913bf4378dc6d5ffd28d",
+    "scripts/verification/browser-20260919/screenshots/17-map-missing-tooltip.png": "2bb02de979b2721cfaffe1002c01e62141cf939516cd3b242a7717d6a07e83c6",
+    "scripts/verification/browser-20260919/screenshots/18-map-retained-tooltip.png": "5154f0aa7a1d11bd2192cf0acbaf9fba59f479afc3374ed3f2dc54cf8234961d",
+    "scripts/verification/browser-20260919/screenshots/20-map-filtered-tooltip.png": "246d012460db07aa2c26bc24213b48c093abfbaa8868a92c7f7e9da6249a3c90",
+    "scripts/verification/browser-20260919/screenshots/21-map-saved-reopened.png": "59a61775b911ac0cafd48f92c5449cd5ae1d9d56b31b2e9976d8285e95fb9488",
+    "scripts/verification/browser-20260919/screenshots/25-agent-count.png": "909ad8dbdd4b7489aa687d9bda023cc4570ff3820f0982f8d9db0efc4e1d3352",
+    "scripts/verification/browser-20260919/screenshots/26-agent-classes.png": "25fa1ff6e4cd3e491f053ac2f0ee5c6c162677aa0a5b47fa782264a82ec55a3f",
+    "scripts/verification/browser-20260919/screenshots/27-agent-coverage.png": "32e17ddd4916dc3c9b04bf57c27834c40bdd682d501b483d444193f1d21d1477",
+    "scripts/verification/browser-20260919/screenshots/28-agent-review.png": "47ad5b4abfd1dee7ece748d247cb7cfb36610933e0ff5d0cd5c88ae3d68a9bdc",
+    "scripts/verification/browser-20260919/screenshots/29-agent-limitations.png": "3ddc6753faff47e46e4c71c0f44a0b7ddfdbfe826e023c3a41060b67a836dc13",
+    "scripts/verification/browser-20260919/screenshots/30-agent-publish.png": "efb2aa7c7e371877348c6a9711b07b4db7ce3b13c88996c447ff139d5651f856",
+    "scripts/verification/browser-20260919/screenshots/31-final-workspace.png": "c8974c9ab766d5d80db6b2f3bc5ef5ea552a1a4c6fbe0188c2d13c7d412a58e6",
+    "scripts/verification/browser-20260919/screenshots/32-agent-published.png": "cd37dcf15e4a8aea02117c1b64ebb3b1294e5ff14ff9c3b888879d389d8653c3",
+    "scripts/verification/browser-20260919/screenshots/33-environment-published.png": "5c9f29dc480022d892d6430328243a2a00515adbc43dadbbd18cbd7910898f38",
+    "scripts/verification/browser-20260919/screenshots/map-pixels-hidden.png": "8a48fc27b39ab956c06997dffe808c947b02206e7d45f7163b403ad33dca8b9b",
+    "scripts/verification/browser-20260919/screenshots/map-pixels-restored.png": "ae7383830bffa98bacf69f3e214bcf663273359c35663ba627f8e64c04ee0a37",
+    "scripts/verification/browser-20260919/screenshots/map-pixels-visible.png": "ae7383830bffa98bacf69f3e214bcf663273359c35663ba627f8e64c04ee0a37",
+    "scripts/verification/browser-20260919/sql-verification.json": "e75574430052018a8f7f63890b2d251fdce960282b8595245c97e8cb76ff317e",
+    "scripts/verification/browser-20260919/stand_classification.geojson": "58e986388e1ad3af28e78214c3d97924b5a1dc0c79f3802113a1d20735d5f609"
+  }
+}

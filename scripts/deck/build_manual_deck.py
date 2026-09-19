@@ -24,6 +24,10 @@ from pptx.util import Inches
 
 from theme import BG, GREEN, MUTED, WHITE, badge, blank, new_deck, notes, text_box
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from release_verification import load_release_evidence
+
 ROOT = Path(__file__).resolve().parents[2]
 IMAGES = ROOT / "docs/images/training/manual"
 CAPTURES = ROOT / "scripts/verification/screenshots"
@@ -100,7 +104,7 @@ def screenshot_slide(presentation, capture: dict, number: int, total: int) -> No
     """Create one focused screenshot step with editable numbered directions."""
     slide = blank(presentation, PAPER)
     source_number = int(capture["file"].split("-", 1)[0])
-    section = "Download and upload imagery" if capture.get("directory") else capture_section(source_number)
+    section = "Optional manual fallback" if capture.get("directory") else capture_section(source_number)
     text_box(slide, 0.55, 0.25, 10.8, 0.25, section.upper(),
              10, INK, bold=True)
     title = capture["title"].removeprefix("Facilitator: ")
@@ -120,7 +124,7 @@ def screenshot_slide(presentation, capture: dict, number: int, total: int) -> No
         badge(slide, left, 6.22, 0.32, index + 1, fill=RED, text_colour=WHITE, size=11)
         text_box(slide, left + 0.44, 6.18, column_width - 0.44, 0.87,
                  focus["text"], 14, INK, spacing=1.05)
-    text_box(slide, 0.55, 7.19, 9.8, 0.2, "Woodlands in Fabric | Manual workshop", 9, INK)
+    text_box(slide, 0.55, 7.19, 9.8, 0.2, "Woodlands in Fabric | Browser workshop", 9, INK)
     text_box(slide, 11.3, 7.15, 1.45, 0.25, f"{number} / {total}", 10, INK,
              align=PP_ALIGN.RIGHT)
     notes(slide, handout_notes(capture["file"]))
@@ -149,6 +153,7 @@ def build(output: Path, *, draft: bool = False) -> int:
     download_directory = "docs/images/training/manual-download"
     download_captures = json.loads((CAPTURES / "manual-download/annotations.json").read_text(encoding="utf-8"))["captures"]
     if not draft:
+        load_release_evidence(ROOT, verify_hashes=False)
         if evidence["status"] != "ready_for_classroom":
             raise ValueError("Final deck requires ready_for_classroom evidence; use --draft during rehearsal")
         expected = {entry["file"] for entry in evidence["screenshots"]}
@@ -157,29 +162,34 @@ def build(output: Path, *, draft: bool = False) -> int:
         download_evidence = json.loads((ROOT / "scripts/verification/training-manual-download-evidence.json").read_text(encoding="utf-8"))
         if download_evidence["status"] != "verified":
             raise ValueError("Final deck needs verified manual-download rehearsal evidence")
-    captures.extend({**capture, "directory": download_directory} for capture in download_captures)
     order = [1, 2, 10, 11, 12, *range(3, 10), *range(13, 43)]
     captures.sort(key=lambda entry: order.index(int(entry["file"].split("-", 1)[0])))
+    for capture in captures:
+        if capture["file"] == "19-lab01-bronze.png":
+            capture["title"] = "Lab 01: Download Planetary Computer imagery in Fabric"
+    captures.extend({**capture, "directory": download_directory} for capture in download_captures)
     presentation = new_deck()
     total = len(captures) + 2
     slide = blank(presentation, BG)
-    text_box(slide, 0.75, 0.62, 11.8, 0.4, "WOODLANDS | MANUAL FABRIC WORKSHOP", 12, GREEN, bold=True)
+    text_box(slide, 0.75, 0.62, 11.8, 0.4, "WOODLANDS | FABRIC-FIRST WORKSHOP", 12, GREEN, bold=True)
     text_box(slide, 0.75, 1.4, 11.8, 1.3, "Woodlands in Fabric", 44, WHITE, bold=True)
     text_box(slide, 0.75, 2.75, 11.7, 0.8,
              "Student notebooks. Your lakehouse. A native Map and data agent.", 23, WHITE)
     for index, (heading, detail) in enumerate([
         ("Prepare", "Upload six notebooks, then create and attach your lakehouse."),
-        ("Process", "Choose manual imagery upload or STAC; complete each lab checkpoint."),
+        ("Process", "Download Planetary Computer imagery in Fabric; complete each lab."),
         ("Inspect", "Build the Map and test the agent against Gold SQL results."),
     ]):
         top = 4.05 + index * 0.75
         badge(slide, 0.8, top, 0.4, index + 1, size=14)
         text_box(slide, 1.4, top - 0.03, 2.0, 0.42, heading, 21, WHITE, bold=True)
         text_box(slide, 3.4, top - 0.02, 8.9, 0.5, detail, 17, MUTED)
-    label = "DRAFT: release review is not complete" if draft else "Manual imagery upload + STAC | Verified September 2026"
+    label = "DRAFT: release review is not complete" if draft else "Fabric downloads first | Manual upload fallback"
     text_box(slide, 0.75, 6.94, 11.8, 0.25, label, 11, GREEN)
     notes(slide, "Use the student handout alongside this deck. The first five steps are facilitator preparation. "
           "The learner sequence uploads all six notebooks before creating a lakehouse. "
+            "Lab 01 defaults to INPUT_MODE = stac and downloads directly in Fabric. "
+            "The final five screenshot steps are the optional manual fallback; skip them after a successful direct download. "
           "Public imagery and synthetic stands only; no production inventory. " + label)
     for number, capture in enumerate(captures, 2):
         screenshot_slide(presentation, capture, number, total)

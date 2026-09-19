@@ -2,7 +2,7 @@
 title: Fabric student lab - notebooks, lakehouse, Map and Data Agent
 description: Upload six exercise notebooks, create your lakehouse, complete the forestry labs and manually build a native Fabric Map and Data Agent.
 author: Workshop Delivery Team
-ms.date: 2026-09-18
+ms.date: 2026-09-19
 ms.topic: tutorial
 estimated_reading_time: 25
 ---
@@ -24,7 +24,8 @@ keys. Do not upload the Python authoring sources or solution files as your work.
 
 No local Python, Node.js, Docker, Power BI Desktop, Foundry endpoint or Azure
 OpenAI key is required. The notebooks contain only the required six-lab workflow.
-For imagery, choose [manual download/upload or automatic STAC](17-manual-imagery-download.md).
+Start with [Planetary Computer downloads directly in Fabric](17-manual-imagery-download.md).
+Lab 01 defaults to `INPUT_MODE = "stac"`; manual download/upload is the fallback.
 
 > [!IMPORTANT]
 > Screenshots show completed example notebooks. Your student notebooks retain
@@ -68,6 +69,10 @@ You need the extracted workshop bundle and Contributor or higher workspace acces
 
 Use **Import** > **Notebook** > **From this computer** > **Upload**.
 Repeat for one file at a time. Do not create the lakehouse or run a notebook yet.
+
+If import reports `CapacityNotActive`, stop and ask the facilitator to confirm
+the assigned capacity is active. A workspace can still open while its capacity
+is paused. Do not recreate the workspace or repeatedly upload the same file.
 
 Download the workshop bundle supplied by your facilitator and extract it on
 your computer. Locate the **student** folder before opening the Upload
@@ -148,9 +153,9 @@ Repeat these steps for all six learner notebooks. An imported filename or a
    not the same-named SQL analytics endpoint,
    then select **Connect** or **Add**, as shown by your portal.
 8. Open the lakehouse's **More options** (`...`) menu and select **Set as default
-   lakehouse**. Do not assume **Add** establishes the default. Wait for saving,
-   reopen the notebook, and confirm the Environment and lakehouse are still
-   attached before running any code.
+   lakehouse**. If it is already pinned and this option is disabled, it is already
+   the default. Do not infer this from **Add** alone. Wait for saving, reopen the
+   notebook, and confirm the Environment and default pin before running code.
 9. If you already started a Spark session, stop it and reconnect after changing
    attachments. Do not run exercises against the old session configuration.
 10. In each configuration cell where these labels occur, set
@@ -175,8 +180,9 @@ that default lakehouse.
 
 1. Confirm your default lakehouse and obtain the facilitator's Spark execution slot.
 2. Read the markdown before each code cell.
-3. Complete each applicable numbered `TODO`. In Lab 01 manual mode, the online
-   catalogue/search TODOs are inactive; all shared exercises remain required.
+3. Complete each applicable numbered `TODO`, including Lab 01's catalogue and
+   search exercises for the default Fabric-download route. Only the explicit
+   manual fallback leaves those two exercises inactive.
 4. Select the cell's triangular **Run cell** control and wait for completion.
    Run its validation cell. Continue only after the expected checks pass.
 5. Stop at any exception or `[FAIL]`, even if Fabric allows later cells to run.
@@ -217,26 +223,35 @@ supplied geometry-derived area check, not a 500 ha maximum.
 
 ### Lab 01: Ingest Sentinel-2 Imagery
 
-Manual-route exercise cells: **17, 24, 26 and 30**. The automatic route also uses
-**9 and 11**. Allow about 45 minutes after the file download/upload completes.
+Default Fabric-download exercise cells: **9, 11, 17, 24, 26 and 30**.
+Allow about 45 minutes; download time varies with network and scene selection.
 
 1. Confirm Lab 00 is complete and the same lakehouse is attached.
 2. Keep the supplied area and June 1 through August 31, 2026 window. The initial
    limit is six scenes, cloud cover below 20%, at 20 m resolution.
-3. Follow [the imagery handout](17-manual-imagery-download.md) to download five
-   original TIFF bands and `item.json`, then upload them to your lakehouse.
-   Keep `INPUT_MODE="manual"` in Cell 6. Alternatively choose `"stac"` and
-   complete the online catalogue and search exercises.
-4. Complete the shared windowed load for B04, B08, B11, B12 and SCL. Manual
-   mode reads only uploaded files. Do not persist signed asset URLs.
+3. Keep `INPUT_MODE = "stac"` in Cell 6. Complete the catalogue-opening TODO in
+   Cell 9 and the scene-search TODO in Cell 11. Follow
+   [the direct Fabric-download steps](17-manual-imagery-download.md#1-download-directly-in-fabric).
+   You do not download imagery to your computer or upload TIFFs for this route.
+4. Complete the windowed load for B04, B08, B11, B12 and SCL. Fabric reads the
+   selected Planetary Computer assets for the area of interest. Do not persist
+   signed asset URLs.
 5. Write and inspect `bronze_scene_catalog`, then complete the Bronze file writes
    and final cache-writing cell. Lab 02 always reads that persisted dataset.
-6. Verify files under `Files/bronze/scenes/central-nb-block-a/` and the catalogue
-   validation. The manual example contains one scene; the automatic reference
-   contains six. An empty selection is a stop.
+6. Verify files under `Files/bronze/scenes/central-nb-block-a/`, including
+   `_session_cache.zarr`, and the catalogue validation. The automatic reference
+   contains six scenes; report your actual selection. An empty selection is a stop.
 7. Capture `06-lab-01.png`. Avoid output that contains signed URLs.
 
-![Automatic-route reference: six catalogue rows, unsigned source URLs and the native projection. Manual mode uses the one uploaded scene.](images/training/manual/19-lab01-bronze.png)
+![Default Fabric-download reference: six catalogue rows, unsigned source URLs and the native projection.](images/training/manual/19-lab01-bronze.png)
+
+If direct access is unavailable under your approved network policy, use the
+[manual fallback](17-manual-imagery-download.md#2-manual-download-and-upload-fallback).
+Download/upload all six original files, set `INPUT_MODE = "manual"` in Cell 6,
+then complete Cells 17, 24, 26 and 30 and every intervening validation. Cells 9
+and 11 still run, but their online TODOs are inactive. The fallback uses one
+uploaded scene and requires additional transfer time. Do not run both routes
+concurrently against one lakehouse.
 
 ### Lab 02: Build Silver Observations
 
@@ -249,7 +264,8 @@ Exercise cells: **12, 14, 18, 20, 22, 27, 31 and 32**. Allow about 50 minutes.
 5. Apply the 0.60 minimum valid-pixel fraction. Do not lower it to force a pass.
 6. Write `silver_stand_observations` and inspect its unique stand/date grain.
 7. Verify physical index ranges, source scene IDs and the quality gate. The
-   manual-download rehearsal has 120 rows and 119 trusted stands. Your counts
+   notebook must print **Input route: stac** for the default route, or **manual**
+   for the fallback. The earlier manual rehearsal had 120 rows and 119 trusted stands. Your counts
    can differ; do not use historical counts as a substitute for validation.
 8. Capture `07-lab-02.png` with the validation and coverage result.
 
@@ -331,7 +347,9 @@ period. A semantic model, Power BI report and schedule are not required.
 
 ## 6. Check The SQL Endpoint
 
-1. Open your lakehouse and switch to its **SQL analytics endpoint**.
+1. Open your lakehouse and select **Analyze data with** > **SQL analytics endpoint**.
+   If your portal instead shows a **Lakehouse** mode selector, choose **SQL
+   analytics endpoint** there.
 2. Refresh Explorer and confirm the four Gold tables appear under **dbo**.
    New Delta tables can take time to synchronize; do not recreate them.
 3. Select **New SQL query** and run this read-only check.
@@ -488,6 +506,10 @@ Register coverage is retained distinct stand IDs for the selected period
 divided by all stand IDs in gold_dim_stand. is_trusted describes a retained
 fact, not whole-register coverage. A stand without a fact is not healthy,
 zero-area, or the same as the forest_class value unclassified.
+
+For class breakdowns, group only retained facts for the selected period.
+Label those counts as retained stands, never full-register class counts.
+Joining to gold_dim_stand does not restore stands excluded from facts.
 
 Use requires_review for the review queue. Zero rows is a valid result.
 Lab 03 may use a simulated historical baseline: change flags are teaching

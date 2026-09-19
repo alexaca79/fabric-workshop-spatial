@@ -1,0 +1,52 @@
+# Pinned library set for the Woodlands workshop Fabric Environment.
+#
+# Two jobs here, and the second one is the important one:
+#
+#   1. Bring in the geospatial + STAC stack, which is absent from the
+#      Fabric Spark base runtime (verified by probe on 2026-09-02).
+#
+#   2. Protect the base runtime from the resolver. An ad hoc
+#      `%pip install` of this same stack silently dragged pandas
+#      2.1.4 -> 3.0.5 and packaging -> 26.3, breaking mlflow-skinny and
+#      ds-copilot. The numpy/pandas ceilings below stop that.
+#
+# typing-extensions is pinned high on purpose: planetary-computer pulls a
+# pydantic that imports `Sentinel` from typing_extensions, and the version
+# baked into the Fabric cluster-env is too old, which produced
+# `ImportError: cannot import name 'Sentinel'` at runtime.
+
+dependencies:
+  - pip:
+      # Base-runtime guards. Do not relax without re-probing the runtime.
+      - "numpy<2"
+      - "pandas>=2.1,<3"
+      - "typing-extensions>=4.15"
+
+      # Vector geometry and CRS handling (EPSG:2953 for all area maths).
+      - "shapely>=2.0,<3"
+      - "geopandas>=1.0,<2"
+      - "pyproj>=3.6"
+
+      # Raster IO and labelled arrays for the Sentinel-2 windowed reads.
+      - "rasterio>=1.3,<2"
+      - "xarray>=2024.3"
+      - "rioxarray>=0.15"
+
+      # Notebook 01 hands the loaded cube to notebook 02 through a Zarr session
+      # cache, which is what makes a recycled Spark session cheap to recover
+      # from. xarray.to_zarr needs this; without it notebook 01 fails on its
+      # last cell after all the real work has already succeeded.
+      - "zarr>=2.16"
+
+      # affine 3.0.1 declares Affine._astuple as a functools.cached_property on
+      # a class that defines __slots__ and therefore has no instance __dict__,
+      # so *any* iteration of an Affine raises TypeError. odc-geo 0.5.3 unpacks
+      # affine transforms, which made every odc.stac.load() fail with
+      # "No '__dict__' attribute on 'Affine' instance". Verified by probe on
+      # 2026-09-02. Hold affine on 2.x until odc-geo supports 3.x.
+      - "affine<3"
+
+      # Planetary Computer STAC access.
+      - "pystac-client>=0.8,<1"
+      - "planetary-computer>=1.0,<2"
+      - "odc-stac>=0.3.10"

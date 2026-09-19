@@ -1,0 +1,154 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-09-18T19:22:27.660326+00:00",
+  "source": {
+    "notebook": "01_bronze_stac_ingest.ipynb",
+    "notebook_id": "e307ff26-459c-4007-9a72-f656515f737d",
+    "sha256": "f6ad027717c6f1e2550d9298346eaa4e1c1631a6903881ff748f7b85002084f5",
+    "input_mode": "stac",
+    "code_cells": [
+      4,
+      6,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      24,
+      26,
+      28,
+      30,
+      32
+    ]
+  },
+  "runtime": {
+    "currentWorkspaceId": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42",
+    "currentNotebookId": "e307ff26-459c-4007-9a72-f656515f737d",
+    "defaultLakehouseId": "36a1ae9c-e18d-41da-a649-4997a01747ca",
+    "environmentId": "ab60e237-3f68-4b20-968e-dd7156563a2b",
+    "activityId": "ae436b77-0fbb-43d1-98ca-00c4b26a9422",
+    "application_id": "application_1789759107739_0001",
+    "spark_version": "3.5.5.5.4.20260807.1",
+    "python_version": "3.11.8",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "2.1.4",
+      "affine": "2.4.0",
+      "geopandas": "1.1.4",
+      "rasterio": "1.4.4",
+      "xarray": "2026.7.0",
+      "rioxarray": "0.19.0",
+      "pystac-client": "0.9.0",
+      "planetary-computer": "1.0.0",
+      "odc-stac": "0.5.3",
+      "zarr": "3.1.5"
+    }
+  },
+  "cells": [
+    {
+      "number": 4,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:22:28.510887+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:22:31.346074+00:00"
+    },
+    {
+      "number": 6,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:22:32.555027+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:22:32.555978+00:00"
+    },
+    {
+      "number": 9,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:22:33.264201+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:22:33.855965+00:00"
+    },
+    {
+      "number": 11,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:22:34.429207+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:22:35.025391+00:00"
+    },
+    {
+      "number": 13,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:22:35.641728+00:00",
+      "checks_passed": 4,
+      "finished_at_utc": "2026-09-18T19:22:35.642535+00:00"
+    },
+    {
+      "number": 15,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:22:35.882893+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:22:35.883624+00:00"
+    },
+    {
+      "number": 17,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:22:36.141102+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:22:36.225985+00:00"
+    },
+    {
+      "number": 19,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:22:36.788296+00:00",
+      "checks_passed": 5,
+      "finished_at_utc": "2026-09-18T19:22:36.790814+00:00"
+    },
+    {
+      "number": 21,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:22:37.055628+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:22:56.065278+00:00"
+    },
+    {
+      "number": 24,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:22:57.854532+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:22:57.855451+00:00"
+    },
+    {
+      "number": 26,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:22:58.509928+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:23:16.609287+00:00"
+    },
+    {
+      "number": 28,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:23:17.427329+00:00",
+      "checks_passed": 6,
+      "finished_at_utc": "2026-09-18T19:23:19.798575+00:00"
+    },
+    {
+      "number": 30,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:23:20.429200+00:00",
+      "checks_passed": 2,
+      "finished_at_utc": "2026-09-18T19:23:30.521702+00:00"
+    },
+    {
+      "number": 32,
+      "status": "passed",
+      "started_at_utc": "2026-09-18T19:23:31.039370+00:00",
+      "checks_passed": 0,
+      "finished_at_utc": "2026-09-18T19:23:47.375130+00:00"
+    }
+  ],
+  "finished_at_utc": "2026-09-18T19:23:48.663872+00:00",
+  "tables": {
+    "bronze_scene_catalog": 6
+  },
+  "checks_passed": 17
+}

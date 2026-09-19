@@ -52,3 +52,23 @@ def test_given_learner_bundle_when_built_then_maintainer_receipts_are_not_includ
     assert "handouts/homework.md" in entries
     assert not any("evidence" in name or name.endswith(".xml") or "/raw/" in name for name in entries)
     assert not any("draft" in name or "session-1" in name or "session-2" in name for name in entries)
+
+
+def test_given_learner_guides_when_choosing_imagery_then_fabric_download_precedes_manual():
+    guide = (ROOT / "docs/17-manual-imagery-download.md").read_text(encoding="utf-8")
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    entries = bundle_entries(draft=True)
+
+    assert guide.index("## 1. Download Directly In Fabric") < guide.index("## 2. Manual Download And Upload (Fallback)")
+    assert '| Direct download in Fabric (default) | `INPUT_MODE = "stac"`' in guide
+    assert 'Keep `INPUT_MODE = "stac"`' in readme
+    assert "STAC is the default; manual download/upload is the fallback." in entries["handouts/START-HERE.md"].decode("utf-8")
+
+
+def test_given_notebook_attachments_when_documented_then_learners_use_separate_lakehouses():
+    for path in (ROOT / "notebooks/_src").glob("*.py"):
+        assert "shared lab lakehouse" not in path.read_text(encoding="utf-8").lower()
+    for variant in ("student", "solutions"):
+        for path in (ROOT / "notebooks" / variant).glob("*.ipynb"):
+            notebook = nbformat.read(path, as_version=4)
+            assert all("shared lab lakehouse" not in cell.source.lower() for cell in notebook.cells)

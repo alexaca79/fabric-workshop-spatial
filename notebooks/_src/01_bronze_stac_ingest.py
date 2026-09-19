@@ -4,9 +4,10 @@
 # Choose one route in Step 1. Both produce the same Bronze catalogue, native-CRS
 # imagery and saved dataset for Lab 02.
 #
-# - `manual` (default): download one Sentinel-2 L2A scene's original `B04`, `B08`,
-#   `B11`, `B12` and `SCL` TIFFs plus its STAC Item JSON, then upload them to Files.
-# - `stac`: search and read Planetary Computer directly from this notebook.
+# - `stac` (default): search Planetary Computer and download the analysis window
+#   directly in Fabric. No imagery download to your computer is required.
+# - `manual` (fallback): download one scene's original `B04`, `B08`, `B11`,
+#   `B12` and `SCL` TIFFs plus its STAC Item JSON, then upload them to Files.
 #
 # A JPG, PNG, thumbnail or rendered RGB GeoTIFF cannot replace the five analysis
 # bands. Keep the original TIFF filenames and save the metadata as `item.json`.
@@ -67,14 +68,14 @@ RESOLUTION_M = 20
 
 COLLECTION = "sentinel-2-l2a"
 BANDS = ("B04", "B08", "B11", "B12", "SCL")
-INPUT_MODE = "manual"
+INPUT_MODE = "stac"
 MANUAL_SCENE_ROOT = f"/lakehouse/default/Files/bronze/manual/{AOI_NAME}"
 
 if INPUT_MODE not in {"manual", "stac"}:
     raise ValueError('INPUT_MODE must be "manual" or "stac".')
 
 # --- Medallion layer --------------------------------------------------------
-# Writes Bronze tables and files to the shared lab lakehouse.
+# Writes Bronze tables and files to your attached default learner lakehouse.
 LAYER = "bronze"
 WORKSPACE = "fabric-training"
 LAKEHOUSE = "lh_woodlands"
@@ -103,9 +104,10 @@ print(f"pipeline_run_id = {PIPELINE_RUN_ID}")
 # %% [markdown]
 # ## Step 2 - Prepare the selected route
 #
-# In manual mode, each scene folder contains `item.json` and its five TIFFs.
-# This validation code is provided. Run the whole cell without changing it.
-# The catalogue-opening TODO applies only to `stac` mode.
+# Complete the catalogue-opening TODO for the default `stac` route. Fabric
+# accesses the public catalogue and signs imagery URLs only for the current run.
+# The supplied validation helper also supports the manual fallback, where each
+# uploaded scene folder contains `item.json` and its five original TIFFs.
 
 # %%
 #@include manual_imagery.py
@@ -134,9 +136,9 @@ else:
 # %% [markdown]
 # ## Step 3 - Select and validate scenes
 #
-# Manual mode validates the uploaded files without contacting Planetary Computer.
-# The search-function TODO is needed only for `stac` mode. Both routes check area,
-# dates, cloud cover and a common native CRS before any table is written.
+# Complete the search-function TODO for `stac` mode. The manual fallback instead
+# validates uploaded files without contacting Planetary Computer. Both routes
+# check area, dates, cloud cover and a common native CRS before any table is written.
 
 # %%
 def search_scenes(bbox, date_start, date_end, max_cloud, max_scenes):

@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "archive": "handouts/woodlands-fabric-first-20260919.zip",
+  "files": 70,
+  "folders": [
+    "deck",
+    "handouts",
+    "solutions",
+    "student"
+  ],
+  "sha256": "425cd2f85d71909bbc318e25dcdc8f67b43c77f942d505735ef1b2fa3d3820e2",
+  "source_archive_extraction_bytes_match": true,
+  "links": "passed",
+  "zip_integrity": true
+}

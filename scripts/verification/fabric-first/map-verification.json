@@ -1,0 +1,94 @@
+{
+  "status": "passed",
+  "map_id": "b420297e-bd87-4afe-8f38-fe390d13c1b9",
+  "map_name": "map_woodlands_verified",
+  "workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42",
+  "lakehouse_id": "36a1ae9c-e18d-41da-a649-4997a01747ca",
+  "url": "https://app.fabric.microsoft.com/groups/fbcfa942-bfb7-4be3-8c74-d2efc213fd42/maps/b420297e-bd87-4afe-8f38-fe390d13c1b9?ctid=711a9076-1115-4c36-b7b4-82b4f3a05f6f&experience=fabric-developer",
+  "relative_path": "Files/gold/maps/stand_classification.geojson",
+  "polygons_visible": true,
+  "tooltip_verified": true,
+  "filter_verified": true,
+  "layer_toggle_verified": true,
+  "saved": true,
+  "reopened": true,
+  "bound_to_target_lakehouse": true,
+  "binding_evidence": "The selected OneLake row named the target workspace; the Map explorer tree node ID matched the target lakehouse GUID; layer settings showed the exact GeoJSON relative path.",
+  "save_evidence": "Saved through the native Save control, returned to the workspace, reopened its Map item in Viewing mode, and read back the layer, colors and final camera.",
+  "style": {
+    "color_by": "map_class",
+    "style_by": "Category",
+    "fill_opacity": 0.65,
+    "extrusion": false,
+    "colors": {
+      "mixedwood": "#7A9E3F",
+      "no_classified_result": "#61717D",
+      "regenerating": "#9DD08A",
+      "softwood": "#1B7F4B"
+    }
+  },
+  "initial_view_readback": {
+    "latitude": 46.25166735570943,
+    "longitude": -66.64818017762478,
+    "web_map_zoom": 10.3,
+    "settings_zoom": 9.3,
+    "pitch": 0,
+    "compass": 0,
+    "all_stands_fit": true
+  },
+  "tooltip_fields": [
+    "stand_id", "licence_block", "period_end", "map_class", "area_ha",
+    "coverage_status", "is_trusted", "valid_pixel_fraction", "requires_review", "stand_source"
+  ],
+  "retained_tooltip": {
+    "stand_id": "CEN-00061",
+    "licence_block": "LB-F",
+    "period_end": "2026-08-31",
+    "map_class": "softwood",
+    "area_ha": 693.15,
+    "coverage_status": "retained",
+    "is_trusted": true,
+    "valid_pixel_fraction": 0.73,
+    "requires_review": false,
+    "stand_source": "synthetic"
+  },
+  "missing_tooltip": {
+    "stand_id": "CEN-00059",
+    "licence_block": "LB-A",
+    "period_end": "2026-08-31",
+    "map_class": "no_classified_result",
+    "area_ha": 699.27,
+    "coverage_status": "no_classified_result",
+    "is_trusted": null,
+    "valid_pixel_fraction": null,
+    "requires_review": null,
+    "stand_source": "synthetic"
+  },
+  "filter": {
+    "field": "coverage_status",
+    "value": "no_classified_result",
+    "observed_stand_id": "CEN-00059",
+    "legend_after_apply": ["no_classified_result"],
+    "removed_before_save": true,
+    "legend_after_remove": ["mixedwood", "no_classified_result", "regenerating", "softwood"]
+  },
+  "pixel_validation": {
+    "receipt": "scripts/verification/fabric-first/map-pixel-validation.json",
+    "hide_changed_pixel_fraction": 0.28843470532927473,
+    "restore_changed_pixel_fraction": 0.0009294997016155692,
+    "method": "Pixel-wise compositor canvas screenshot comparison with a 12/255 channel threshold; camera and viewport held constant."
+  },
+  "screenshots": [
+    "scripts/verification/fabric-first/map-saved-reopened.png",
+    "scripts/verification/fabric-first/map-retained-tooltip.png",
+    "scripts/verification/fabric-first/map-missing-tooltip.png",
+    "scripts/verification/fabric-first/map-layer-visible.png",
+    "scripts/verification/fabric-first/map-layer-hidden.png",
+    "scripts/verification/fabric-first/map-layer-restored.png"
+  ],
+  "limitations": [
+    "The basemap is contextual and is not the notebook's processed satellite imagery.",
+    "Tooltip panels are scrollable; all ten selected fields were checked in the DOM.",
+    "An earlier browser tab had stale tooltip state; the saved Map and both tooltips were verified in a fresh tab."
+  ]
+}

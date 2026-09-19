@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "date": "2026-09-19",
+  "slides": 52,
+  "annotated_screenshots": 50,
+  "rendering": "All slides rendered with PowerPoint at 1600x900",
+  "content_checks": [
+    "Speaker notes include current SQL navigation and corrected Data Agent class-count instructions",
+    "Every screenshot has its required source-hash metadata and all callouts remain inside crop bounds",
+    "All slide shapes are within bounds and all slides have speaker notes"
+  ],
+  "visual_review": {
+    "method": "Independent subagent inspected four contact sheets and eight full-resolution workflow slides",
+    "initial_findings": [
+      "Slide 39 cropped most instruction sentences on the right",
+      "Slide 45 cropped response labels on the left"
+    ],
+    "correction": "Expanded only the two explicit deck crops; original screenshots and numbered callouts were preserved",
+    "recheck": "Both corrected slides were re-rendered and independently rechecked; no new clipping, overflow or unintended overlaps were found",
+    "residual_limitation": "Dense SQL and filenames on slides 27, 40 and 49 should be read from the handout or live UI at room-scale projection"
+  }
+}

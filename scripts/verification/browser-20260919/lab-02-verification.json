@@ -1,0 +1,159 @@
+{
+  "status": "passed",
+  "code_cells": 16,
+  "checks_passed": 17,
+  "cells": [
+    {
+      "number": 4,
+      "status": "passed",
+      "execution_count": 1,
+      "checks_passed": 0,
+      "source_sha256": "d0a674390e8bfc3086b64d83aac000aaea26b3009f923431cc6e712cdbc74227",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 6,
+      "status": "passed",
+      "execution_count": 2,
+      "checks_passed": 0,
+      "source_sha256": "7016cb29fe77f73928987e38c70c436cb04eb83b3894dd216c7095df03e2f89d",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 8,
+      "status": "passed",
+      "execution_count": 3,
+      "checks_passed": 2,
+      "source_sha256": "e7b50e5e7467d02401e8349e11d09a53f99d519c3ad95bd248278db29ec741c8",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 10,
+      "status": "passed",
+      "execution_count": 4,
+      "checks_passed": 0,
+      "source_sha256": "eead19da6b0e7bb81e2b94436f3f0c5013a5d6c60093c6f599bfa4d4576f9b9d",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 12,
+      "status": "passed",
+      "execution_count": 5,
+      "checks_passed": 3,
+      "source_sha256": "42343a1a4665dbe0f953a0030808c72ed9bdcf51fa9926e10546b6beecaac69b",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 14,
+      "status": "passed",
+      "execution_count": 6,
+      "checks_passed": 1,
+      "source_sha256": "6e2ff054bbccfafa2be78eb6377e657bff9a09262bf0d810a1a60a23667ff962",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 16,
+      "status": "passed",
+      "execution_count": 7,
+      "checks_passed": 0,
+      "source_sha256": "ef09befdbc384fd5e7ca40817d7ede1b2e46a2fa0a884c0484d728c6a121211c",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 18,
+      "status": "passed",
+      "execution_count": 8,
+      "checks_passed": 2,
+      "source_sha256": "48c6c2a8ec7ef980112d801bf4a60315916e21e61be56075913f0da504ee73f2",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 20,
+      "status": "passed",
+      "execution_count": 9,
+      "checks_passed": 2,
+      "source_sha256": "c0517da8d0296599e5c4dc038739e021daf00610a97a04fdd6c4e710f1196727",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 22,
+      "status": "passed",
+      "execution_count": 10,
+      "checks_passed": 2,
+      "source_sha256": "6a001dfcbae4371a86459817b5668af11c0c55e385ab9f1fdcb7793da796a7ff",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 24,
+      "status": "passed",
+      "execution_count": 11,
+      "checks_passed": 0,
+      "source_sha256": "cb2f67418b1ddfcd7c9f56bfd6fcc0829797cdb4f03e9bbd378dc3cad8c5070f",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 27,
+      "status": "passed",
+      "execution_count": 12,
+      "checks_passed": 0,
+      "source_sha256": "4f476aa78acbbb5921d63209647c4fbabaa87dce74b4bc4f4b75a8cb843789c8",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 29,
+      "status": "passed",
+      "execution_count": 13,
+      "checks_passed": 0,
+      "source_sha256": "7874389f3a583c721b6633046f57faf1c1b47c0ff6109e6468b6a4aea78e410a",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 31,
+      "status": "passed",
+      "execution_count": 14,
+      "checks_passed": 0,
+      "source_sha256": "77abafc8b694d9f23d3767ef5a75bd53340297904a8600530221f177f1f4cba7",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 32,
+      "status": "passed",
+      "execution_count": 15,
+      "checks_passed": 0,
+      "source_sha256": "2ae75f1d723685f9a3d54fa30b2211780906bd226de6378f5194dab473ba6e77",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 34,
+      "status": "passed",
+      "execution_count": 16,
+      "checks_passed": 5,
+      "source_sha256": "ed81771c1d3badf068905b719ac830c685a8b9e0256dbb28e5369fe9d26bc51b",
+      "answer_key_ast": "matched"
+    }
+  ],
+  "validation_counts_verified": true,
+  "bindings": {
+    "environment": {
+      "environmentId": "ab60e237-3f68-4b20-968e-dd7156563a2b",
+      "workspaceId": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42"
+    },
+    "lakehouse": {
+      "known_lakehouses": [
+        {
+          "id": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c"
+        }
+      ],
+      "default_lakehouse": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c",
+      "default_lakehouse_name": "lh_woodlands_browser",
+      "default_lakehouse_workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42"
+    }
+  },
+  "method": "Saved UI execution outputs plus answer-key AST comparison",
+  "saved_sha256": "d70957465134552b17ef8155a2d1308e8f5d568d40397fe7c1a52bea194ab32b",
+  "solution_sha256": "68d701a5c600ab9dd6ba825f2c7619d1caea03ba462dd1dbd5ab80ec8e476d5a",
+  "lab": "02",
+  "notebook_id": "cffa483c-cf10-4659-86a6-a826581ad189",
+  "input_mode": "stac",
+  "session_stopped": true
+}

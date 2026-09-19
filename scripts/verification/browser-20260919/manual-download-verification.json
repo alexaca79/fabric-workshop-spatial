@@ -1,0 +1,49 @@
+{
+  "downloads": [
+    {
+      "file": "item.json",
+      "bytes": 20813,
+      "sha256": "8fab70180d6ea2050facbfc4303b49661e14b6163e52c003d65a31d800198807"
+    },
+    {
+      "file": "T19TFM_20260629T152621_B04_10m.tif",
+      "bytes": 245878016,
+      "sha256": "795d0d65fee0d3b11c56fd81de695768f9a03fc7a7ee4174bd50589d182e726f"
+    },
+    {
+      "file": "T19TFM_20260629T152621_B08_10m.tif",
+      "bytes": 295958436,
+      "sha256": "11bf7ccbf2edd4b2552c1a4009b2ee60231fa284e563f6404c77dc8eb777a911"
+    },
+    {
+      "file": "T19TFM_20260629T152621_B11_20m.tif",
+      "bytes": 72528247,
+      "sha256": "9ca2285e386c7f1b4dd679454198956f4c8e266242160b97e0654219bc342d14"
+    },
+    {
+      "file": "T19TFM_20260629T152621_B12_20m.tif",
+      "bytes": 69899937,
+      "sha256": "8a540000053fe2a21c6d56233b5e1272f9b1daabfae241bd7380ec0b86f96267"
+    },
+    {
+      "file": "T19TFM_20260629T152621_SCL_20m.tif",
+      "bytes": 758881,
+      "sha256": "dcb17c49914d46523546fd612749f373aa17ad677f2860f5f43d00bcb05b1540"
+    }
+  ],
+  "layouts": [
+    {
+      "width": 1280,
+      "height": 900,
+      "overflow": false,
+      "preview": "PASS"
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": false,
+      "preview": "PASS"
+    }
+  ],
+  "retry": "PASS"
+}

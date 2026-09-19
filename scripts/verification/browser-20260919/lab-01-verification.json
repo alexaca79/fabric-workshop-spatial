@@ -1,0 +1,143 @@
+{
+  "status": "passed",
+  "code_cells": 14,
+  "checks_passed": 17,
+  "cells": [
+    {
+      "number": 4,
+      "status": "passed",
+      "execution_count": 1,
+      "checks_passed": 0,
+      "source_sha256": "f8ee9512c4e6ccd2bf9dda246c69a0e8864cd26d98548aede20acddfceace22b",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 6,
+      "status": "passed",
+      "execution_count": 2,
+      "checks_passed": 0,
+      "source_sha256": "256ca20ca15a5559364ad7ee60ae3e1652c6bff9c8f8fc10baa5bbcad25dcf7c",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 9,
+      "status": "passed",
+      "execution_count": 3,
+      "checks_passed": 0,
+      "source_sha256": "ad7c57388e180d6ee93bd7ae12c5287c205c1041e3e4546fac41cb11ff9b5e7f",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 11,
+      "status": "passed",
+      "execution_count": 4,
+      "checks_passed": 0,
+      "source_sha256": "84455c30f5e0ca483645fe795da746498c878c8a0e5271aff78de263c6afc8ce",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 13,
+      "status": "passed",
+      "execution_count": 5,
+      "checks_passed": 4,
+      "source_sha256": "07f5b2e30c5791814fb51bb865a4ac80b637fa8bf954ca14458b6153bfa03522",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 15,
+      "status": "passed",
+      "execution_count": 6,
+      "checks_passed": 0,
+      "source_sha256": "58023c9dab336946877c6cbe0c212ded967b968df80c77d5c030f6ae16843f6e",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 17,
+      "status": "passed",
+      "execution_count": 7,
+      "checks_passed": 0,
+      "source_sha256": "c65dc55e0474dcce3984dc5763ea30434433a143c7b349dc80e1fb78fd039d73",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 19,
+      "status": "passed",
+      "execution_count": 8,
+      "checks_passed": 5,
+      "source_sha256": "8c3039a8cd899edc3acdba9f38a1f53bded5d700f08d162b25301a3b58b4ab65",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 21,
+      "status": "passed",
+      "execution_count": 9,
+      "checks_passed": 0,
+      "source_sha256": "a6d5a7227b6066d20a5a25b203d9e24af3dea56010bddc890c2543755e27fde5",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 24,
+      "status": "passed",
+      "execution_count": 10,
+      "checks_passed": 0,
+      "source_sha256": "fb60c148bc4ea3de0c49c5df0aaf4dcf9abe9ad50ee26ac802fabbf0ec5f70fa",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 26,
+      "status": "passed",
+      "execution_count": 11,
+      "checks_passed": 0,
+      "source_sha256": "cd1587d9f33009ab37d4c9ccdd7d25fa5c39a2765c94c44082862f698d6670f4",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 28,
+      "status": "passed",
+      "execution_count": 12,
+      "checks_passed": 6,
+      "source_sha256": "349cecfba9998f4f9dc6c341f0d349b9331d0d1c9c86d6c8a1e7df21e0bbfe73",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 30,
+      "status": "passed",
+      "execution_count": 13,
+      "checks_passed": 2,
+      "source_sha256": "052e4641c71a0b64e63eb868991b997f747cfa3f2cef9fd6f4b3e0359b638429",
+      "answer_key_ast": "matched"
+    },
+    {
+      "number": 32,
+      "status": "passed",
+      "execution_count": 14,
+      "checks_passed": 0,
+      "source_sha256": "42505f34d1596afded1d6d5fa826df425fcb43a2edaeae762b16feaa6348b71e",
+      "answer_key_ast": "matched"
+    }
+  ],
+  "validation_counts_verified": true,
+  "bindings": {
+    "environment": {
+      "environmentId": "ab60e237-3f68-4b20-968e-dd7156563a2b",
+      "workspaceId": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42"
+    },
+    "lakehouse": {
+      "known_lakehouses": [
+        {
+          "id": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c"
+        }
+      ],
+      "default_lakehouse": "cf62a5a8-64ac-4c4e-8cb9-37e00d12c72c",
+      "default_lakehouse_name": "lh_woodlands_browser",
+      "default_lakehouse_workspace_id": "fbcfa942-bfb7-4be3-8c74-d2efc213fd42"
+    }
+  },
+  "method": "Saved UI execution outputs plus answer-key AST comparison",
+  "saved_sha256": "4327d38cec1ebdce2098cde38d961696e717c2b99aa8cea0b86adcf9c23aea09",
+  "solution_sha256": "33d82086ccf16808ee4216448fb95847f8010f772ba688415a3889f6bed3cafe",
+  "lab": "01",
+  "notebook_id": "4f9cc75c-22d2-46c4-8007-f2364178547d",
+  "input_mode": "stac",
+  "session_stopped": true
+}

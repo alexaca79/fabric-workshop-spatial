@@ -16,8 +16,9 @@ estimated_reading_time: 4
 Finish the [core notebook exercises](16-manual-upload-labs.md) with the supplied
 area first. Then allow about 45 minutes to choose another New Brunswick area
 and check its data. Use a separate lakehouse to preserve your completed results.
-The supplied June 29 download is specific to the original area; use matching
-imagery or the automatic STAC alternative for your new area.
+Keep `INPUT_MODE = "stac"` to search and download directly in Fabric for your
+new area. The manual fallback's supplied June 29 scene is specific to the
+original area; download matching original bands if you need that fallback.
 
 ## Task 1: choose your area of interest (15 min)
 

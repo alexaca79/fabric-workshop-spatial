@@ -141,6 +141,15 @@ def source_code_cells(stem):
     return [cell.source for cell in notebook.cells if cell.cell_type == "code"]
 
 
+def test_given_default_bronze_configuration_when_loaded_then_fabric_download_is_selected():
+    bronze = source_code_cells("01_bronze_stac_ingest")
+    namespace = {}
+
+    exec(next(code for code in bronze if "INPUT_MODE =" in code), namespace)
+
+    assert namespace["INPUT_MODE"] == "stac"
+
+
 @pytest.mark.parametrize("mode", ["manual", "stac"])
 def test_given_selected_route_when_notebook_loads_then_silver_uses_same_pixels(
     uploaded_scene, tmp_path, monkeypatch, mode,
@@ -171,7 +180,7 @@ def test_given_selected_route_when_notebook_loads_then_silver_uses_same_pixels(
     monkeypatch.setattr("requests.sessions.Session.request", reject_network)
     namespace = {}
     exec(next(code for code in bronze if "def require_environment(" in code), namespace)
-    exec(next(code for code in bronze if 'INPUT_MODE = "manual"' in code), namespace)
+    exec(next(code for code in bronze if "INPUT_MODE =" in code), namespace)
     namespace.update({"INPUT_MODE": mode, "MANUAL_SCENE_ROOT": str(uploaded_scene),
                       "AOI_BBOX": tuple(local_items[0].bbox), "BRONZE_SCENE_ROOT": str(tmp_path / "bronze")})
 

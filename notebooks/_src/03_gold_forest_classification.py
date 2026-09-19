@@ -58,7 +58,7 @@ FOREST_CLASSES = (
 RULE_VERSION = "rule_v1"
 
 # --- Medallion layer --------------------------------------------------------
-# Writes Gold tables and reads Silver from the shared lab lakehouse.
+# Writes Gold tables and reads Silver from your attached default learner lakehouse.
 LAYER = "gold"
 WORKSPACE = "fabric-training"
 LAKEHOUSE = "lh_woodlands"

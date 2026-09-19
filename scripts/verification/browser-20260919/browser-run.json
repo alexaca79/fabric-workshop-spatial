@@ -1,0 +1,48 @@
+{
+  "date": "2026-09-19",
+  "method": "Playwright native Fabric UI; original student notebooks completed cell by cell with the supplied answer keys",
+  "folder": "student-browser-20260919",
+  "lakehouse_created_after_all_six_imports": true,
+  "lakehouse_was_empty_before_lab_00": true,
+  "api_run_notebook_used": false,
+  "read_only_definition_exports_used": true,
+  "sessions_stopped": ["00", "01", "02", "03", "04", "05"],
+  "notebook_items": {
+    "00": "1298cdb9-4a18-411e-9f59-4237bdaf2bdb",
+    "01": "4f9cc75c-22d2-46c4-8007-f2364178547d",
+    "02": "cffa483c-cf10-4659-86a6-a826581ad189",
+    "03": "658afaa8-fa41-4d0f-aa82-10076e7a8cfb",
+    "04": "dcfafddf-a4d4-45f3-88a7-a5de8c386090",
+    "05": "ad3174df-e191-47a9-9dea-43b6440363a8"
+  },
+  "environment": {
+    "id": "ab60e237-3f68-4b20-968e-dd7156563a2b",
+    "runtime": "1.3",
+    "libraries_with_success_status": 14,
+    "full_mode_yaml_matches_repository": true,
+    "reused_published_environment": true,
+    "republished": false
+  },
+  "capacity": {
+    "name": "rayfintestenv", "sku": "F64",
+    "initial_state": "Paused", "resumed": true, "last_observed_state": "Active",
+    "new_capacity_created": false, "resized": false,
+    "note": "The first import returned CapacityNotActive. After asking about resumption, the tool returned an autonomous-continuation response because the user was unavailable. The existing capacity was resumed once; the shared capacity was not paused afterward."
+  },
+  "recovered_attempts": [
+    {"lab": "00", "issue": "Multiline browser typing added unwanted indentation in Cells 8 and 14; dependent Cells 10 and 16 then failed.",
+     "recovery": "Replaced exact editor contents and reran dependencies through final validation. Final saved outputs contain no errors."},
+    {"lab": "01", "issue": "The original tab stopped responding after Cell 24.",
+     "recovery": "Reopened the same notebook, reconciled saved execution counts, and continued Cells 26-32 in the existing session without repeating downloads."},
+    {"lab": "02", "issue": "The saved-code verifier rejected placeholder workspace/lakehouse labels despite the correct actual lakehouse attachment and passing outputs.",
+     "recovery": "Corrected labels and remaining shared-lakehouse wording; reran all 16 cells through the UI and verified the final saved export."},
+    {"lab": "Data Agent", "issue": "The initial class answer mislabeled retained class counts as full-register counts.",
+     "recovery": "Clarified the guide's agent instructions and passed a fresh-chat retest before publication."}
+  ],
+  "limitations": [
+    "Original code cells and checks are counted once; retries are retained above rather than reported as additional coverage.",
+    "Student exercises were completed using the provided answer keys, not independently generated learner solutions.",
+    "The manual fallback browser download was repeated, but its full processing route was not rerun.",
+    "No production data, external sharing or tenant policy changes were used."
+  ]
+}

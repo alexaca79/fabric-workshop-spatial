@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "local_tests_passed": 183,
+  "local_tests_skipped": 1,
+  "skip_reason": "Opt-in live download test; executed separately and passed",
+  "live_download_tests_passed": 1,
+  "notebooks_validated": 12,
+  "notebook_regeneration": "passed",
+  "scoped_ruff": "passed",
+  "learner_markdown": "passed",
+  "crlf_aware_diff_check": "passed",
+  "ide_note": "Fabric-only pyspark imports and local matplotlib source diagnostics are outside the local interpreter; notebook code was executed and validated in Fabric."
+}

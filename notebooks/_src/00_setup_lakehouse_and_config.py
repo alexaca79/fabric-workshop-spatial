@@ -31,7 +31,7 @@
 # | Attach | Value | Why |
 # |---|---|---|
 # | Environment | `env_forestops` | Brings the geospatial stack, which the base runtime lacks |
-# | Default lakehouse | `lh_woodlands` in `fabric-training` | Shared lab lakehouse |
+# | Default lakehouse | Your own learner lakehouse in the facilitator's workspace | Keeps your table writes separate from other learners |
 #
 # If either is missing, the next cell stops you rather than letting you find out
 # forty minutes later.

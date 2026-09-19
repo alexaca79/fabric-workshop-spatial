@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "features": 120,
+  "crs": "EPSG:4326",
+  "bounds": [
+    -66.88837149572313,
+    46.105305036756654,
+    -66.40910398256604,
+    46.39754672705502
+  ],
+  "coverage": {
+    "retained": 119,
+    "no_classified_result": 1
+  },
+  "classes": {
+    "softwood": 113,
+    "regenerating": 3,
+    "no_classified_result": 1,
+    "mixedwood": 3
+  },
+  "missing_stands": [
+    "CEN-00059"
+  ]
+}

@@ -37,9 +37,9 @@
 # | An approximate SCL class list | Thin cirrus survives | Cirrus depresses NDMI, which reads as drought stress |
 
 # %% [markdown]
-# ## Step 0 · Confirm the Environment and shared lakehouse
+# ## Step 0 · Confirm the Environment and learner lakehouse
 #
-# Attach `env_forestops` and the `lh_woodlands` lakehouse from the ribbon.
+# Attach `env_forestops` and your own learner lakehouse from the ribbon.
 #
 # This notebook reads the Bronze tables and saved imagery written by Labs 00 and
 # 01 in your own default lakehouse. Both input routes use this same handoff.
@@ -108,8 +108,7 @@ SCL_INVALID = (
 MIN_VALID_PIXEL_FRACTION = 0.60
 
 # --- Medallion layer --------------------------------------------------------
-# Writes Silver tables while reading Bronze by plain table name from the shared
-# lab lakehouse.
+# Writes Silver tables and reads Bronze from your attached default learner lakehouse.
 LAYER = "silver"
 WORKSPACE = "fabric-training"
 LAKEHOUSE = "lh_woodlands"

@@ -157,12 +157,12 @@
       {"box": [228, 365, 20, 20], "badge": [164, 375], "text": "gold_dim_stand: the full stand register and coverage denominator."},
       {"box": [228, 493, 20, 20], "badge": [164, 503], "text": "gold_stand_facts: retained stand-period results. Leave the other tables unchecked."}
     ]},
-    {"file": "36-agent-instructions.png", "title": "Save instructions that define grain, coverage and limitations", "focus": [
+    {"file": "36-agent-instructions.png", "title": "Save instructions that define grain, coverage and limitations", "deck_crop": [83, 135, 990, 609], "focus": [
       {"box": [136, 259, 8, 12], "badge": [108, 267], "text": "Paste the complete instructions, replacing the starter text. Click the preview to save."},
       {"box": [136, 429, 8, 12], "badge": [108, 437], "text": "Coverage uses every registered stand, not only the retained facts."},
       {"box": [136, 498, 8, 12], "badge": [108, 506], "text": "Keep the simulated-baseline and offline-narrative limitations explicit."}
     ]},
-    {"file": "37-agent-example-validation.png", "title": "Add and validate the question/SQL pairs", "focus": [
+    {"file": "37-agent-example-validation.png", "title": "Add and validate the question/SQL pairs", "deck_crop": [118, 130, 928, 563], "focus": [
       {"box": [200, 271, 77, 19], "badge": [151, 279], "text": "Enter the question, then let the portal finish saving before editing its SQL."},
       {"box": [200, 378, 77, 19], "badge": [151, 387], "text": "Replace the SQL placeholder. Click outside and wait for automatic validation."},
       {"box": [137, 178, 54, 26], "badge": [277, 188], "text": "Add all three examples. Reopen them and check that the saved queries match the handout."}
@@ -186,7 +186,7 @@
       {"box": [708, 382, 41, 22], "badge": [837, 393], "text": "Leave Also publish to Microsoft 365 Copilot off for this workshop."},
       {"box": [589, 471, 96, 32], "badge": [524, 494], "text": "Publish only after all answer checks agree with SQL."}
     ]},
-    {"file": "41-agent-published.png", "title": "Retest the published version after reopening", "focus": [
+    {"file": "41-agent-published.png", "title": "Retest the published version after reopening", "deck_crop": [125, 35, 994, 450], "focus": [
       {"box": [822, 54, 110, 24], "badge": [757, 68], "text": "Switch from Draft to Published. The label confirms which version you are testing."},
       {"box": [349, 204, 79, 17], "badge": [584, 210], "text": "The published answer still states the correct reporting date."},
       {"box": [291, 332, 49, 18], "badge": [518, 353], "text": "Recheck 120 registered, 119 retained, one missing and 99.17% coverage against SQL."}
